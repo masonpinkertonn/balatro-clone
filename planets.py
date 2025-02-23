@@ -1,9 +1,10 @@
 class Planet:
-    def __init__(self, name, ability, multinc, chipinc):
+    def __init__(self, name, ability, multinc, chipinc, price=3):
         self.name = name
         self.ability = ability
         self.multinc = multinc
         self.chipinc = chipinc
+        self.price = price
 
     def __str__(self):
         return f"{self.name}: {self.ability}"
