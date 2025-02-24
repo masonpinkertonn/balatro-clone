@@ -6,25 +6,25 @@ from balatro_asciis import *
 from jokers import *
 from planets import *
 
-x = """
- ----- 
-|3    |
-|     |
-|  \u2660  |
-|     |
-|    3|
- -----
-"""
-
-print(x)
-
 # Other imports
 
 import sys
 from time import *
 from random import *
 
+# Card class
+
+class Card:
+    def __init__(self, asciiart, value):
+        self.asciiart = asciiart
+        self.value = value
+
+    def __str__(self):
+        return self.asciiart
+
 # Main menu
+
+deck = []
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
@@ -33,12 +33,62 @@ def make_deck():
  ----- 
 |{y}    |
 |     |
-|  \u2660  |
+|  {i}  |
 |     |
 |    {y}|
  -----
             """
-            print(card)
+
+            thiscard = Card(card, y)
+
+            deck.append(thiscard)
+
+        tens = print(f""" 
+ ----- 
+|{10}   |
+|     |
+|  {i}  |
+|     |
+|   {10}|
+ -----
+        """)
+        thicard = Card(tens, 10)
+        print(f""" 
+ ----- 
+|J    |
+|     |
+|  {i}  |
+|     |
+|    J|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|Q    |
+|     |
+|  {i}  |
+|     |
+|    Q|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|K    |
+|     |
+|  {i}  |
+|     |
+|    K|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|A    |
+|     |
+|  {i}  |
+|     |
+|    A|
+ -----
+        """)
 
     
 
@@ -63,6 +113,8 @@ def main_menu():
     elif usr_choice == "C":
         pass
 
+"""
+
 def draw_hand():
     shuffle(deck)
     hand = []
@@ -74,6 +126,8 @@ handprint = draw_hand()
 print(handprint)
 # GAME
 
-make_deck()
-
 main_menu()
+
+"""
+
+make_deck()
