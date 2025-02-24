@@ -6,12 +6,40 @@ from balatro_asciis import *
 from jokers import *
 from planets import *
 
+x = """
+ ----- 
+|3    |
+|     |
+|  \u2660  |
+|     |
+|    3|
+ -----
+"""
+
+print(x)
+
 # Other imports
 
 import sys
 from time import *
 
 # Main menu
+
+def make_deck():
+    for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
+        for y in range(2,10):
+            card = f""" 
+ ----- 
+|{y}    |
+|     |
+|  \u2660  |
+|     |
+|    {y}|
+ -----
+            """
+            print(card)
+
+    
 
 def start_game():
     pass
@@ -35,5 +63,7 @@ def main_menu():
         pass
 
 # GAME
+
+make_deck()
 
 main_menu()
