@@ -12,9 +12,19 @@ import sys
 from time import *
 from random import *
 
+# Card class
+
+class Card:
+    def __init__(self, asciiart, value):
+        self.asciiart = asciiart
+        self.value = value
+
+    def __str__(self):
+        return self.asciiart
+
 # Main menu
 
-deck = [1]
+deck = []
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
@@ -28,9 +38,12 @@ def make_deck():
 |    {y}|
  -----
             """
-            print(card)
 
-        print(f""" 
+            thiscard = Card(card, y)
+
+            deck.append(thiscard)
+
+        tens = print(f""" 
  ----- 
 |{10}   |
 |     |
@@ -39,6 +52,7 @@ def make_deck():
 |   {10}|
  -----
         """)
+        thicard = Card(tens, 10)
         print(f""" 
  ----- 
 |J    |
