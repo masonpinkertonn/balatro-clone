@@ -43,7 +43,7 @@ def make_deck():
 
             deck.append(thiscard)
 
-        tens = print(f""" 
+        tens = f""" 
  ----- 
 |{10}   |
 |     |
@@ -51,9 +51,10 @@ def make_deck():
 |     |
 |   {10}|
  -----
-        """)
-        thicard = Card(tens, 10)
-        print(f""" 
+        """
+        thiscard = Card(tens, 10)
+        deck.append(thiscard)
+        jacks = print(f""" 
  ----- 
 |J    |
 |     |
@@ -62,7 +63,9 @@ def make_deck():
 |    J|
  -----
         """)
-        print(f""" 
+        thiscard = Card(jacks, "jack")
+        deck.append(thiscard)
+        queens = f""" 
  ----- 
 |Q    |
 |     |
@@ -70,8 +73,10 @@ def make_deck():
 |     |
 |    Q|
  -----
-        """)
-        print(f""" 
+        """
+        thiscard = Card(queens, "queen")
+        deck.append(thiscard)
+        kings = f""" 
  ----- 
 |K    |
 |     |
@@ -79,8 +84,10 @@ def make_deck():
 |     |
 |    K|
  -----
-        """)
-        print(f""" 
+        """
+        thiscard = Card(kings, "king")
+        deck.append(thiscard)
+        aces = f""" 
  ----- 
 |A    |
 |     |
@@ -88,7 +95,9 @@ def make_deck():
 |     |
 |    A|
  -----
-        """)
+        """
+        thiscard = Card(aces, "ace")
+        deck.append(thiscard)
 
     
 
