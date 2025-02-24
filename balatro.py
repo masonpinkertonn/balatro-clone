@@ -1,8 +1,10 @@
 # BALATRO clone by Mason P. and Henry C.
 
-# Import local ascii library
+# Import local libraries
 
 from balatro_asciis import *
+from jokers import *
+from planets import *
 
 # Other imports
 
