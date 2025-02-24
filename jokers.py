@@ -1,3 +1,4 @@
+from random import *
 class Joker:
     def __init__(self, name, ability, multinc, chipinc, suit, hand, price, rarity):
         self.name = name
@@ -11,6 +12,8 @@ class Joker:
     
     def __str__(self):
         return f"{self.name}: {self.ability}"
+    
+misprint_mult = random.randint(1, 23)
     
 base_joker = Joker("Joker", "+4 Mult", 4, 0, "all", "all", 2, "common")
 greedy_joker = Joker("Greedy Joker", "Played cards with Diamond suit give +3 Mult when scored", 3, 0, "diamond", "all", 5, "common")
@@ -28,3 +31,4 @@ clever_joker = Joker("Clever Joker", "+80 Chips if played hand contains a Two Pa
 devious_joker = Joker("Devious Joker", "+100 Chips if played hand contains a Straight", 0, 100, "all", "straight", 4, "common")
 crafty_joker = Joker("Crafty Joker", "+80 Chips if played hand contains a Flush", 0, 80, "all", "flush", 4, "common")
 half_joker = Joker("Half Joker", "+20 Mult if played hand contains 3 or fewer cards", 20, 0, "all", "3 or less", 5, "common")
+misprint = Joker("Misprint", "Played cards with a value of 10 give +5 Mult when scored", misprint_mult, 0, "all", "10", 5, "common")
