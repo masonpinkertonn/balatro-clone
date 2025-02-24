@@ -17,7 +17,6 @@ def start_game():
     pass
 
 def main_menu():
-
     print(balatro_title_text)
     print("[P]lay        [O]ptions        [Q]uit        [C]ollection")
     usr_choice = input("\n").upper()
