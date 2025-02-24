@@ -26,6 +26,13 @@ class Card:
 
 deck = []
 
+def draw_hand():
+    shuffle(deck)
+    hand = []
+    for i in range(5):
+        hand.append(deck.pop())
+    return hand[0]
+
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
@@ -54,7 +61,7 @@ def make_deck():
         """
         thiscard = Card(tens, 10)
         deck.append(thiscard)
-        jacks = print(f""" 
+        jacks = f""" 
  ----- 
 |J    |
 |     |
@@ -62,7 +69,7 @@ def make_deck():
 |     |
 |    J|
  -----
-        """)
+        """
         thiscard = Card(jacks, "jack")
         deck.append(thiscard)
         queens = f""" 
@@ -97,9 +104,7 @@ def make_deck():
  -----
         """
         thiscard = Card(aces, "ace")
-        deck.append(thiscard)
-
-    
+        deck.append(thiscard)    
 
 def start_game():
     pass
@@ -122,21 +127,10 @@ def main_menu():
     elif usr_choice == "C":
         pass
 
-"""
-
-def draw_hand():
-    shuffle(deck)
-    hand = []
-    for i in range(5):
-        hand.append(deck.pop())
-    return hand
+make_deck()
 
 handprint = draw_hand()
 print(handprint)
 # GAME
 
 main_menu()
-
-"""
-
-make_deck()
