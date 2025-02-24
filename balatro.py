@@ -10,6 +10,7 @@ from planets import *
 
 import sys
 from time import *
+from random import *
 
 # Main menu
 
@@ -34,6 +35,15 @@ def main_menu():
     elif usr_choice == "C":
         pass
 
+def draw_hand():
+    shuffle(deck)
+    hand = []
+    for i in range(5):
+        hand.append(deck.pop())
+    return hand
+
+handprint = draw_hand()
+print(handprint)
 # GAME
 
 main_menu()
