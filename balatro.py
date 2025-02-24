@@ -6,18 +6,6 @@ from balatro_asciis import *
 from jokers import *
 from planets import *
 
-x = """
- ----- 
-|3    |
-|     |
-|  \u2660  |
-|     |
-|    3|
- -----
-"""
-
-print(x)
-
 # Other imports
 
 import sys
@@ -26,6 +14,8 @@ from random import *
 
 # Main menu
 
+deck = [1]
+
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
@@ -33,12 +23,49 @@ def make_deck():
  ----- 
 |{y}    |
 |     |
-|  \u2660  |
+|  {i}  |
 |     |
 |    {y}|
  -----
             """
             print(card)
+
+        print(f""" 
+ ----- 
+|{10}   |
+|     |
+|  {i}  |
+|     |
+|   {10}|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|J    |
+|     |
+|  {i}  |
+|     |
+|    J|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|Q    |
+|     |
+|  {i}  |
+|     |
+|    Q|
+ -----
+        """)
+        print(f""" 
+ ----- 
+|K    |
+|     |
+|  {i}  |
+|     |
+|    K|
+ -----
+        """)
 
     
 
@@ -63,6 +90,8 @@ def main_menu():
     elif usr_choice == "C":
         pass
 
+"""
+
 def draw_hand():
     shuffle(deck)
     hand = []
@@ -74,6 +103,8 @@ handprint = draw_hand()
 print(handprint)
 # GAME
 
-make_deck()
-
 main_menu()
+
+"""
+
+make_deck()
