@@ -82,7 +82,27 @@ def draw_hand():
     return hand[0]
 
 def shop():
-    pass
+    print(shop_ascii)
+    print("\nImprove your run!")
+    print(f"\nMoney: ${player.money}")
+    print("\n[N]ext round")
+    print("\n[R]eroll ($5)")
+    print("\nIn the shop:")
+    joker1 = choice(jokers)
+    new = jokers
+    new.remove(joker1)
+    joker2 = choice(new)
+    print(f"\n[1]: {joker1}")
+    print(f"\n[2]: {joker2}")
+    planetchoice = choice(planets)
+    print(f"\n[3]: {planetchoice}")
+    usrchoice = input("\n").upper()
+    if usrchoice not in ("1", "2", "3", "N", "R"):
+        print("\nValid choice, please.")
+        usrchoice = input("\n").upper()
+    if usrchoice == "3":
+        planetchoice = planetchoice
+    
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
@@ -205,9 +225,14 @@ class boss_blind:
         self.modifier = modifier
 
 
+make_deck()
+
+
 handprint = draw_hand()
 print(handprint)
 
 # GAME
 
 main_menu()
+
+shop()

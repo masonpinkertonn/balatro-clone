@@ -29,7 +29,7 @@ abstract_mult = len(joker_slots_list) * 3
     
 misprint_mult = randint(1, 23)
     
-base_joker = Joker("Joker", "+4 Mult", 4, 0, "all", "all", 2, "common")
+base_joker = Joker("Jimbo", "+4 Mult", 4, 0, "all", "all", 2, "common")
 greedy_joker = Joker("Greedy Joker", "Played cards with Diamond suit give +3 Mult when scored", 3, 0, "diamond", "all", 5, "common")
 lusty_joker = Joker("Lusty Joker", "Played cards with Heart suit give +3 Mult when scored", 3, 0, "heart", "all", 5, "common")
 wrathful_joker = Joker("Wrathful Joker", "Played cards with Spade suit give +3 Mult when scored", 3, 0, "spade", "all", 5, "common")
@@ -46,7 +46,3 @@ devious_joker = Joker("Devious Joker", "+100 Chips if played hand contains a Str
 crafty_joker = Joker("Crafty Joker", "+80 Chips if played hand contains a Flush", 0, 80, "all", "flush", 4, "common")
 half_joker = Joker("Half Joker", "+20 Mult if played hand contains 3 or fewer cards", 20, 0, "all", "3 or less", 5, "common")
 misprint = Joker("Misprint", "Played cards with a value of 10 give +5 Mult when scored", misprint_mult, 0, "all", "10", 5, "common")
-stencil = Joker("Stencil", "Gains x1 Mult for each empty Joker Slot", stencil_mult, 0, "all", "9", 5, "common")
-banner = Joker("Banner", "Gains +30 Chips for each remaining discard", 0, banner_chips, "all", "9", 5, "common")
-mystic_summit = Joker("Mystic Summit", "Gains +15 Mult if 0 discards remaining", mystic_mult, 0, "all", "all", 6, "rare")
-abstract_joker = Joker("Abstract Joker", "Gains +3 Mult for each joker card", abstract_mult, 0, "all", "full house", 6, "rare")

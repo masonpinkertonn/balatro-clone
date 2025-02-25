@@ -21,8 +21,4 @@ earth = Planet("Earth", "Levels up Full House; +2 Mult, +25 Chips", 2, 25)
 mars = Planet("Mars", "Levels up Four of a Kind; +3 Mult, +30 Chips", 3, 30)
 neptune = Planet("Neptune", "Levels up Straight Flush; +4 Mult, +40 Chips", 4, 40)
 
-# "Secret" Planets
-
-planet_x = Planet("Planet X", "Levels up Five of a Kind; +3 Mult, +35 Chips", 3, 35)
-ceres = Planet("Ceres", "Levels up Flush House; +4 Mult, +40 Chips", 4, 40)
-eris = Planet("Eris", "Levels up Flush Five; +3 Mult, +50 Chips", 3, 50)
+planets = [pluto, mercury, uranus, venus, saturn, jupiter, earth, mars, neptune]
