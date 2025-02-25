@@ -147,15 +147,13 @@ def start_game():
 
 def main_menu():
     print(balatro_title_text)
-    print("[P]lay        [O]ptions        [Q]uit        [C]ollection")
+    print("[P]lay        [Q]uit        [C]ollection")
     usr_choice = input("\n").upper()
-    while usr_choice not in ("P", "O", "Q", "C"):
+    while usr_choice not in ("P", "Q", "C"):
         print("\nPlease enter a valid choice.")
         usr_choice = input("\n").upper()
     if usr_choice == "P":
         start_game()
-    elif usr_choice == "O":
-        pass
     elif usr_choice == "Q":
         print("\nShutting down...")
         sleep(2)
@@ -163,7 +161,18 @@ def main_menu():
     elif usr_choice == "C":
         pass
 
-make_deck()
+class small_blind:
+    def __init__(self, chipval):
+        self.chipval = chipval
+class big_blind:
+    def __init__(self, chipval):
+        self.chipval = chipval
+class boss_blind:
+    def __init__(self, chipval, name, modifier):
+        self.chipval = chipval
+        self.name = name
+        self.modifier = modifier
+
 
 handprint = draw_hand()
 print(handprint)
