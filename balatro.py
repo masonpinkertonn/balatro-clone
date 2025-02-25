@@ -92,10 +92,17 @@ def shop():
     new = jokers
     new.remove(joker1)
     joker2 = choice(new)
-    print(f"\n{joker1}")
-    print(f"\n{joker2}")
+    print(f"\n[1]: {joker1}")
+    print(f"\n[2]: {joker2}")
     planetchoice = choice(planets)
-    print(f"\n{planetchoice}")
+    print(f"\n[3]: {planetchoice}")
+    usrchoice = input("\n").upper()
+    if usrchoice not in ("1", "2", "3", "N", "R"):
+        print("\nValid choice, please.")
+        usrchoice = input("\n").upper()
+    if usrchoice == "3":
+        planetchoice = planetchoice
+    
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
