@@ -12,6 +12,15 @@ import sys
 from time import *
 from random import *
 
+# User class
+
+class User:
+    def __init__(self, money, hands, discards, jokerslots):
+        self.money = money
+        self.hands = hands
+        self.discards = discards
+        self.jokerslots = jokerslots
+
 # Card class
 
 class Card:
@@ -35,6 +44,8 @@ class Hand:
 
     def __str__(self):
         return f"\nLevel {self.lvl} {self.name}: {self.cards}"
+
+player = User(0, 4, 3, 5)
 
 # Main menu
 
@@ -68,6 +79,9 @@ def draw_hand():
     for i in range(5):
         hand.append(deck.pop())
     return hand[0]
+
+def shop():
+    pass
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
