@@ -53,7 +53,13 @@ def run_info():
     straight = Hand("Straight", 30, 4, "any", "5 cards in a row (consecutive ranks)")
     print(straight)
     three_of_a_kind = Hand("Three of a Kind", 30, 3, "any", "3 cards")
-    print(straight_flush)
+    print(three_of_a_kind)
+    two_pair = Hand("Two Pair", 20, 2, "any", "2 pairs of cards with different ranks. May be played with 1 other unscored card.")
+    print(two_pair)
+    pair = Hand("Pair", 10, 2, "any", "2 cards that share the same rank. They may be played with up to 3 other unscored cards")
+    print(pair)
+    high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the above hands, only the highest rank card scores")
+    print(high_card)
 
 
 def draw_hand():
