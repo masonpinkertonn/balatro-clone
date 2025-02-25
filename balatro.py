@@ -115,7 +115,8 @@ def shop():
         print("\nValid choice, please.")
         usrchoice = input("\n").upper()
     if usrchoice == "3":
-        planetchoice = planetchoice
+        planetchoicename = planetchoice.ability.split()
+        print(planetchoicename[2:planetchoicename.index("Mult,")])
     
 
 def make_deck():
