@@ -11,15 +11,16 @@ from planets import *
 import sys
 from time import *
 from random import *
-
+current_mult = 1
 # User class
-
+joker_slots = []
 class User:
-    def __init__(self, money, hands, discards, jokerslots):
+    def __init__(self, money, hands, discards, jokerslots, roundscore):
         self.money = money
         self.hands = hands
         self.discards = discards
         self.jokerslots = jokerslots
+        self.roundscore = roundscore
 
 # Card class
 
@@ -45,7 +46,7 @@ class Hand:
     def __str__(self):
         return f"\nLevel {self.lvl} {self.name}: {self.cards}"
 
-player = User(0, 4, 3, 5)
+player = User(0, 4, 3, 5, 0)
 
 # Main menu
 
@@ -174,13 +175,29 @@ def main_menu():
         sys.exit()
     elif usr_choice == "C":
         pass
+def choose_deck():
+    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow:")
+    while deckchoice not in ["R", "B", "Bl", "r", "b", "bl", "red", "blue", "black", "Red", "Blue", "Black"]:
+        print("\nPlease enter a valid choice.")
+    if deckchoice.upper() == "R":
+            player.discards += 1
+    if deckchoice.upper() == "B":
+            player.hands += 1
+    if deckchoice.upper() == "BL":
+        player.jokerslots += 1
+        player.hands -= 1
+    if deckchoice.upper() == "Y":
+        player.money += 10
 
+choose_deck()
 class small_blind:
     def __init__(self, chipval):
         self.chipval = chipval
+
 class big_blind:
     def __init__(self, chipval):
         self.chipval = chipval
+
 class boss_blind:
     def __init__(self, chipval, name, modifier):
         self.chipval = chipval
