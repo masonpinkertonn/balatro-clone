@@ -48,6 +48,20 @@ class Hand:
 
 player = User(0, 4, 3, 5, 0)
 
+stencil_mult2 = player.jokerslots - len(joker_slots_list) 
+stencil.multinc = current_mult * stencil_mult2
+
+banner.chipinc = player.discards * 30
+
+if player.discards == 0:
+    mystic_summit.multinc = 15
+else:
+    mystic_summit.multinc = 0
+
+abstract_joker.multinc = len(joker_slots_list) * 3
+    
+misprint.multinc = randint(1, 23)
+
 # Main menu
 
 deck = []
