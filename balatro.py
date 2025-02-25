@@ -21,10 +21,40 @@ class Card:
 
     def __str__(self):
         return self.asciiart
+    
+# Hand class
+
+class Hand:
+    def __init__(self, name, chipval, multval, suit, cards, lvl=1):
+        self.name = name
+        self.chipval = chipval
+        self.multval = multval
+        self.suit = suit
+        self.cards = cards
+        self.lvl = lvl
+
+    def __str__(self):
+        return f"\nLevel {self.lvl} {self.name}: {self.cards}"
 
 # Main menu
 
 deck = []
+
+def run_info():
+    print("\nPOKER HANDS")
+    straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
+    print(straight_flush)
+    four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
+    print(four_of_a_kind)
+    full_house = Hand("Full House", 40, 4, "any", "A Three of a Kind and a Pair")
+    print(full_house)
+    flush = Hand("Flush", 35, 4, "same", "5 cards that share the same suit")
+    print(flush)
+    straight = Hand("Straight", 30, 4, "any", "5 cards in a row (consecutive ranks)")
+    print(straight)
+    three_of_a_kind = Hand("Three of a Kind", 30, 3, "any", "3 cards")
+    print(straight_flush)
+
 
 def draw_hand():
     shuffle(deck)
@@ -131,6 +161,7 @@ make_deck()
 
 handprint = draw_hand()
 print(handprint)
+
 # GAME
 
 main_menu()
