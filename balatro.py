@@ -13,7 +13,7 @@ from time import *
 from random import *
 current_mult = 1
 # User class
-joker_slots = []
+joker_slots_list = []
 class User:
     def __init__(self, money, hands, discards, jokerslots, roundscore):
         self.money = money
@@ -179,14 +179,14 @@ def choose_deck():
     deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow:")
     while deckchoice not in ["R", "B", "Bl", "r", "b", "bl", "red", "blue", "black", "Red", "Blue", "Black"]:
         print("\nPlease enter a valid choice.")
-    if deckchoice.upper() == "R":
+    if deckchoice.upper() in ["R", "RED"]:
             player.discards += 1
-    if deckchoice.upper() == "B":
+    if deckchoice.upper() in ["B", "BLUE"]:
             player.hands += 1
-    if deckchoice.upper() == "BL":
+    if deckchoice.upper() in ["BL", "BLACK"]:
         player.jokerslots += 1
         player.hands -= 1
-    if deckchoice.upper() == "Y":
+    if deckchoice.upper() in ["Y", "YELLOW"]:
         player.money += 10
 
 choose_deck()

@@ -1,4 +1,5 @@
 from random import *
+from balatro import *
 
 class Joker:
     def __init__(self, name, ability, multinc, chipinc, suit, hand, price, rarity):
@@ -13,6 +14,18 @@ class Joker:
     
     def __str__(self):
         return f"{self.name}: {self.ability}"
+
+stencil_mult2 = player.jokerslots - len(joker_slots_list) 
+stencil_mult = current_mult * stencil_mult2
+
+banner_chips = player.discards * 30
+
+if player.discards == 0:
+    mystic_mult = 15
+else:
+    mystic_mult = 0
+
+abstract_mult = len(joker_slots_list) * 3
     
 misprint_mult = randint(1, 23)
     
@@ -33,3 +46,7 @@ devious_joker = Joker("Devious Joker", "+100 Chips if played hand contains a Str
 crafty_joker = Joker("Crafty Joker", "+80 Chips if played hand contains a Flush", 0, 80, "all", "flush", 4, "common")
 half_joker = Joker("Half Joker", "+20 Mult if played hand contains 3 or fewer cards", 20, 0, "all", "3 or less", 5, "common")
 misprint = Joker("Misprint", "Played cards with a value of 10 give +5 Mult when scored", misprint_mult, 0, "all", "10", 5, "common")
+stencil = Joker("Stencil", "Gains x1 Mult for each empty Joker Slot", stencil_mult, 0, "all", "9", 5, "common")
+banner = Joker("Banner", "Gains +30 Chips for each remaining discard", 0, banner_chips, "all", "9", 5, "common")
+mystic_summit = Joker("Mystic Summit", "Gains +15 Mult if 0 discards remaining", mystic_mult, 0, "all", "all", 6, "rare")
+abstract_joker = Joker("Abstract Joker", "Gains +3 Mult for each joker card", abstract_mult, 0, "all", "full house", 6, "rare")
