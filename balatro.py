@@ -67,28 +67,30 @@ misprint.multinc = randint(1, 23)
 blue_joker.chipinc = 2 * len(deck)
 # Main menu
 
+straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
+four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
+full_house = Hand("Full House", 40, 4, "any", "A Three of a Kind and a Pair")
+flush = Hand("Flush", 35, 4, "same", "5 cards that share the same suit")
+straight = Hand("Straight", 30, 4, "any", "5 cards in a row (consecutive ranks)")
+three_of_a_kind = Hand("Three of a Kind", 30, 3, "any", "3 cards")
+two_pair = Hand("Two Pair", 20, 2, "any", "2 pairs of cards with different ranks. May be played with 1 other unscored card.")
+pair = Hand("Pair", 10, 2, "any", "2 cards that share the same rank. They may be played with up to 3 other unscored cards")
+high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the above hands, only the highest rank card scores")
 
 
 def run_info():
     print("\nPOKER HANDS")
-    straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
     print(straight_flush)
-    four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
     print(four_of_a_kind)
-    full_house = Hand("Full House", 40, 4, "any", "A Three of a Kind and a Pair")
     print(full_house)
-    flush = Hand("Flush", 35, 4, "same", "5 cards that share the same suit")
     print(flush)
-    straight = Hand("Straight", 30, 4, "any", "5 cards in a row (consecutive ranks)")
     print(straight)
-    three_of_a_kind = Hand("Three of a Kind", 30, 3, "any", "3 cards")
     print(three_of_a_kind)
-    two_pair = Hand("Two Pair", 20, 2, "any", "2 pairs of cards with different ranks. May be played with 1 other unscored card.")
     print(two_pair)
-    pair = Hand("Pair", 10, 2, "any", "2 cards that share the same rank. They may be played with up to 3 other unscored cards")
     print(pair)
-    high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the above hands, only the highest rank card scores")
     print(high_card)
+
+cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_of_a_kind, two_pair, pair, high_card]
 
 
 def draw_hand():
@@ -119,7 +121,14 @@ def shop():
         usrchoice = input("\n").upper()
     if usrchoice == "3":
         planetchoicename = planetchoice.ability.split()
-        print(planetchoicename[2:planetchoicename.index("Mult,")])
+        thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
+        thishand = " ".join(thishand)
+        thishand = thishand[:-1]
+        for i in cardhands:
+            if i.name == thishand:
+                i.lvl += 1
+                print(i)
+        
     
 
 def make_deck():
@@ -214,9 +223,10 @@ def main_menu():
     elif usr_choice == "C":
         pass
 def choose_deck():
-    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow:")
-    while deckchoice not in ["R", "B", "Bl", "r", "b", "bl", "red", "blue", "black", "Red", "Blue", "Black"]:
+    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
+    while deckchoice not in ["R", "B", "Bl", "r", "b", "bl", "red", "blue", "black", "Red", "Blue", "Black", "Y", "YELLOW"]:
         print("\nPlease enter a valid choice.")
+        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
             player.discards += 1
     if deckchoice.upper() in ["B", "BLUE"]:
@@ -254,3 +264,5 @@ print(handprint)
 main_menu()
 
 shop()
+
+run_info()
