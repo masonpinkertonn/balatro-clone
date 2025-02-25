@@ -15,11 +15,12 @@ from random import *
 # User class
 
 class User:
-    def __init__(self, money, hands, discards, jokerslots):
+    def __init__(self, money, hands, discards, jokerslots, roundscore):
         self.money = money
         self.hands = hands
         self.discards = discards
         self.jokerslots = jokerslots
+        self.roundscore = roundscore
 
 # Card class
 
@@ -45,7 +46,7 @@ class Hand:
     def __str__(self):
         return f"\nLevel {self.lvl} {self.name}: {self.cards}"
 
-player = User(0, 4, 3, 5)
+player = User(0, 4, 3, 5, 0)
 
 # Main menu
 
@@ -81,7 +82,20 @@ def draw_hand():
     return hand[0]
 
 def shop():
-    pass
+    print(shop_ascii)
+    print("\nImprove your run!")
+    print(f"\nMoney: ${player.money}")
+    print("\n[N]ext round")
+    print("\n[R]eroll ($5)")
+    print("\nIn the shop:")
+    joker1 = choice(jokers)
+    new = jokers
+    new.remove(joker1)
+    joker2 = choice(new)
+    print(f"\n{joker1}")
+    print(f"\n{joker2}")
+    planetchoice = choice(planets)
+    print(f"\n{planetchoice}")
 
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
@@ -188,9 +202,14 @@ class boss_blind:
         self.modifier = modifier
 
 
+make_deck()
+
+
 handprint = draw_hand()
 print(handprint)
 
 # GAME
 
 main_menu()
+
+shop()

@@ -16,7 +16,7 @@ class Joker:
     
 misprint_mult = randint(1, 23)
     
-base_joker = Joker("Joker", "+4 Mult", 4, 0, "all", "all", 2, "common")
+base_joker = Joker("Jimbo", "+4 Mult", 4, 0, "all", "all", 2, "common")
 greedy_joker = Joker("Greedy Joker", "Played cards with Diamond suit give +3 Mult when scored", 3, 0, "diamond", "all", 5, "common")
 lusty_joker = Joker("Lusty Joker", "Played cards with Heart suit give +3 Mult when scored", 3, 0, "heart", "all", 5, "common")
 wrathful_joker = Joker("Wrathful Joker", "Played cards with Spade suit give +3 Mult when scored", 3, 0, "spade", "all", 5, "common")
@@ -32,4 +32,6 @@ clever_joker = Joker("Clever Joker", "+80 Chips if played hand contains a Two Pa
 devious_joker = Joker("Devious Joker", "+100 Chips if played hand contains a Straight", 0, 100, "all", "straight", 4, "common")
 crafty_joker = Joker("Crafty Joker", "+80 Chips if played hand contains a Flush", 0, 80, "all", "flush", 4, "common")
 half_joker = Joker("Half Joker", "+20 Mult if played hand contains 3 or fewer cards", 20, 0, "all", "3 or less", 5, "common")
-misprint = Joker("Misprint", "Played cards with a value of 10 give +5 Mult when scored", misprint_mult, 0, "all", "10", 5, "common")
+misprint_joker = Joker("Misprint", "Played cards with a value of 10 give +5 Mult when scored", misprint_mult, 0, "all", "10", 5, "common")
+
+jokers = [base_joker, greedy_joker, lusty_joker, wrathful_joker, gluttonous_joker, jolly_joker, zany_joker, mad_joker, crazy_joker, droll_joker, sly_joker, wily_joker, clever_joker, devious_joker, crafty_joker, half_joker, misprint_joker]
