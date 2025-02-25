@@ -14,6 +14,7 @@ from random import *
 current_mult = 1
 # User class
 joker_slots_list = []
+deck = []
 class User:
     def __init__(self, money, hands, discards, jokerslots, roundscore):
         self.money = money
@@ -53,6 +54,7 @@ stencil.multinc = current_mult * stencil_mult2
 
 banner.chipinc = player.discards * 30
 
+
 if player.discards == 0:
     mystic_summit.multinc = 15
 else:
@@ -62,9 +64,10 @@ abstract_joker.multinc = len(joker_slots_list) * 3
     
 misprint.multinc = randint(1, 23)
 
+blue_joker.chipinc = 2 * len(deck)
 # Main menu
 
-deck = []
+
 
 def run_info():
     print("\nPOKER HANDS")
