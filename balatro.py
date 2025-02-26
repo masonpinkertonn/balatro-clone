@@ -141,7 +141,12 @@ def shop():
             else:
                 print("\nYou can't buy this!")
         elif usrchoice == "1":
-            pass
+            if player.money >= joker1.price:
+                inshop.remove(joker1)
+                if "Mult" in joker1.ability:
+                    isMult = True
+            else:
+                print("\nYou can't buy this!")
         elif usrchoice == "2":
             pass
             
