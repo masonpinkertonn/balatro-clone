@@ -117,7 +117,10 @@ def shop():
         for i in range(len(inshop)):
             print(f"\n[{i+1}]: {inshop[i]}")
         usrchoice = input("\n").upper()
-        if usrchoice not in ("1", "2", "3", "N", "R"):
+        optlist = ["N", "R"]
+        for i in range(len(inshop)):
+            optlist.append(str(i+1))
+        if usrchoice not in optlist:
             print("\nValid choice, please.")
             usrchoice = input("\n").upper()
         if usrchoice == "3":
@@ -133,6 +136,10 @@ def shop():
                         print(i)
             else:
                 print("\nYou can't buy this!")
+        elif usrchoice == "1":
+            pass
+        elif usrchoice == "2":
+            pass
             
         elif usrchoice == "N":
             break
