@@ -104,31 +104,36 @@ def shop():
     print(shop_ascii)
     print("\nImprove your run!")
     print(f"\nMoney: ${player.money}")
-    print("\n[N]ext round")
-    print("\n[R]eroll ($5)")
-    print("\nIn the shop:")
     joker1 = choice(jokers)
     new = jokers
     new.remove(joker1)
     joker2 = choice(new)
     planetchoice = choice(planets)
+    inshop = [joker1, joker2, planetchoice]
     while True:
-        print(f"\n[1]: {joker1}")
-        print(f"\n[2]: {joker2}")
-        print(f"\n[3]: {planetchoice}")
+        print("\n[N]ext round")
+        print("\n[R]eroll ($5)")
+        print("\nIn the shop:")
+        for i in range(len(inshop)):
+            print(f"\n[{i+1}]: {inshop[i]}")
         usrchoice = input("\n").upper()
         if usrchoice not in ("1", "2", "3", "N", "R"):
             print("\nValid choice, please.")
             usrchoice = input("\n").upper()
         if usrchoice == "3":
-            planetchoicename = planetchoice.ability.split()
-            thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
-            thishand = " ".join(thishand)
-            thishand = thishand[:-1]
-            for i in cardhands:
-                if i.name == thishand:
-                    i.lvl += 1
-                    print(i)
+            if player.money >= planetchoice.price:
+                inshop.remove(planetchoice)
+                planetchoicename = planetchoice.ability.split()
+                thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
+                thishand = " ".join(thishand)
+                thishand = thishand[:-1]
+                for i in cardhands:
+                    if i.name == thishand:
+                        i.lvl += 1
+                        print(i)
+            else:
+                print("\nYou can't buy this!")
+            
         elif usrchoice == "N":
             break
         elif usrchoice == "R":
