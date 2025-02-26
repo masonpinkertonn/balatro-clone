@@ -128,6 +128,12 @@ def shop():
             if i.name == thishand:
                 i.lvl += 1
                 print(i)
+    elif usrchoice == "N":
+        pass
+    elif usrchoice == "R":
+        if player.money >= 5:
+            player.money -= 5
+            
         
     
 
