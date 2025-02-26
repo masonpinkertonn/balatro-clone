@@ -1,5 +1,4 @@
 from random import *
-from balatro import player
 
 class Joker:
     def __init__(self, name, ability, multinc, chipinc, suit, hand, price, rarity):
