@@ -20,6 +20,7 @@ banner_chips = 0
 mystic_mult = 0
 abstract_mult = 0
 blue_joker_chips = 0
+constellation_mult = 0
 
 base_joker = Joker("Jimbo", "+4 Mult", 4, 0, "all", "all", 2, "common")
 greedy_joker = Joker("Greedy Joker", "Played cards with Diamond suit give +3 Mult when scored", 3, 0, "diamond", "all", 5, "common")
@@ -43,4 +44,7 @@ banner = Joker("Banner", "Gains +30 Chips for each remaining discard", 0, banner
 mystic_summit = Joker("Mystic Summit", "Gains +15 Mult if 0 discards remaining", mystic_mult, 0, "all", "all", 6, "rare")
 abstract_joker = Joker("Abstract Joker", "Gains +3 Mult for each joker card", abstract_mult, 0, "all", "all", 6, "rare")
 blue_joker = Joker("Blue Joker", "+2 Chips for each card remaining in deck", 0, blue_joker_chips, "all", "pair", 3, "common")
+constellation = Joker("Constellation", "Gains x1 Mult for each Planet Card used", constellation_mult, 0, "all", "all", 6, "rare")
+
+
 jokers = [base_joker, greedy_joker, lusty_joker, wrathful_joker, gluttonous_joker, jolly_joker, zany_joker, mad_joker, crazy_joker, droll_joker, sly_joker, wily_joker, clever_joker, devious_joker, crafty_joker, half_joker, misprint, stencil, banner, mystic_summit, abstract_joker, blue_joker]

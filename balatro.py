@@ -53,7 +53,7 @@ stencil_mult2 = player.jokerslots - len(joker_slots_list)
 stencil.multinc = current_mult * stencil_mult2
 
 banner.chipinc = player.discards * 30
-
+usedplanets = 0
 
 if player.discards == 0:
     mystic_summit.multinc = 15
@@ -65,6 +65,10 @@ abstract_joker.multinc = len(joker_slots_list) * 3
 misprint.multinc = randint(1, 23)
 
 blue_joker.chipinc = 2 * len(deck)
+
+constellation_mult2 = int(usedplanets) * 1 
+constellation.multinc = current_mult * constellation_mult2
+
 # Main menu
 
 straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
