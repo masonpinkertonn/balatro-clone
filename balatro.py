@@ -234,13 +234,13 @@ def main_menu():
         pass
 def choose_deck():
     deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
-    while deckchoice not in ["R", "B", "Bl", "r", "b", "bl", "red", "blue", "black", "Red", "Blue", "Black", "Y", "YELLOW"]:
+    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW"]:
         print("\nPlease enter a valid choice.")
         deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
-            player.discards += 1
+        player.discards += 1
     if deckchoice.upper() in ["B", "BLUE"]:
-            player.hands += 1
+        player.hands += 1
     if deckchoice.upper() in ["BL", "BLACK"]:
         player.jokerslots += 1
         player.hands -= 1

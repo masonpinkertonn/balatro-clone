@@ -47,4 +47,4 @@ blue_joker = Joker("Blue Joker", "+2 Chips for each card remaining in deck", 0, 
 constellation = Joker("Constellation", "Gains x1 Mult for each Planet Card used", constellation_mult, 0, "all", "all", 6, "rare")
 
 
-jokers = [base_joker, greedy_joker, lusty_joker, wrathful_joker, gluttonous_joker, jolly_joker, zany_joker, mad_joker, crazy_joker, droll_joker, sly_joker, wily_joker, clever_joker, devious_joker, crafty_joker, half_joker, misprint, stencil, banner, mystic_summit, abstract_joker, blue_joker]
+jokers = [base_joker, greedy_joker, lusty_joker, wrathful_joker, gluttonous_joker, jolly_joker, zany_joker, mad_joker, crazy_joker, droll_joker, sly_joker, wily_joker, clever_joker, devious_joker, crafty_joker, half_joker, misprint, stencil, banner, mystic_summit, abstract_joker, blue_joker, constellation]
