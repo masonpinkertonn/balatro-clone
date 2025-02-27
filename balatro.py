@@ -71,6 +71,7 @@ constellation_mult2 = int(usedplanets) * 1
 constellation.multinc = current_mult * constellation_mult2
 
 # Main menu
+ante = 0
 
 straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
 four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
@@ -307,7 +308,7 @@ shop()
 run_info()
 
 clear_terminal()
-smallblindchips = 8
+smallblindchips = ante
 def smallblindfunction():
     smallblind = small_blind(smallblindchips)
     while player.roundscore < smallblind.chipval:
@@ -323,6 +324,10 @@ def smallblindfunction():
         else: 
             print("Please enter a valid choice.")
         
-
 def rungame():
+    choose_deck
+    make_deck()
     main_menu()
+    while player.hands >=-1:
+        ante =+ 1
+        smallblindfunction()
