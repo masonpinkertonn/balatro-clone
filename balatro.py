@@ -11,6 +11,7 @@ from planets import *
 import sys
 from time import *
 from random import *
+import os
 current_mult = 1
 # User class
 joker_slots_list = []
@@ -72,6 +73,27 @@ constellation_mult2 = int(usedplanets) * 1
 constellation.multinc = current_mult * constellation_mult2
 
 # Main menu
+ante = 0
+basechips = 0
+def uptheante():
+    if ante == 0:
+        basechips = 100
+    if ante == 1:
+        basechips = 300
+    if ante == 2:
+        basechips = 800
+    if ante == 3:
+        basechips = 2000
+    if ante == 4:
+        basechips = 5000
+    if ante == 5:
+        basechips = 11000
+    if ante == 6:
+        basechips = 20000
+    if ante == 7:
+        basechips = 35000
+    if ante == 8:
+        basechips = 50000
 
 straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
 four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
@@ -82,6 +104,9 @@ three_of_a_kind = Hand("Three of a Kind", 30, 3, "any", "3 cards")
 two_pair = Hand("Two Pair", 20, 2, "any", "2 pairs of cards with different ranks. May be played with 1 other unscored card.")
 pair = Hand("Pair", 10, 2, "any", "2 cards that share the same rank. They may be played with up to 3 other unscored cards")
 high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the above hands, only the highest rank card scores")
+
+def clear_terminal():
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def run_info():
@@ -410,3 +435,29 @@ main_menu()
 shop()
 
 run_info()
+
+clear_terminal()
+smallblindchips = ante
+def smallblindfunction():
+    smallblind = small_blind(basechips)
+    while player.roundscore < smallblind.chipval:
+        whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
+        if whatdoyoudo.upper in ["P", "PLAY"]:
+            handprint = draw_hand()
+            print(handprint)
+
+        if whatdoyoudo.upper in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
+            (print("Discard a card"))
+        if whatdoyoudo.upper in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
+            run_info()
+        else: 
+            print("Please enter a valid choice.")
+        
+def rungame():
+    choose_deck
+    make_deck()
+    main_menu()
+    while player.hands >=-1:
+        ante =+ 1
+        uptheante()
+        smallblindfunction()
