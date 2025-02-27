@@ -100,9 +100,9 @@ cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_
 def draw_hand():
     shuffle(deck)
     hand = []
-    for i in range(5):
+    for i in range(8):
         hand.append(deck.pop())
-    return hand[0]
+    return hand
 
 def shop():
     print(shop_ascii)
@@ -176,7 +176,7 @@ def make_deck():
 |  {i}  |
 |     |
 |    {y}|
- -----
+ ----- 
             """
 
             thiscard = Card(card, y)
@@ -190,7 +190,7 @@ def make_deck():
 |  {i}  |
 |     |
 |   {10}|
- -----
+ ----- 
         """
         thiscard = Card(tens, 10)
         deck.append(thiscard)
@@ -201,7 +201,7 @@ def make_deck():
 |  {i}  |
 |     |
 |    J|
- -----
+ ----- 
         """
         thiscard = Card(jacks, "jack")
         deck.append(thiscard)
@@ -212,7 +212,7 @@ def make_deck():
 |  {i}  |
 |     |
 |    Q|
- -----
+ ----- 
         """
         thiscard = Card(queens, "queen")
         deck.append(thiscard)
@@ -223,7 +223,7 @@ def make_deck():
 |  {i}  |
 |     |
 |    K|
- -----
+ ----- 
         """
         thiscard = Card(kings, "king")
         deck.append(thiscard)
@@ -234,13 +234,19 @@ def make_deck():
 |  {i}  |
 |     |
 |    A|
- -----
+ ----- 
         """
         thiscard = Card(aces, "ace")
         deck.append(thiscard)    
 
 def start_game():
     pass
+
+def pick_hand():
+    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+    indiceschoice = input("\n")
+    indiceschoice = indiceschoice.split(", ")
+    print(indiceschoice)
 
 def main_menu():
     print(balatro_title_text)
@@ -287,12 +293,23 @@ class boss_blind:
         self.name = name
         self.modifier = modifier
 
+pick_hand()
+
 
 make_deck()
 
 
 handprint = draw_hand()
-print(handprint)
+
+ascii_lines = []
+
+for i in handprint:
+    ascii_line = i.asciiart.split("\n")
+    ascii_lines.append(ascii_line)
+
+for line_set in zip(*ascii_lines):
+    print("  ".join(line_set))
+
 
 # GAME
 
