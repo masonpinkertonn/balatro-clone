@@ -11,6 +11,7 @@ from planets import *
 import sys
 from time import *
 from random import *
+import os
 current_mult = 1
 # User class
 joker_slots_list = []
@@ -81,6 +82,9 @@ two_pair = Hand("Two Pair", 20, 2, "any", "2 pairs of cards with different ranks
 pair = Hand("Pair", 10, 2, "any", "2 cards that share the same rank. They may be played with up to 3 other unscored cards")
 high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the above hands, only the highest rank card scores")
 
+def clear_terminal():
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def run_info():
     print("\nPOKER HANDS")
@@ -100,7 +104,7 @@ cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_
 def draw_hand():
     shuffle(deck)
     hand = []
-    for i in range(5):
+    for i in range(8):
         hand.append(deck.pop())
     return hand[0]
 
@@ -301,3 +305,21 @@ main_menu()
 shop()
 
 run_info()
+
+clear_terminal()
+
+def smallblindfunction():
+    while player.roundscore < small_blind.chipval:
+        whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
+        if whatdoyoudo.upper in ["P", "PLAY"]:
+            handprint = draw_hand()
+            print(handprint)
+
+        if whatdoyoudo.upper in ["D", "DISCARD"]:
+            (print("Discard a card"))
+        if whatdoyoudo.upper in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
+            run_info()
+        else: 
+            print("Please enter a valid choice.")
+        
+
