@@ -268,11 +268,9 @@ def pick_hand(hand):
             nums.append(i.listvalue)
         else:
             nums.append(i.listvalue)
-    print(suits)
-    print(nums)
     nums.sort(reverse=True)
 
-    if len(set(suits)) == 1:
+    if len(set(suits)) == 1 and len(suits) > 1:
         print("Same suit!")
         if len(suits) == 5:
             flagger = []
@@ -323,6 +321,18 @@ def pick_hand(hand):
         if twoof1 and twoof2:
             print("Two Pair")
         elif twoof1:
+            print("Pair")
+        elif twoof2:
+            print("Pair")
+    elif len(nums) == 2:
+        twoof1 = False
+        twoof2 = False
+        for i in nums:
+            if nums.count(i) == 2 and twoof1 == False:
+                twoof1 = True
+            elif nums.count(i) == 2 and twoof1 == True:
+                twoof2 = True
+        if twoof1:
             print("Pair")
         elif twoof2:
             print("Pair")
