@@ -307,15 +307,16 @@ shop()
 run_info()
 
 clear_terminal()
-
+smallblindchips = 8
 def smallblindfunction():
-    while player.roundscore < small_blind.chipval:
+    smallblind = small_blind(smallblindchips)
+    while player.roundscore < smallblind.chipval:
         whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
         if whatdoyoudo.upper in ["P", "PLAY"]:
             handprint = draw_hand()
             print(handprint)
 
-        if whatdoyoudo.upper in ["D", "DISCARD"]:
+        if whatdoyoudo.upper in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
             (print("Discard a card"))
         if whatdoyoudo.upper in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
             run_info()
@@ -323,3 +324,5 @@ def smallblindfunction():
             print("Please enter a valid choice.")
         
 
+def rungame():
+    main_menu()
