@@ -26,9 +26,10 @@ class User:
 # Card class
 
 class Card:
-    def __init__(self, asciiart, value):
+    def __init__(self, asciiart, value, suit):
         self.asciiart = asciiart
         self.value = value
+        self.suit = suit
 
     def __str__(self):
         return self.asciiart
@@ -179,7 +180,7 @@ def make_deck():
  ----- 
             """
 
-            thiscard = Card(card, y)
+            thiscard = Card(card, y, i)
 
             deck.append(thiscard)
 
@@ -192,7 +193,7 @@ def make_deck():
 |   {10}|
  ----- 
         """
-        thiscard = Card(tens, 10)
+        thiscard = Card(tens, 10, i)
         deck.append(thiscard)
         jacks = f""" 
  ----- 
@@ -203,7 +204,7 @@ def make_deck():
 |    J|
  ----- 
         """
-        thiscard = Card(jacks, "jack")
+        thiscard = Card(jacks, "jack", i)
         deck.append(thiscard)
         queens = f""" 
  ----- 
@@ -214,7 +215,7 @@ def make_deck():
 |    Q|
  ----- 
         """
-        thiscard = Card(queens, "queen")
+        thiscard = Card(queens, "queen", i)
         deck.append(thiscard)
         kings = f""" 
  ----- 
@@ -225,7 +226,7 @@ def make_deck():
 |    K|
  ----- 
         """
-        thiscard = Card(kings, "king")
+        thiscard = Card(kings, "king", i)
         deck.append(thiscard)
         aces = f""" 
  ----- 
@@ -236,17 +237,38 @@ def make_deck():
 |    A|
  ----- 
         """
-        thiscard = Card(aces, "ace")
+        thiscard = Card(aces, "ace", i)
         deck.append(thiscard)    
 
 def start_game():
     pass
 
-def pick_hand():
+def pick_hand(hand):
     print("\nPlease select the indices of the cards you wish to play, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
-    print(indiceschoice)
+    cards = []
+    for i in indiceschoice:
+        cards.append(hand[int(i)-1])
+    ascii_lines = []
+    for i in cards:
+        ascii_line = i.asciiart.split("\n")
+        ascii_lines.append(ascii_line)
+
+    for line_set in zip(*ascii_lines):
+        print("  ".join(line_set))
+
+    suits = []
+    nums = []
+
+    for i in cards:
+        suits.append(i.suit)
+        if isinstance(i.value, int):
+            nums.append(i.value)
+        else:
+            nums.append(i.value)
+    print(suits)
+    print(nums)
 
 def main_menu():
     print(balatro_title_text)
@@ -293,8 +315,6 @@ class boss_blind:
         self.name = name
         self.modifier = modifier
 
-pick_hand()
-
 
 make_deck()
 
@@ -309,6 +329,8 @@ for i in handprint:
 
 for line_set in zip(*ascii_lines):
     print("  ".join(line_set))
+
+pick_hand(handprint)
 
 
 # GAME
