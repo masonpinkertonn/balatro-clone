@@ -72,6 +72,26 @@ constellation.multinc = current_mult * constellation_mult2
 
 # Main menu
 ante = 0
+basechips = 0
+def uptheante():
+    if ante == 0:
+        basechips = 100
+    if ante == 1:
+        basechips = 300
+    if ante == 2:
+        basechips = 800
+    if ante == 3:
+        basechips = 2000
+    if ante == 4:
+        basechips = 5000
+    if ante == 5:
+        basechips = 11000
+    if ante == 6:
+        basechips = 20000
+    if ante == 7:
+        basechips = 35000
+    if ante == 8:
+        basechips = 50000
 
 straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
 four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
@@ -310,7 +330,7 @@ run_info()
 clear_terminal()
 smallblindchips = ante
 def smallblindfunction():
-    smallblind = small_blind(smallblindchips)
+    smallblind = small_blind(basechips)
     while player.roundscore < smallblind.chipval:
         whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
         if whatdoyoudo.upper in ["P", "PLAY"]:
@@ -330,4 +350,5 @@ def rungame():
     main_menu()
     while player.hands >=-1:
         ante =+ 1
+        uptheante()
         smallblindfunction()
