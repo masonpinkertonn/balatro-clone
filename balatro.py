@@ -104,7 +104,7 @@ def draw_hand():
     hand = []
     for i in range(8):
         hand.append(deck.pop())
-    return hand
+    return sorted(hand, key=lambda x: x.listvalue)
 
 def shop():
     print(shop_ascii)
@@ -270,6 +270,7 @@ def pick_hand(hand):
         else:
             nums.append(i.listvalue)
     nums.sort(reverse=True)
+    print(nums)
 
     if len(set(suits)) == 1 and len(suits) > 1:
         print("Same suit!")
@@ -277,8 +278,9 @@ def pick_hand(hand):
             flagger = []
             for i in range(len(nums)):
                 if nums[i] != nums[len(nums)-1]:
-                    if nums[i] == nums[i-1]+1:
-                        flagger.append(1)
+                    if nums[i] == nums[i+1]+1:
+                        flagger.append("1")
+            print(flagger)
             if len(flagger) > 0:
                 print("Straight Flush!")
             else:
@@ -296,12 +298,15 @@ def pick_hand(hand):
                 twoof = True
         if threeof and twoof:
             print("Full House")
-    elif len(nums) == 5:
+    if len(nums) == 5:
+        print("Straight?")
         flagger = []
         for i in range(len(nums)):
-            if nums[i] != nums[len(nums)-1]:
-                if nums[i] == nums[i-1]+1:
-                    flagger.append(1)
+            print(i)
+            if nums[i] != nums[-1]:
+                if nums[i] == nums[i+1]+1:
+                    flagger.append('1')
+        print(flagger)
         if len(flagger) > 0:
             print("Straight!")
     elif len(nums) == 3:
