@@ -147,6 +147,7 @@ def shop():
                 inshop.remove(joker1)
                 if "Mult" in joker1.ability:
                     isMult = True
+                    print(isMult)
             else:
                 print("\nYou can't buy this!")
         elif usrchoice == "2":
@@ -275,7 +276,7 @@ def pick_hand(hand):
         if len(suits) == 5:
             flagger = []
             for i in range(len(nums)):
-                if nums[i] == nums[len(nums)-1]:
+                if nums[i] != nums[len(nums)-1]:
                     if nums[i] == nums[i-1]+1:
                         flagger.append(1)
             if len(flagger) > 0:
@@ -298,7 +299,7 @@ def pick_hand(hand):
     elif len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
-            if nums[i] == nums[len(nums)-1]:
+            if nums[i] != nums[len(nums)-1]:
                 if nums[i] == nums[i-1]+1:
                     flagger.append(1)
         if len(flagger) > 0:
@@ -384,23 +385,23 @@ class boss_blind:
         self.name = name
         self.modifier = modifier
 
-while True:
-
-    make_deck()
 
 
-    handprint = draw_hand()
+make_deck()
 
-    ascii_lines = []
 
-    for i in handprint:
-        ascii_line = i.asciiart.split("\n")
-        ascii_lines.append(ascii_line)
+handprint = draw_hand()
 
-    for line_set in zip(*ascii_lines):
-        print("  ".join(line_set))
+ascii_lines = []
 
-    pick_hand(handprint)
+for i in handprint:
+    ascii_line = i.asciiart.split("\n")
+    ascii_lines.append(ascii_line)
+
+for line_set in zip(*ascii_lines):
+    print("  ".join(line_set))
+
+pick_hand(handprint)
 
 
 # GAME
