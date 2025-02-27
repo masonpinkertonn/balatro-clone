@@ -26,9 +26,10 @@ class User:
 # Card class
 
 class Card:
-    def __init__(self, asciiart, value, suit):
+    def __init__(self, asciiart, cardvalue, listvalue, suit):
         self.asciiart = asciiart
-        self.value = value
+        self.cardvalue = cardvalue
+        self.listvalue = listvalue
         self.suit = suit
 
     def __str__(self):
@@ -180,7 +181,7 @@ def make_deck():
  ----- 
             """
 
-            thiscard = Card(card, y, i)
+            thiscard = Card(card, y, y, i)
 
             deck.append(thiscard)
 
@@ -193,7 +194,7 @@ def make_deck():
 |   {10}|
  ----- 
         """
-        thiscard = Card(tens, 10, i)
+        thiscard = Card(tens, 10, 10, i)
         deck.append(thiscard)
         jacks = f""" 
  ----- 
@@ -204,7 +205,7 @@ def make_deck():
 |    J|
  ----- 
         """
-        thiscard = Card(jacks, "jack", i)
+        thiscard = Card(jacks, "jack", 11, i)
         deck.append(thiscard)
         queens = f""" 
  ----- 
@@ -215,7 +216,7 @@ def make_deck():
 |    Q|
  ----- 
         """
-        thiscard = Card(queens, "queen", i)
+        thiscard = Card(queens, "queen", 12, i)
         deck.append(thiscard)
         kings = f""" 
  ----- 
@@ -226,7 +227,7 @@ def make_deck():
 |    K|
  ----- 
         """
-        thiscard = Card(kings, "king", i)
+        thiscard = Card(kings, "king", 13, i)
         deck.append(thiscard)
         aces = f""" 
  ----- 
@@ -237,7 +238,7 @@ def make_deck():
 |    A|
  ----- 
         """
-        thiscard = Card(aces, "ace", i)
+        thiscard = Card(aces, "ace", 14, i)
         deck.append(thiscard)    
 
 def start_game():
@@ -263,12 +264,70 @@ def pick_hand(hand):
 
     for i in cards:
         suits.append(i.suit)
-        if isinstance(i.value, int):
-            nums.append(i.value)
+        if isinstance(i.listvalue, int):
+            nums.append(i.listvalue)
         else:
-            nums.append(i.value)
+            nums.append(i.listvalue)
     print(suits)
     print(nums)
+    nums.sort(reverse=True)
+
+    if len(set(suits)) == 1:
+        print("Same suit!")
+        if len(suits) == 5:
+            flagger = []
+            for i in range(len(nums)):
+                if nums[i] == nums[len(nums)-1]:
+                    if nums[i] == nums[i-1]+1:
+                        flagger.append(1)
+            if len(flagger) > 0:
+                print("Straight Flush!")
+            else:
+                print("Flush!")
+    elif len(nums) == 4:
+        if len(set(nums)) == 1:
+            print("Four of a Kind!")
+    elif len(nums) == 5:
+        threeof = False
+        twoof = False
+        for i in nums:
+            if nums.count(i) == 3:
+                threeof = True
+            if nums.count(i) == 2:
+                twoof = True
+        if threeof and twoof:
+            print("Full House")
+    elif len(nums) == 5:
+        flagger = []
+        for i in range(len(nums)):
+            if nums[i] == nums[len(nums)-1]:
+                if nums[i] == nums[i-1]+1:
+                    flagger.append(1)
+        if len(flagger) > 0:
+            print("Straight!")
+    elif len(nums) == 3:
+        threeof = False
+        for i in nums:
+            if nums.count(i) == 3:
+                threeof = True
+        if threeof:
+            print("Three of a Kind")
+    elif len(nums) == 4:
+        twoof1 = False
+        twoof2 = False
+        for i in nums:
+            if nums.count(i) == 2 and twoof1 == False:
+                twoof1 = True
+            elif nums.count(i) == 2 and twoof1 == True:
+                twoof2 = True
+        if twoof1 and twoof2:
+            print("Two Pair")
+        elif twoof1:
+            print("Pair")
+        elif twoof2:
+            print("Pair")
+    else:
+        print("High Card")
 
 def main_menu():
     print(balatro_title_text)
@@ -315,22 +374,23 @@ class boss_blind:
         self.name = name
         self.modifier = modifier
 
+while True:
 
-make_deck()
+    make_deck()
 
 
-handprint = draw_hand()
+    handprint = draw_hand()
 
-ascii_lines = []
+    ascii_lines = []
 
-for i in handprint:
-    ascii_line = i.asciiart.split("\n")
-    ascii_lines.append(ascii_line)
+    for i in handprint:
+        ascii_line = i.asciiart.split("\n")
+        ascii_lines.append(ascii_line)
 
-for line_set in zip(*ascii_lines):
-    print("  ".join(line_set))
+    for line_set in zip(*ascii_lines):
+        print("  ".join(line_set))
 
-pick_hand(handprint)
+    pick_hand(handprint)
 
 
 # GAME
