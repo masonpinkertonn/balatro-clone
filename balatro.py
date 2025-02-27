@@ -270,25 +270,25 @@ def pick_hand(hand):
         else:
             nums.append(i.listvalue)
     nums.sort(reverse=True)
-    print(nums)
 
     if len(set(suits)) == 1 and len(suits) > 1:
-        print("Same suit!")
         if len(suits) == 5:
             flagger = []
             for i in range(len(nums)):
                 if nums[i] != nums[len(nums)-1]:
                     if nums[i] == nums[i+1]+1:
                         flagger.append("1")
-            print(flagger)
             if len(flagger) > 0:
                 print("Straight Flush!")
+                return
             else:
                 print("Flush!")
-    elif len(nums) == 4:
+                return
+    if len(nums) == 4:
         if len(set(nums)) == 1:
             print("Four of a Kind!")
-    elif len(nums) == 5:
+            return
+    if len(nums) == 5:
         threeof = False
         twoof = False
         for i in nums:
@@ -297,26 +297,27 @@ def pick_hand(hand):
             if nums.count(i) == 2:
                 twoof = True
         if threeof and twoof:
-            print("Full House")
+            print("Full House!")
+            return
     if len(nums) == 5:
-        print("Straight?")
         flagger = []
         for i in range(len(nums)):
             print(i)
             if nums[i] != nums[-1]:
                 if nums[i] == nums[i+1]+1:
                     flagger.append('1')
-        print(flagger)
         if len(flagger) > 0:
             print("Straight!")
-    elif len(nums) == 3:
+            return
+    if len(nums) == 3:
         threeof = False
         for i in nums:
             if nums.count(i) == 3:
                 threeof = True
         if threeof:
-            print("Three of a Kind")
-    elif len(nums) == 4:
+            print("Three of a Kind!")
+            return
+    if len(nums) == 4:
         twoof1 = False
         twoof2 = False
         for i in nums:
@@ -325,12 +326,15 @@ def pick_hand(hand):
             elif nums.count(i) == 2 and twoof1 == True:
                 twoof2 = True
         if twoof1 and twoof2:
-            print("Two Pair")
+            print("Two Pair!")
+            return
         elif twoof1:
-            print("Pair")
+            print("Pair!")
+            return
         elif twoof2:
-            print("Pair")
-    elif len(nums) == 2:
+            print("Pair!")
+            return
+    if len(nums) == 2:
         twoof1 = False
         twoof2 = False
         for i in nums:
@@ -339,11 +343,14 @@ def pick_hand(hand):
             elif nums.count(i) == 2 and twoof1 == True:
                 twoof2 = True
         if twoof1:
-            print("Pair")
+            print("Pair!")
+            return
         elif twoof2:
-            print("Pair")
+            print("Pair!")
+            return
     else:
-        print("High Card")
+        print("High Card!")
+        return
 
 def main_menu():
     print(balatro_title_text)
