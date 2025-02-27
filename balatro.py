@@ -409,7 +409,7 @@ class boss_blind:
         self.name = name
         self.modifier = modifier
 
-while True:
+while False:
 
     make_deck()
 
@@ -461,3 +461,8 @@ def rungame():
         ante =+ 1
         uptheante()
         smallblindfunction()
+        shop()
+        #bigblindfunction()
+        shop()
+        #bossblindfunction()
+        shop()
