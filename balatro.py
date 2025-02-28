@@ -17,21 +17,25 @@ current_mult = 1
 joker_slots_list = []
 deck = []
 class User:
-    def __init__(self, money, hands, discards, jokerslots, roundscore):
+    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc):
         self.money = money
         self.hands = hands
         self.discards = discards
         self.jokerslots = jokerslots
         self.roundscore = roundscore
+        self.finalmultinc = finalmultinc
+        self.finalchipinc = finalchipinc
 
 # Card class
 
 class Card:
-    def __init__(self, asciiart, cardvalue, listvalue, suit):
+    def __init__(self, asciiart, cardvalue, listvalue, suit, multinc = 0, chipinc = 0):
         self.asciiart = asciiart
         self.cardvalue = cardvalue
         self.listvalue = listvalue
         self.suit = suit
+        self.multinc = multinc
+        self.chipinc = chipinc
 
     def __str__(self):
         return self.asciiart
@@ -50,7 +54,7 @@ class Hand:
     def __str__(self):
         return f"\nLevel {self.lvl} {self.name}: {self.cards}"
 
-player = User(0, 4, 3, 5, 0)
+player = User(10000, 4, 3, 5, 0, 0, 0)
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -171,12 +175,51 @@ def shop():
             if player.money >= joker1.price:
                 inshop.remove(joker1)
                 if "Mult" in joker1.ability:
-                    isMult = True
-                    print(isMult)
+                    if joker1.name == "Jimbo":
+                        player.finalmultinc += 4
+                    elif "Played cards with" in joker1.ability:
+                        x = joker1.ability.split(" ")
+                        inc = x[6]
+                        inc = int(inc[1])
+                        print(inc)
+                        important = x[3].lower()
+                        if important == "club":
+                            important = "\u2663"
+                        elif important == "spade":
+                            important = "\u2660"
+                        elif important == "heart":
+                            important = "\u2665"
+                        elif important == "diamond":
+                            important = "\u2666"
+                        for i in deck:
+                            if i.suit == important:
+                                i.multinc += inc
             else:
                 print("\nYou can't buy this!")
         elif usrchoice == "2":
-            pass
+            if player.money >= joker2.price:
+                inshop.remove(joker2)
+                if "Mult" in joker2.ability:
+                    if joker2.name == "Jimbo":
+                        player.finalmultinc += 4
+                    elif "Played cards with" in joker2.ability:
+                        x = joker2.ability.split(" ")
+                        inc = x[6]
+                        inc = int(inc[1])
+                        important = x[3].lower()
+                        if important == "club":
+                            important = "\u2663"
+                        elif important == "spade":
+                            important = "\u2660"
+                        elif important == "heart":
+                            important = "\u2665"
+                        elif important == "diamond":
+                            important = "\u2666"
+                        for i in deck:
+                            if i.suit == important:
+                                i.multinc += inc
+            else:
+                print("\nYou can't buy this!")
             
         elif usrchoice == "N":
             break
@@ -327,7 +370,6 @@ def pick_hand(hand):
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
-            print(i)
             if nums[i] != nums[-1]:
                 if nums[i] == nums[i+1]+1:
                     flagger.append('1')
@@ -471,6 +513,6 @@ def rungame():
     make_deck()
     main_menu()
     while player.hands >=-1:
-        ante =+ 1
+        ante += 1
         uptheante()
         smallblindfunction()
