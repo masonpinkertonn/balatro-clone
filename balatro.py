@@ -155,10 +155,12 @@ def shop():
         optlist = ["N", "R"]
         for i in range(len(inshop)):
             optlist.append(str(i+1))
-        if usrchoice not in optlist:
+        while usrchoice not in optlist:
             print("\nValid choice, please.")
             usrchoice = input("\n").upper()
-        if usrchoice == "3":
+        if usrchoice not in ["N", "R"]:
+            usrchoice = inshop[int(usrchoice)-1]
+        if isinstance(usrchoice, Planet):
             if player.money >= planetchoice.price:
                 inshop.remove(planetchoice)
                 planetchoicename = planetchoice.ability.split()
@@ -171,41 +173,17 @@ def shop():
                         print(i)
             else:
                 print("\nYou can't buy this!")
-        elif usrchoice == "1":
-            if player.money >= joker1.price:
-                inshop.remove(joker1)
-                if "Mult" in joker1.ability:
-                    if joker1.name == "Jimbo":
+        elif isinstance(usrchoice, Joker):
+            if player.money >= usrchoice.price:
+                inshop.remove(usrchoice)
+                if "Mult" in usrchoice.ability:
+                    if usrchoice.name == "Jimbo":
                         player.finalmultinc += 4
-                    elif "Played cards with" in joker1.ability:
-                        x = joker1.ability.split(" ")
+                    elif "Played cards with" in usrchoice.ability:
+                        x = usrchoice.ability.split(" ")
                         inc = x[6]
                         inc = int(inc[1])
                         print(inc)
-                        important = x[3].lower()
-                        if important == "club":
-                            important = "\u2663"
-                        elif important == "spade":
-                            important = "\u2660"
-                        elif important == "heart":
-                            important = "\u2665"
-                        elif important == "diamond":
-                            important = "\u2666"
-                        for i in deck:
-                            if i.suit == important:
-                                i.multinc += inc
-            else:
-                print("\nYou can't buy this!")
-        elif usrchoice == "2":
-            if player.money >= joker2.price:
-                inshop.remove(joker2)
-                if "Mult" in joker2.ability:
-                    if joker2.name == "Jimbo":
-                        player.finalmultinc += 4
-                    elif "Played cards with" in joker2.ability:
-                        x = joker2.ability.split(" ")
-                        inc = x[6]
-                        inc = int(inc[1])
                         important = x[3].lower()
                         if important == "club":
                             important = "\u2663"
@@ -346,7 +324,7 @@ def pick_hand(hand):
                 if nums[i] != nums[len(nums)-1]:
                     if nums[i] == nums[i+1]+1:
                         flagger.append("1")
-            if len(flagger) > 0:
+            if len(flagger) == 4:
                 print("Straight Flush!")
                 return
             else:
@@ -373,7 +351,7 @@ def pick_hand(hand):
             if nums[i] != nums[-1]:
                 if nums[i] == nums[i+1]+1:
                     flagger.append('1')
-        if len(flagger) > 0:
+        if len(flagger) == 4:
             print("Straight!")
             return
     if len(nums) == 3:
