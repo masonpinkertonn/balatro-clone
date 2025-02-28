@@ -149,6 +149,8 @@ def shop():
         print("\n[N]ext round")
         print("\n[R]eroll ($5)")
         print("\nIn the shop:")
+        if len(inshop) == 0:
+            print("\nNo items in shop!")
         for i in range(len(inshop)):
             print(f"\n[{i+1}]: {inshop[i]}")
         usrchoice = input("\n").upper()
