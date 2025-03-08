@@ -53,6 +53,20 @@ class Hand:
 
     def __str__(self):
         return f"\nLevel {self.lvl} {self.name}: {self.cards}"
+    
+class small_blind:
+    def __init__(self, chipval):
+        self.chipval = chipval
+
+class big_blind:
+    def __init__(self, chipval):
+        self.chipval = chipval
+
+class boss_blind:
+    def __init__(self, chipval, name, modifier):
+        self.chipval = chipval
+        self.name = name
+        self.modifier = modifier
 
 player = User(10000, 4, 3, 5, 0, 0, 0)
 
@@ -79,7 +93,7 @@ constellation.multinc = current_mult * constellation_mult2
 # Main menu
 ante = 0
 basechips = 0
-def uptheante():
+def uptheante(ante, basechips):
     if ante == 0:
         basechips = 100
     if ante == 1:
@@ -400,20 +414,32 @@ def pick_hand(hand):
         return
 
 def main_menu():
-    print(balatro_title_text)
-    print("[P]lay        [Q]uit        [C]ollection")
-    usr_choice = input("\n").upper()
-    while usr_choice not in ("P", "Q", "C"):
-        print("\nPlease enter a valid choice.")
+    while True:
+        print(balatro_title_text)
+        print("[P]lay        [Q]uit        [C]ollection")
         usr_choice = input("\n").upper()
-    if usr_choice == "P":
-        start_game()
-    elif usr_choice == "Q":
-        print("\nShutting down...")
-        sleep(2)
-        sys.exit()
-    elif usr_choice == "C":
-        pass
+        while usr_choice not in ("P", "Q", "C"):
+            print("\nPlease enter a valid choice.")
+            usr_choice = input("\n").upper()
+        if usr_choice == "P":
+            rungame()
+        elif usr_choice == "Q":
+            print("\nShutting down...\n")
+            sleep(2)
+            sys.exit()
+        elif usr_choice == "C":
+            print(joker_ascii)
+            sleep(2)
+            for i in jokers:
+                print("\n")
+                print(i)
+            sleep(2)
+            print(planet_ascii)
+            sleep(2)
+            for i in planets:
+                print("\n")
+                print(i)
+            sleep(2)
 def choose_deck():
     deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
     while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW"]:
@@ -429,20 +455,15 @@ def choose_deck():
     if deckchoice.upper() in ["Y", "YELLOW"]:
         player.money += 10
 
+def rungame():
+    choose_deck()
+    make_deck()
+    while player.hands >=-1:
+        ante += 1
+        uptheante(ante, basechips)
+        smallblindfunction()
+
 choose_deck()
-class small_blind:
-    def __init__(self, chipval):
-        self.chipval = chipval
-
-class big_blind:
-    def __init__(self, chipval):
-        self.chipval = chipval
-
-class boss_blind:
-    def __init__(self, chipval, name, modifier):
-        self.chipval = chipval
-        self.name = name
-        self.modifier = modifier
 
 
 
@@ -451,14 +472,18 @@ make_deck()
 
 handprint = draw_hand()
 
-ascii_lines = []
+def displayhand(handprint):
 
-for i in handprint:
-    ascii_line = i.asciiart.split("\n")
-    ascii_lines.append(ascii_line)
+    ascii_lines = []
 
-for line_set in zip(*ascii_lines):
-    print("  ".join(line_set))
+    for i in handprint:
+        ascii_line = i.asciiart.split("\n")
+        ascii_lines.append(ascii_line)
+
+    for line_set in zip(*ascii_lines):
+        print("  ".join(line_set))
+
+displayhand(handprint)
 
 pick_hand(handprint)
 
@@ -487,12 +512,3 @@ def smallblindfunction():
             run_info()
         else: 
             print("Please enter a valid choice.")
-        
-def rungame():
-    choose_deck
-    make_deck()
-    main_menu()
-    while player.hands >=-1:
-        ante += 1
-        uptheante()
-        smallblindfunction()
