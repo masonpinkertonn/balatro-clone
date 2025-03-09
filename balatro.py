@@ -96,22 +96,23 @@ basechips = 0
 def uptheante(ante, basechips):
     if ante == 0:
         basechips = 100
-    if ante == 1:
+    elif ante == 1:
         basechips = 300
-    if ante == 2:
+    elif ante == 2:
         basechips = 800
-    if ante == 3:
+    elif ante == 3:
         basechips = 2000
-    if ante == 4:
+    elif ante == 4:
         basechips = 5000
-    if ante == 5:
+    elif ante == 5:
         basechips = 11000
-    if ante == 6:
+    elif ante == 6:
         basechips = 20000
-    if ante == 7:
+    elif ante == 7:
         basechips = 35000
-    if ante == 8:
+    elif ante == 8:
         basechips = 50000
+    return basechips
 
 straight_flush = Hand("Straight Flush", 100, 8, "same", "5 cards in a row (consecutive ranks) with all cards sharing the same suit")
 four_of_a_kind = Hand("Four of a Kind", 60, 7, "any", "4 cards with the same rank. They may be played with 1 other unscored card")
@@ -413,7 +414,7 @@ def pick_hand(hand):
         print("High Card!")
         return
 
-def main_menu():
+def main_menu(ante, basechips):
     while True:
         print(balatro_title_text)
         print("[P]lay        [Q]uit        [C]ollection")
@@ -422,7 +423,7 @@ def main_menu():
             print("\nPlease enter a valid choice.")
             usr_choice = input("\n").upper()
         if usr_choice == "P":
-            rungame()
+            rungame(ante, basechips)
         elif usr_choice == "Q":
             print("\nShutting down...\n")
             sleep(2)
@@ -455,25 +456,33 @@ def choose_deck():
     if deckchoice.upper() in ["Y", "YELLOW"]:
         player.money += 10
 
-def rungame():
+def smallblindfunction(ante, basechips):
+    smallblindchips = ante
+    smallblind = small_blind(basechips)
+    while player.roundscore < smallblind.chipval:
+        print("\n[P]lay        [D]iscard        [R]un Info")
+        whatdoyoudo = input("\n").upper()
+
+        if whatdoyoudo in ["P", "PLAY"]:
+            handprint = draw_hand()
+            displayhand(handprint)
+
+        elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
+            print("Discard a card")
+        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
+            run_info()
+        else: 
+            print("Please enter a valid choice.")
+
+def rungame(ante, basechips):
     choose_deck()
     make_deck()
     while player.hands >=-1:
         ante += 1
-        uptheante(ante, basechips)
-        smallblindfunction()
-
-choose_deck()
-
-
-
-make_deck()
-
-
-handprint = draw_hand()
+        x = uptheante(ante, basechips)
+        smallblindfunction(ante, x)
 
 def displayhand(handprint):
-
     ascii_lines = []
 
     for i in handprint:
@@ -483,32 +492,12 @@ def displayhand(handprint):
     for line_set in zip(*ascii_lines):
         print("  ".join(line_set))
 
-displayhand(handprint)
-
-pick_hand(handprint)
-
-
 # GAME
 
-main_menu()
+main_menu(ante, basechips)
 
 shop()
 
 run_info()
 
 clear_terminal()
-smallblindchips = ante
-def smallblindfunction():
-    smallblind = small_blind(basechips)
-    while player.roundscore < smallblind.chipval:
-        whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
-        if whatdoyoudo.upper in ["P", "PLAY"]:
-            handprint = draw_hand()
-            print(handprint)
-
-        if whatdoyoudo.upper in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
-            (print("Discard a card"))
-        if whatdoyoudo.upper in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
