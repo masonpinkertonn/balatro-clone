@@ -460,15 +460,24 @@ def smallblindfunction(ante, basechips):
     smallblindchips = ante
     smallblind = small_blind(basechips)
     while player.roundscore < smallblind.chipval:
-        print("\n[P]lay        [D]iscard        [R]un Info")
+        print("\n[P]lay        [R]un Info")
         whatdoyoudo = input("\n").upper()
 
         if whatdoyoudo in ["P", "PLAY"]:
             handprint = draw_hand()
             displayhand(handprint)
+            pick_hand(handprint)
+            print("\n[P]lay hand        [D]iscard hand") # We need to place restraints (only 5 cards can be discarded)
+            whatdoyoudo = input("\n").upper()
+            if whatdoyoudo == "P":
+                ## PLAY HAND
+                pass
+            elif whatdoyoudo == "D":
+                ## DISCARD HAND
+                pass
 
-        elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
-            print("Discard a card")
+        #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
+            #print("\nDiscard a card")
         elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
             run_info()
         else: 
