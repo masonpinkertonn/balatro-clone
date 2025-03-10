@@ -471,7 +471,10 @@ def smallblindfunction(ante, basechips, cardhands):
             whatdoyoudo = input("\n").upper()
             if whatdoyoudo == "P":
                 ## PLAY HAND
-                print(x[1].chipval * x[1].multval)
+                totalchips = 0
+                for i in x[0]:
+                    totalchips += i.cardvalue 
+                print((x[1].chipval + totalchips) * x[1].multval)
                 player.roundscore += 1
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
