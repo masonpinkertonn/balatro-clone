@@ -308,7 +308,7 @@ def make_deck():
 def start_game():
     pass
 
-def pick_hand(hand):
+def pick_hand(hand, cardhands):
     print("\nPlease select the indices of the cards you wish to play, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
@@ -343,14 +343,14 @@ def pick_hand(hand):
                         flagger.append("1")
             if len(flagger) == 4:
                 print("Straight Flush!")
-                return cards
+                return (cards, cardhands[0])
             else:
                 print("Flush!")
-                return cards
+                return (cards, cardhands[3])
     if len(nums) == 4:
         if len(set(nums)) == 1:
             print("Four of a Kind!")
-            return cards
+            return (cards, cardhands[1])
     if len(nums) == 5:
         threeof = False
         twoof = False
@@ -361,7 +361,7 @@ def pick_hand(hand):
                 twoof = True
         if threeof and twoof:
             print("Full House!")
-            return cards
+            return (cards, cardhands[2])
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
@@ -370,7 +370,7 @@ def pick_hand(hand):
                     flagger.append('1')
         if len(flagger) == 4:
             print("Straight!")
-            return cards
+            return (cards, cardhands[4])
     if len(nums) == 3:
         threeof = False
         for i in nums:
@@ -378,7 +378,7 @@ def pick_hand(hand):
                 threeof = True
         if threeof:
             print("Three of a Kind!")
-            return cards
+            return (cards, cardhands[5])
     if len(nums) == 4:
         twoof1 = False
         twoof2 = False
@@ -389,13 +389,13 @@ def pick_hand(hand):
                 twoof2 = True
         if twoof1 and twoof2:
             print("Two Pair!")
-            return cards
+            return (cards, cardhands[6])
         elif twoof1:
             print("Pair!")
-            return cards
+            return (cards, cardhands[7])
         elif twoof2:
             print("Pair!")
-            return cards
+            return (cards, cardhands[7])
     if len(nums) == 2:
         twoof1 = False
         twoof2 = False
@@ -406,16 +406,16 @@ def pick_hand(hand):
                 twoof2 = True
         if twoof1:
             print("Pair!")
-            return cards
+            return (cards, cardhands[7])
         elif twoof2:
             print("Pair!")
-            return cards
+            return (cards, cardhands[7])
     else:
         print("High Card!")
-        return cards
+        return (cards, cardhands[8])
     return cards
 
-def main_menu(ante, basechips):
+def main_menu(ante, basechips, cardhands):
     while True:
         print(balatro_title_text)
         print("[P]lay        [Q]uit        [C]ollection")
@@ -424,7 +424,7 @@ def main_menu(ante, basechips):
             print("\nPlease enter a valid choice.")
             usr_choice = input("\n").upper()
         if usr_choice == "P":
-            rungame(ante, basechips)
+            rungame(ante, basechips, cardhands)
         elif usr_choice == "Q":
             print("\nShutting down...\n")
             sleep(2)
@@ -457,8 +457,7 @@ def choose_deck():
     if deckchoice.upper() in ["Y", "YELLOW"]:
         player.money += 10
 
-def smallblindfunction(ante, basechips):
-    smallblindchips = ante
+def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     while player.roundscore < smallblind.chipval:
         print("\n[P]lay        [R]un Info")
@@ -467,12 +466,13 @@ def smallblindfunction(ante, basechips):
         if whatdoyoudo in ["P", "PLAY"]:
             handprint = draw_hand(8)
             displayhand(handprint)
-            x = pick_hand(handprint)
+            x = pick_hand(handprint, cardhands)
             print("\n[P]lay hand        [D]iscard hand") # We need to place restraints (only 5 cards can be discarded)
             whatdoyoudo = input("\n").upper()
             if whatdoyoudo == "P":
                 ## PLAY HAND
-                pass
+                print(x[1].chipval * x[1].multval)
+                player.roundscore += 1
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
                 y = list(set(handprint) - set(x))
@@ -489,13 +489,13 @@ def smallblindfunction(ante, basechips):
         else: 
             print("Please enter a valid choice.")
 
-def rungame(ante, basechips):
+def rungame(ante, basechips, cardhands):
     choose_deck()
     make_deck()
     while player.hands >=-1:
         ante += 1
         x = uptheante(ante, basechips)
-        smallblindfunction(ante, x)
+        smallblindfunction(ante, x, cardhands)
 
 def displayhand(handprint):
     ascii_lines = []
@@ -509,7 +509,7 @@ def displayhand(handprint):
 
 # GAME
 
-main_menu(ante, basechips)
+main_menu(ante, basechips, cardhands)
 
 shop()
 
