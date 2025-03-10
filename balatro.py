@@ -143,10 +143,10 @@ def run_info():
 cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_of_a_kind, two_pair, pair, high_card]
 
 
-def draw_hand():
+def draw_hand(num):
     shuffle(deck)
     hand = []
-    for i in range(8):
+    for i in range(num):
         hand.append(deck.pop())
     return sorted(hand, key=lambda x: x.listvalue)
 
@@ -343,14 +343,14 @@ def pick_hand(hand):
                         flagger.append("1")
             if len(flagger) == 4:
                 print("Straight Flush!")
-                return
+                return cards
             else:
                 print("Flush!")
-                return
+                return cards
     if len(nums) == 4:
         if len(set(nums)) == 1:
             print("Four of a Kind!")
-            return
+            return cards
     if len(nums) == 5:
         threeof = False
         twoof = False
@@ -361,7 +361,7 @@ def pick_hand(hand):
                 twoof = True
         if threeof and twoof:
             print("Full House!")
-            return
+            return cards
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
@@ -370,7 +370,7 @@ def pick_hand(hand):
                     flagger.append('1')
         if len(flagger) == 4:
             print("Straight!")
-            return
+            return cards
     if len(nums) == 3:
         threeof = False
         for i in nums:
@@ -378,7 +378,7 @@ def pick_hand(hand):
                 threeof = True
         if threeof:
             print("Three of a Kind!")
-            return
+            return cards
     if len(nums) == 4:
         twoof1 = False
         twoof2 = False
@@ -389,13 +389,13 @@ def pick_hand(hand):
                 twoof2 = True
         if twoof1 and twoof2:
             print("Two Pair!")
-            return
+            return cards
         elif twoof1:
             print("Pair!")
-            return
+            return cards
         elif twoof2:
             print("Pair!")
-            return
+            return cards
     if len(nums) == 2:
         twoof1 = False
         twoof2 = False
@@ -406,13 +406,14 @@ def pick_hand(hand):
                 twoof2 = True
         if twoof1:
             print("Pair!")
-            return
+            return cards
         elif twoof2:
             print("Pair!")
-            return
+            return cards
     else:
         print("High Card!")
-        return
+        return cards
+    return cards
 
 def main_menu(ante, basechips):
     while True:
@@ -464,9 +465,9 @@ def smallblindfunction(ante, basechips):
         whatdoyoudo = input("\n").upper()
 
         if whatdoyoudo in ["P", "PLAY"]:
-            handprint = draw_hand()
+            handprint = draw_hand(8)
             displayhand(handprint)
-            pick_hand(handprint)
+            x = pick_hand(handprint)
             print("\n[P]lay hand        [D]iscard hand") # We need to place restraints (only 5 cards can be discarded)
             whatdoyoudo = input("\n").upper()
             if whatdoyoudo == "P":
@@ -474,7 +475,12 @@ def smallblindfunction(ante, basechips):
                 pass
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
-                pass
+                y = list(set(handprint) - set(x))
+                y = sorted(y, key=lambda x: x.listvalue)
+                newhp = draw_hand(len(x))
+                newlist = newhp + y
+                newlist = sorted(newlist, key=lambda x: x.listvalue)
+                displayhand(newlist)
 
         #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
             #print("\nDiscard a card")
