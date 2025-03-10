@@ -515,32 +515,4 @@ shop()
 
 run_info()
 
-<<<<<<< Updated upstream
 clear_terminal()
-=======
-clear_terminal()
-smallblindchips = ante
-def smallblindfunction():
-    smallblind = small_blind(basechips)
-    while player.roundscore < smallblind.chipval:
-        whatdoyoudo = input("[P]lay        [D]iscard        [R]un Info")
-        if whatdoyoudo.upper in ["P", "PLAY"]:
-            pick_hand(handprint)
-
-        if whatdoyoudo.upper in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
-            (print("Discard a card"))
-        if whatdoyoudo.upper in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
-        
-def rungame():
-    choose_deck
-    make_deck()
-    main_menu()
-    while player.hands >=-1:
-        ante += 1
-        uptheante()
-        smallblindfunction()
-rungame()
->>>>>>> Stashed changes
