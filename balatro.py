@@ -269,7 +269,7 @@ def make_deck():
 |    J|
  ----- 
         """
-        thiscard = Card(jacks, "jack", 11, i)
+        thiscard = Card(jacks, 10, 11, i)
         deck.append(thiscard)
         queens = f""" 
  ----- 
@@ -280,7 +280,7 @@ def make_deck():
 |    Q|
  ----- 
         """
-        thiscard = Card(queens, "queen", 12, i)
+        thiscard = Card(queens, 10, 12, i)
         deck.append(thiscard)
         kings = f""" 
  ----- 
@@ -291,7 +291,7 @@ def make_deck():
 |    K|
  ----- 
         """
-        thiscard = Card(kings, "king", 13, i)
+        thiscard = Card(kings, 10, 13, i)
         deck.append(thiscard)
         aces = f""" 
  ----- 
@@ -302,7 +302,7 @@ def make_deck():
 |    A|
  ----- 
         """
-        thiscard = Card(aces, "ace", 14, i)
+        thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)    
 
 def start_game():
