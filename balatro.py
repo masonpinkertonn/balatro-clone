@@ -1,3 +1,5 @@
+# DISCARD AND PLAY FEATURE DO NOT WORK UNLESS HAND IS RECOGNIZED (NO EXTRA CARDS)
+
 # BALATRO clone by Mason P. and Henry C.
 
 # Import local libraries
@@ -458,12 +460,11 @@ def choose_deck():
 
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
+    handprint = draw_hand(8)
     while player.roundscore < smallblind.chipval:
         print("\n[P]lay        [R]un Info")
         whatdoyoudo = input("\n").upper()
-
         if whatdoyoudo in ["P", "PLAY"]:
-            handprint = draw_hand(8)
             displayhand(handprint)
             x = pick_hand(handprint, cardhands)
             print("\n[P]lay hand        [D]iscard hand") # We need to place restraints (only 5 cards can be discarded)
@@ -473,16 +474,21 @@ def smallblindfunction(ante, basechips, cardhands):
                 totalchips = 0
                 for i in x[0]:
                     totalchips += i.cardvalue 
-                print((x[1].chipval + totalchips) * x[1].multval)
-                player.roundscore += 1
+                new = (x[1].chipval + totalchips) * x[1].multval
+                y = list(set(handprint) - set(x[0]))
+                y = sorted(y, key=lambda x: x.listvalue)
+                newhp = draw_hand(len(x[0]))
+                newlist = newhp + y
+                handprint = sorted(newlist, key=lambda x: x.listvalue)
+                player.roundscore += new
+                print(f"\nYou need {basechips - player.roundscore} more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
-                y = list(set(handprint) - set(x))
+                y = list(set(handprint) - set(x[0]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x))
+                newhp = draw_hand(len(x[0]))
                 newlist = newhp + y
-                newlist = sorted(newlist, key=lambda x: x.listvalue)
-                displayhand(newlist)
+                handprint = sorted(newlist, key=lambda x: x.listvalue)
 
         #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
             #print("\nDiscard a card")
@@ -528,6 +534,10 @@ def displayhand(handprint):
 
     for line_set in zip(*ascii_lines):
         print("  ".join(line_set))
+
+    for i in range(len(handprint)):
+        print("   " + str(i+1)+"    ", end=" ")
+    print()
 
 # GAME
 
