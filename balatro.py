@@ -63,10 +63,9 @@ class big_blind:
         self.chipval = chipval
 
 class boss_blind:
-    def __init__(self, chipval, name, modifier):
+    def __init__(self, chipval, name,):
         self.chipval = chipval
         self.name = name
-        self.modifier = modifier
 
 player = User(10000, 4, 3, 5, 0, 0, 0)
 
@@ -491,6 +490,26 @@ def smallblindfunction(ante, basechips, cardhands):
             run_info()
         else: 
             print("Please enter a valid choice.")
+bossbasechips = (basechips * 2)
+needlebasechips = (basechips * 1.75)
+def bossblindfunction(ante, basechips, cardhands):
+    whichboss = randint(1, 4)
+    if whichboss == 1:
+        wallbasechips = (basechips * 4)
+        bossblind = boss_blind(wallbasechips, "The Wall")
+        #add all the code here for small blind
+    if whichboss == 2:
+        bossblind = boss_blind(bossbasechips, "The Water")
+        player.discards = 0
+    if whichboss == 3:
+        bossblind = boss_blind(needlebasechips, "The Needle")
+        player.hands = 1
+# def finisherblindfunction(ante, basechips, cardhands):
+#     finisherblind = boss_blind(basechips, "Violet Vessel")
+#     violetvesselchips = (basechips * 6)
+#     finisherblind = bossblind(violetvesselchips, "Violet Vessel")
+# ADD THE CODE FROM THE OTHER ONES HERE
+    
 
 def rungame(ante, basechips, cardhands):
     choose_deck()
