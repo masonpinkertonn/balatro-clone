@@ -1,3 +1,5 @@
+# DISCARD AND PLAY FEATURE DO NOT WORK UNLESS HAND IS RECOGNIZED (NO EXTRA CARDS)
+
 # BALATRO clone by Mason P. and Henry C.
 
 # Import local libraries
