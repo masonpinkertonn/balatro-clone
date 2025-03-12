@@ -274,6 +274,79 @@ def make_abandoned_deck():
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)    
 
+def make_checkered_deck():
+    for i in ("\u2660", "\u2665", "\u2660", "\u2665"):
+        for y in range(2,10):
+            card = f""" 
+ ----- 
+|{y}    |
+|     |
+|  {i}  |
+|     |
+|    {y}|
+ ----- 
+            """
+
+            thiscard = Card(card, y, y, i)
+
+            deck.append(thiscard)
+
+        tens = f""" 
+ ----- 
+|{10}   |
+|     |
+|  {i}  |
+|     |
+|   {10}|
+ ----- 
+        """
+        thiscard = Card(tens, 10, 10, i)
+        deck.append(thiscard)
+        jacks = f""" 
+ ----- 
+|J    |
+|     |
+|  {i}  |
+|     |
+|    J|
+ ----- 
+        """
+        thiscard = Card(jacks, 10, 11, i)
+        deck.append(thiscard)
+        queens = f""" 
+ ----- 
+|Q    |
+|     |
+|  {i}  |
+|     |
+|    Q|
+ ----- 
+        """
+        thiscard = Card(queens, 10, 12, i)
+        deck.append(thiscard)
+        kings = f""" 
+ ----- 
+|K    |
+|     |
+|  {i}  |
+|     |
+|    K|
+ ----- 
+        """
+        thiscard = Card(kings, 10, 13, i)
+        deck.append(thiscard)
+        aces = f""" 
+ ----- 
+|A    |
+|     |
+|  {i}  |
+|     |
+|    A|
+ ----- 
+        """
+        thiscard = Card(aces, 11, 14, i)
+        deck.append(thiscard)   
+
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
@@ -345,12 +418,12 @@ def make_deck():
  ----- 
         """
         thiscard = Card(aces, 11, 14, i)
-        deck.append(thiscard)    
+        deck.append(thiscard)     
 def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     cards = []
@@ -484,8 +557,8 @@ def main_menu(ante, basechips, cardhands):
                 print(i)
             sleep(2)
 def choose_deck():
-    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
-    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED"]:
+    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, or [Y]ellow: ").upper()
+    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED"]:
         print("\nPlease enter a valid choice.")
         deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
@@ -503,11 +576,14 @@ def choose_deck():
         player.hands -= 1
     if deckchoice.upper() in ["A", "ABANDONED"]:
         print("\nYou chose the Abandoned deck.")
-        deck.remove()
+        make_abandoned_deck()
     if deckchoice.upper() in ["Y", "YELLOW"]:
         print("\nYou chose the Yellow deck.")
         make_deck()
         player.money += 10
+    if deckchoice.upper() in ["C", "CHECKERED"]:
+        print("\nYou chose the Checkered deck.")
+        make_checkered_deck()
 
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
