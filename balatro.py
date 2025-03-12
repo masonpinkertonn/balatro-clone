@@ -343,6 +343,7 @@ def pick_hand(hand, cardhands):
         ts = nums.count(i)
         if ts == 4:
             print("Four of a Kind!")
+            return (cards, cardhands[1])
         elif ts == 3:
             print("Three of a Kind!")
             these.append(ts)
@@ -352,9 +353,9 @@ def pick_hand(hand, cardhands):
         print("Two Pair")
     elif len(those) == 1 and len(these) == 1:
         print("Full House")
+        return (cards, cardhands[2])
     elif len(those) == 1:
         print("Pair")
-
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
             flagger = []
@@ -368,6 +369,17 @@ def pick_hand(hand, cardhands):
             else:
                 print("Flush!")
                 return (cards, cardhands[3])
+    if len(nums) == 5:
+        flagger = []
+        for i in range(len(nums)):
+            if nums[i] != nums[-1]:
+                if nums[i] == nums[i+1]+1:
+                    flagger.append('1')
+        if len(flagger) == 4:
+            print("Straight!")
+            return (cards, cardhands[4])        
+
+    
     if len(nums) == 4:
         if len(set(nums)) == 1:
             print("Four of a Kind!")
@@ -383,15 +395,7 @@ def pick_hand(hand, cardhands):
         if threeof and twoof:
             print("Full House!")
             return (cards, cardhands[2])
-    if len(nums) == 5:
-        flagger = []
-        for i in range(len(nums)):
-            if nums[i] != nums[-1]:
-                if nums[i] == nums[i+1]+1:
-                    flagger.append('1')
-        if len(flagger) == 4:
-            print("Straight!")
-            return (cards, cardhands[4])
+    
     if len(nums) == 3:
         threeof = False
         for i in nums:
