@@ -310,6 +310,7 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
+    suitchoices = ["\u2665", "\u2663", "\u2660", "\u2666"]
     print("\nPlease select the indices of the cards you wish to play, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
@@ -334,6 +335,9 @@ def pick_hand(hand, cardhands):
         else:
             nums.append(i.listvalue)
     nums.sort(reverse=True)
+
+    for i in range(1, 11):
+        
 
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
