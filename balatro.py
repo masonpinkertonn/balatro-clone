@@ -447,15 +447,26 @@ def choose_deck():
     deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
     while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW"]:
         print("\nPlease enter a valid choice.")
-        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
+        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
+        print("\nYou chose the Red deck.")
         player.discards += 1
     if deckchoice.upper() in ["B", "BLUE"]:
+        print("\nYou chose the Blue deck.")
         player.hands += 1
     if deckchoice.upper() in ["BL", "BLACK"]:
+        print("\nYou chose the Black deck.")
         player.jokerslots += 1
         player.hands -= 1
+    if deckchoice.upper() in ["A", "ABANDONED"]:
+        print("\nYou chose the Abandoned deck.")
+        make_deck()
+        deck.remove(11)
+        deck.remove(12)
+        deck.remove(13)
+        print(deck)
     if deckchoice.upper() in ["Y", "YELLOW"]:
+        print("\nYou chose the Yellow deck.")
         player.money += 10
 
 def smallblindfunction(ante, basechips, cardhands):
@@ -510,16 +521,16 @@ def bossblindfunction(ante, basechips, cardhands):
     if whichboss == 3:
         bossblind = boss_blind(needlebasechips, "The Needle")
         player.hands = 1
-# def finisherblindfunction(ante, basechips, cardhands):
-#     finisherblind = boss_blind(basechips, "Violet Vessel")
-#     violetvesselchips = (basechips * 6)
-#     finisherblind = bossblind(violetvesselchips, "Violet Vessel")
-# ADD THE CODE FROM THE OTHER ONES HERE
+def finisherblindfunction(ante, basechips, cardhands):
+     finisherblind = boss_blind(basechips, "Violet Vessel")
+     violetvesselchips = (basechips * 6)
+     finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
+
     
 
 def rungame(ante, basechips, cardhands):
-    choose_deck()
     make_deck()
+    choose_deck()
     while player.hands >=-1:
         ante += 1
         x = uptheante(ante, basechips)
