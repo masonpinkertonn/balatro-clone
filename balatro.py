@@ -233,6 +233,47 @@ def shop():
         
     
 
+def make_abandoned_deck():
+    for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
+        for y in range(2,10):
+            card = f""" 
+ ----- 
+|{y}    |
+|     |
+|  {i}  |
+|     |
+|    {y}|
+ ----- 
+            """
+
+            thiscard = Card(card, y, y, i)
+
+            deck.append(thiscard)
+
+        tens = f""" 
+ ----- 
+|{10}   |
+|     |
+|  {i}  |
+|     |
+|   {10}|
+ ----- 
+        """
+        thiscard = Card(tens, 10, 10, i)
+        deck.append(thiscard)
+       
+        aces = f""" 
+ ----- 
+|A    |
+|     |
+|  {i}  |
+|     |
+|    A|
+ ----- 
+        """
+        thiscard = Card(aces, 11, 14, i)
+        deck.append(thiscard)    
+
 def make_deck():
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
@@ -305,7 +346,6 @@ def make_deck():
         """
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)    
-
 def start_game():
     pass
 
@@ -444,29 +484,29 @@ def main_menu(ante, basechips, cardhands):
                 print(i)
             sleep(2)
 def choose_deck():
-    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, or [Y]ellow: ").upper()
-    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW"]:
+    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
+    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED"]:
         print("\nPlease enter a valid choice.")
-        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned or [Y]ellow: ").upper()
+        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
         print("\nYou chose the Red deck.")
+        make_deck()
         player.discards += 1
     if deckchoice.upper() in ["B", "BLUE"]:
         print("\nYou chose the Blue deck.")
+        make_deck()
         player.hands += 1
     if deckchoice.upper() in ["BL", "BLACK"]:
         print("\nYou chose the Black deck.")
+        make_deck()
         player.jokerslots += 1
         player.hands -= 1
     if deckchoice.upper() in ["A", "ABANDONED"]:
         print("\nYou chose the Abandoned deck.")
-        make_deck()
-        deck.remove(11)
-        deck.remove(12)
-        deck.remove(13)
-        print(deck)
+        deck.remove()
     if deckchoice.upper() in ["Y", "YELLOW"]:
         print("\nYou chose the Yellow deck.")
+        make_deck()
         player.money += 10
 
 def smallblindfunction(ante, basechips, cardhands):
@@ -529,7 +569,6 @@ def finisherblindfunction(ante, basechips, cardhands):
     
 
 def rungame(ante, basechips, cardhands):
-    make_deck()
     choose_deck()
     while player.hands >=-1:
         ante += 1
