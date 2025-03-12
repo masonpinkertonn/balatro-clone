@@ -384,8 +384,12 @@ def pick_hand(hand, cardhands):
             return (cards, cardhands[4])        
     else:
         print("High Card!")
-        return (cards, cardhands[8])
-    return cards
+        thisstuff = max(nums)
+        for i in cards:
+            if i.listvalue == thisstuff:
+                mylist = []
+                mylist.append(i)
+                return(mylist, cardhands[8])
 
 def main_menu(ante, basechips, cardhands):
     while True:
