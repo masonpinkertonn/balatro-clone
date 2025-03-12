@@ -336,8 +336,10 @@ def pick_hand(hand, cardhands):
             nums.append(i.listvalue)
     nums.sort(reverse=True)
 
-    for i in range(1, 11):
-        
+    for i in range(1, 15):
+        ts = nums.count(i)
+        if ts == 4:
+            print("Four of a Kind!")
 
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
