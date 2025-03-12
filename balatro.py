@@ -446,16 +446,23 @@ def pick_hand(hand, cardhands):
             nums.append(i.listvalue)
         else:
             nums.append(i.listvalue)
+    unsortednums = nums.copy()
     nums.sort(reverse=True)
+    print(unsortednums)
+    print(nums)
 
     those = []
     these = []
 
     for i in range(1, 15):
+        scoring = []
         ts = nums.count(i)
         if ts == 4:
             print("Four of a Kind!")
-            return (cards, cardhands[1])
+            for index, number in enumerate(unsortednums):
+                if number == i:
+                    scoring.append(cards[index])
+            return (scoring, cardhands[1])
         elif ts == 3:
             these.append(ts)
         elif ts == 2:
@@ -494,14 +501,13 @@ def pick_hand(hand, cardhands):
         if len(flagger) == 4:
             print("Straight!")
             return (cards, cardhands[4])        
-    else:
-        print("High Card!")
-        thisstuff = max(nums)
-        for i in cards:
-            if i.listvalue == thisstuff:
-                mylist = []
-                mylist.append(i)
-                return(mylist, cardhands[8])
+    print("High Card!")
+    thisstuff = max(nums)
+    for i in cards:
+        if i.listvalue == thisstuff:
+            mylist = []
+            mylist.append(i)
+            return(mylist, cardhands[8])
 
 def main_menu(ante, basechips, cardhands):
     while True:
