@@ -462,7 +462,7 @@ def pick_hand(hand, cardhands):
             for index, number in enumerate(unsortednums):
                 if number == i:
                     scoring.append(cards[index])
-            return (scoring, cardhands[1])
+            return (scoring, cardhands[1], cards)
         elif ts == 3:
             these.append(ts)
         elif ts == 2:
@@ -483,28 +483,28 @@ def pick_hand(hand, cardhands):
         for i, z in enumerate(unsortednums):
             if z in dupes:
                 scoring.append(cards[i])
-        return (scoring, cardhands[6])
+        return (scoring, cardhands[6], cards)
     elif len(those) == 1 and len(these) == 1:
         print("Full House")
         scoring = []
         for i, z in enumerate(unsortednums):
             if z in dupes:
                 scoring.append(cards[i])
-        return (scoring, cardhands[2])
+        return (scoring, cardhands[2], cards)
     elif len(these) == 1:
         print("Three of a Kind")
         scoring = []
         for i, z in enumerate(unsortednums):
             if z in dupes:
                 scoring.append(cards[i])
-        return (scoring, cardhands[5])
+        return (scoring, cardhands[5], cards)
     elif len(those) == 1:
         print("Pair")
         scoring = []
         for i, z in enumerate(unsortednums):
             if z in dupes:
                 scoring.append(cards[i])
-        return (scoring, cardhands[7])
+        return (scoring, cardhands[7], cards)
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
             flagger = []
@@ -514,10 +514,10 @@ def pick_hand(hand, cardhands):
                         flagger.append("1")
             if len(flagger) == 4:
                 print("Straight Flush!")
-                return (cards, cardhands[0])
+                return (cards, cardhands[0], cards)
             else:
                 print("Flush!")
-                return (cards, cardhands[3])
+                return (cards, cardhands[3], cards)
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
@@ -526,14 +526,14 @@ def pick_hand(hand, cardhands):
                     flagger.append('1')
         if len(flagger) == 4:
             print("Straight!")
-            return (cards, cardhands[4])        
+            return (cards, cardhands[4], cards)        
     print("High Card!")
     thisstuff = max(nums)
     for i in cards:
         if i.listvalue == thisstuff:
             mylist = []
             mylist.append(i)
-            return(mylist, cardhands[8])
+            return(mylist, cardhands[8], cards)
 
 def main_menu(ante, basechips, cardhands):
     while True:
@@ -608,18 +608,18 @@ def smallblindfunction(ante, basechips, cardhands):
                 for i in x[0]:
                     totalchips += i.cardvalue 
                 new = (x[1].chipval + totalchips) * x[1].multval
-                y = list(set(handprint) - set(x[0]))
+                y = list(set(handprint) - set(x[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x[0]))
+                newhp = draw_hand(len(x[2]))
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 player.roundscore += new
                 print(f"\nYou need {basechips - player.roundscore} more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
-                y = list(set(handprint) - set(x[0]))
+                y = list(set(handprint) - set(x[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x[0]))
+                newhp = draw_hand(len(x[2]))
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
 
