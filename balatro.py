@@ -467,18 +467,44 @@ def pick_hand(hand, cardhands):
             these.append(ts)
         elif ts == 2:
             those.append(ts)
+    seen = set()
+    dupes = []
+
+    for x in unsortednums:
+        if x in seen:
+            dupes.append(x)
+        else:
+            seen.add(x)
+    print(seen)
+    print(dupes)
     if len(those) == 2:
         print("Two Pair")
-        return (cards, cardhands[6])
+        scoring = []
+        for i, z in enumerate(unsortednums):
+            if z in dupes:
+                scoring.append(cards[i])
+        return (scoring, cardhands[6])
     elif len(those) == 1 and len(these) == 1:
         print("Full House")
-        return (cards, cardhands[2])
+        scoring = []
+        for i, z in enumerate(unsortednums):
+            if z in dupes:
+                scoring.append(cards[i])
+        return (scoring, cardhands[2])
     elif len(these) == 1:
         print("Three of a Kind")
-        return (cards, cardhands[5])
+        scoring = []
+        for i, z in enumerate(unsortednums):
+            if z in dupes:
+                scoring.append(cards[i])
+        return (scoring, cardhands[5])
     elif len(those) == 1:
         print("Pair")
-        return (cards, cardhands[7])
+        scoring = []
+        for i, z in enumerate(unsortednums):
+            if z in dupes:
+                scoring.append(cards[i])
+        return (scoring, cardhands[7])
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
             flagger = []
