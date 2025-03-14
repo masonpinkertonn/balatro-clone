@@ -599,7 +599,7 @@ def smallblindfunction(ante, basechips, cardhands):
     while player.roundscore < smallblind.chipval:
         if player.hands <= 0:
             print("\nYou are cooked.")
-            break
+            sys.exit()
         print("\n[P]lay        [R]un Info")
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo in ["P", "PLAY"]:
@@ -619,6 +619,8 @@ def smallblindfunction(ante, basechips, cardhands):
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 player.roundscore += new
+                player.hands -= 1
+                print(f"\nYou have {player.hands} hands left")
                 print(f"\nYou need {basechips - player.roundscore} more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
