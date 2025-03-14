@@ -7,6 +7,7 @@
 from balatro_asciis import *
 from jokers import *
 from planets import *
+from balatro_copypasta import *
 
 # Other imports
 
@@ -149,7 +150,7 @@ def wingame():
     elif jimbosaysifyouwin == 9:
         print('Jimbo says: "You\'re a real card shark!"')
 def losegame():
-    jimbosaysbutyousuck = random.randint(1, 13)
+    jimbosaysbutyousuck = random.randint(1, 14)
     if jimbosaysbutyousuck == 1: 
         print('Jimbo says: "Maybe Go Fish is more our speed..."')
     elif jimbosaysbutyousuck == 11:
@@ -174,6 +175,8 @@ def losegame():
         print('Jimbo says: "What a flop!"')
     elif jimbosaysbutyousuck == 12:
         print('Jimbo says: "What did you think you were cooking..."')
+    elif jimbosaysbutyousuck == 13:
+        balatrocopypasta()
     
 def run_info():
     print("\nPOKER HANDS")
@@ -609,8 +612,8 @@ def main_menu(ante, basechips, cardhands):
                 print(i)
             sleep(2)
 def choose_deck():
-    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, or [Y]ellow: ").upper()
-    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED"]:
+    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO"]:
         print("\nPlease enter a valid choice.")
         deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
     if deckchoice.upper() in ["R", "RED"]:
@@ -625,7 +628,6 @@ def choose_deck():
         print("\nYou chose the Black deck.")
         make_deck()
         player.jokerslots += 1
-        player.hands -= 1
     if deckchoice.upper() in ["A", "ABANDONED"]:
         print("\nYou chose the Abandoned deck.")
         make_abandoned_deck()
@@ -636,6 +638,23 @@ def choose_deck():
     if deckchoice.upper() in ["C", "CHECKERED"]:
         print("\nYou chose the Checkered deck.")
         make_checkered_deck()
+    if deckchoice.upper() in ["I", "INFO"]:
+        whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
+        while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW"]:
+            print("\nPlease enter a valid choice.")
+            whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
+        if whichdeckinfo in ["R", "RED"]:
+            print("\nRed Deck: The Red Deck gives you +1 Discard")
+        if whichdeckinfo in ["B", "BLUE"]:
+            print("\nBlue Deck: The Blue Deck gives you +1 Hand")
+        if whichdeckinfo in ["BL", "BLACK"]:
+            print("\nBlack Deck: The Black Deck gives you +1 Joker Slot")
+        if whichdeckinfo in ["A", "ABANDONED"]:
+            print("\nAbandoned Deck: The Abandoned Deck has no Face Cards")
+        if whichdeckinfo in ["C", "CHECKERED"]:
+            print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
+        if whichdeckinfo in ["Y", "YELLOW"]:
+            print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
 
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
