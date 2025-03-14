@@ -624,11 +624,16 @@ def smallblindfunction(ante, basechips, cardhands):
                 print(f"\nYou need {basechips - player.roundscore} more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
-                y = list(set(handprint) - set(x[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
+                if player.discards > 0:
+                    player.discards -= 1
+                    y = list(set(handprint) - set(x[2]))
+                    y = sorted(y, key=lambda x: x.listvalue)
+                    newhp = draw_hand(len(x[2]))
+                    newlist = newhp + y
+                    handprint = sorted(newlist, key=lambda x: x.listvalue)
+                    print(f"\nDiscards: {player.discards}")
+                else:
+                    print("\nL + BOZO no discards get a life.")
 
         #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
             #print("\nDiscard a card")
