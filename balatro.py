@@ -128,7 +128,53 @@ high_card = Hand("High Card", 5, 1, "any", "If the played hand is not any of the
 def clear_terminal():
     os.system("cls" if os.name == "nt" else "clear")
 
-
+def wingame():
+    jimbosaysifyouwin = random.randint(1, 10)
+    if jimbosaysifyouwin == 1:
+        print('Jimbo says: "You Aced it!"')
+    elif jimbosaysifyouwin == 8:
+        print('Jimbo says: "You\'re a Jack of All Trades!"')
+    elif jimbosaysifyouwin == 3:
+        print('Jimbo says: "You dealt with that pretty well!"')
+    elif jimbosaysifyouwin == 4:
+        print('Jimbo says: "Looks like you weren\'t bluffing!"')
+    elif jimbosaysifyouwin == 5:
+        print('Jimbo says: "Too bad these chips are all virtual..."')
+    elif jimbosaysifyouwin == 6:
+        print('Jimbo says: "Looks like I\'ve taught you well!"')
+    elif jimbosaysifyouwin == 7:
+        print('Jimbo says: "You made some heads up plays!"')
+    elif jimbosaysifyouwin == 2:
+        print('Jimbo says: "Good thing I didn\'t bet against you!"')
+    elif jimbosaysifyouwin == 9:
+        print('Jimbo says: "You\'re a real card shark!"')
+def losegame():
+    jimbosaysbutyousuck = random.randint(1, 13)
+    if jimbosaysbutyousuck == 1: 
+        print('Jimbo says: "Maybe Go Fish is more our speed..."')
+    elif jimbosaysbutyousuck == 11:
+        print('Jimbo says: "You\'re not exactly a card shark..."')
+    elif jimbosaysbutyousuck == 2:
+        print('Jimbo says: "We folded like a cheap suit!"')
+    elif jimbosaysbutyousuck == 3:
+        print('Jimbo says: "Time for us to shuffle off and try again"')
+    elif jimbosaysbutyousuck == 4:
+        print('Jimbo says: "You know what they say, the house always wins!"')
+    elif jimbosaysbutyousuck == 5:
+        print('Jimbo says: "Looks like we found out who the real Joker is!"')
+    elif jimbosaysbutyousuck == 6:
+        print('Jimbo says: "Oh no, were you bluffing too?"')
+    elif jimbosaysbutyousuck == 7:
+        print('Jimbo says: "Looks like the joke\'s on us!"')
+    elif jimbosaysbutyousuck == 8:
+        print('Jimbo says: "If I had hands I would have covered my eyes!"')
+    elif jimbosaysbutyousuck == 9:
+        print('Jimbo says: "I\'m literally a fool, what\'s your excuse?"')
+    elif jimbosaysbutyousuck == 10:
+        print('Jimbo says: "What a flop!"')
+    elif jimbosaysbutyousuck == 12:
+        print('Jimbo says: "What did you think you were cooking..."')
+    
 def run_info():
     print("\nPOKER HANDS")
     print(straight_flush)
@@ -423,7 +469,7 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     cards = []
