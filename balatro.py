@@ -423,7 +423,7 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     cards = []
@@ -455,56 +455,26 @@ def pick_hand(hand, cardhands):
     these = []
 
     for i in range(1, 15):
-        scoring = []
         ts = nums.count(i)
         if ts == 4:
             print("Four of a Kind!")
-            for index, number in enumerate(unsortednums):
-                if number == i:
-                    scoring.append(cards[index])
-            return (scoring, cardhands[1], cards)
+            return (cards, cardhands[1])
         elif ts == 3:
             these.append(ts)
         elif ts == 2:
             those.append(ts)
-    seen = set()
-    dupes = []
-
-    for x in unsortednums:
-        if x in seen:
-            dupes.append(x)
-        else:
-            seen.add(x)
-    print(seen)
-    print(dupes)
     if len(those) == 2:
         print("Two Pair")
-        scoring = []
-        for i, z in enumerate(unsortednums):
-            if z in dupes:
-                scoring.append(cards[i])
-        return (scoring, cardhands[6], cards)
+        return (cards, cardhands[6])
     elif len(those) == 1 and len(these) == 1:
         print("Full House")
-        scoring = []
-        for i, z in enumerate(unsortednums):
-            if z in dupes:
-                scoring.append(cards[i])
-        return (scoring, cardhands[2], cards)
+        return (cards, cardhands[2])
     elif len(these) == 1:
         print("Three of a Kind")
-        scoring = []
-        for i, z in enumerate(unsortednums):
-            if z in dupes:
-                scoring.append(cards[i])
-        return (scoring, cardhands[5], cards)
+        return (cards, cardhands[5])
     elif len(those) == 1:
         print("Pair")
-        scoring = []
-        for i, z in enumerate(unsortednums):
-            if z in dupes:
-                scoring.append(cards[i])
-        return (scoring, cardhands[7], cards)
+        return (cards, cardhands[7])
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
             flagger = []
@@ -517,7 +487,7 @@ def pick_hand(hand, cardhands):
                 return (cards, cardhands[0], cards)
             else:
                 print("Flush!")
-                return (cards, cardhands[3], cards)
+                return (cards, cardhands[3])
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
@@ -526,14 +496,15 @@ def pick_hand(hand, cardhands):
                     flagger.append('1')
         if len(flagger) == 4:
             print("Straight!")
-            return (cards, cardhands[4], cards)        
-    print("High Card!")
-    thisstuff = max(nums)
-    for i in cards:
-        if i.listvalue == thisstuff:
-            mylist = []
-            mylist.append(i)
-            return(mylist, cardhands[8], cards)
+            return (cards, cardhands[4])        
+    else:
+        print("High Card!")
+        thisstuff = max(nums)
+        for i in cards:
+            if i.listvalue == thisstuff:
+                mylist = []
+                mylist.append(i)
+                return(mylist, cardhands[8])
 
 def main_menu(ante, basechips, cardhands):
     while True:
@@ -649,7 +620,11 @@ def finisherblindfunction(ante, basechips, cardhands):
      finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
 
     
+def wingame():
+    print("\nYOU WON!")
+    print("\nJimbo says: !")
 
+    
 def rungame(ante, basechips, cardhands):
     choose_deck()
     while player.hands >=-1:
