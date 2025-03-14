@@ -612,49 +612,57 @@ def main_menu(ante, basechips, cardhands):
                 print(i)
             sleep(2)
 def choose_deck():
-    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
-    while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO"]:
-        print("\nPlease enter a valid choice.")
-        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
-    if deckchoice.upper() in ["R", "RED"]:
-        print("\nYou chose the Red deck.")
-        make_deck()
-        player.discards += 1
-    if deckchoice.upper() in ["B", "BLUE"]:
-        print("\nYou chose the Blue deck.")
-        make_deck()
-        player.hands += 1
-    if deckchoice.upper() in ["BL", "BLACK"]:
-        print("\nYou chose the Black deck.")
-        make_deck()
-        player.jokerslots += 1
-    if deckchoice.upper() in ["A", "ABANDONED"]:
-        print("\nYou chose the Abandoned deck.")
-        make_abandoned_deck()
-    if deckchoice.upper() in ["Y", "YELLOW"]:
-        print("\nYou chose the Yellow deck.")
-        make_deck()
-        player.money += 10
-    if deckchoice.upper() in ["C", "CHECKERED"]:
-        print("\nYou chose the Checkered deck.")
-        make_checkered_deck()
-    if deckchoice.upper() in ["I", "INFO"]:
-        whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
-        while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW"]:
+    hasdeckbeenchosen = True
+    while hasdeckbeenchosen:
+        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+        while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO"]:
             print("\nPlease enter a valid choice.")
+            deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
+        if deckchoice.upper() in ["R", "RED"]:
+            print("\nYou chose the Red deck.")
+            make_deck()
+            player.discards += 1
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["B", "BLUE"]:
+            print("\nYou chose the Blue deck.")
+            make_deck()
+            player.hands += 1
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["BL", "BLACK"]:
+            print("\nYou chose the Black deck.")
+            make_deck()
+            player.jokerslots += 1
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["A", "ABANDONED"]:
+            print("\nYou chose the Abandoned deck.")
+            make_abandoned_deck()
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["Y", "YELLOW"]:
+            print("\nYou chose the Yellow deck.")
+            make_deck()
+            player.money += 10
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["C", "CHECKERED"]:
+            print("\nYou chose the Checkered deck.")
+            make_checkered_deck()
+            hasdeckbeenchosen = False
+        if deckchoice.upper() in ["I", "INFO"]:
             whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
-        if whichdeckinfo in ["R", "RED"]:
-            print("\nRed Deck: The Red Deck gives you +1 Discard")
-        if whichdeckinfo in ["B", "BLUE"]:
-            print("\nBlue Deck: The Blue Deck gives you +1 Hand")
-        if whichdeckinfo in ["BL", "BLACK"]:
-            print("\nBlack Deck: The Black Deck gives you +1 Joker Slot")
-        if whichdeckinfo in ["A", "ABANDONED"]:
-            print("\nAbandoned Deck: The Abandoned Deck has no Face Cards")
-        if whichdeckinfo in ["C", "CHECKERED"]:
-            print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
-        if whichdeckinfo in ["Y", "YELLOW"]:
-            print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
+            while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW"]:
+                print("\nPlease enter a valid choice.")
+                whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
+            if whichdeckinfo in ["R", "RED"]:
+                print("\nRed Deck: The Red Deck gives you +1 Discard")
+            if whichdeckinfo in ["B", "BLUE"]:
+                print("\nBlue Deck: The Blue Deck gives you +1 Hand")
+            if whichdeckinfo in ["BL", "BLACK"]:
+                print("\nBlack Deck: The Black Deck gives you +1 Joker Slot")
+            if whichdeckinfo in ["A", "ABANDONED"]:
+                print("\nAbandoned Deck: The Abandoned Deck has no Face Cards")
+            if whichdeckinfo in ["C", "CHECKERED"]:
+                print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
+            if whichdeckinfo in ["Y", "YELLOW"]:
+                print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
 
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
