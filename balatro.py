@@ -423,7 +423,7 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     cards = []
@@ -448,30 +448,6 @@ def pick_hand(hand, cardhands):
             nums.append(i.listvalue)
     nums.sort(reverse=True)
 
-    those = []
-    these = []
-
-    for i in range(1, 15):
-        ts = nums.count(i)
-        if ts == 4:
-            print("Four of a Kind!")
-            return (cards, cardhands[1])
-        elif ts == 3:
-            these.append(ts)
-        elif ts == 2:
-            those.append(ts)
-    if len(those) == 2:
-        print("Two Pair")
-        return (cards, cardhands[6])
-    elif len(those) == 1 and len(these) == 1:
-        print("Full House")
-        return (cards, cardhands[2])
-    elif len(these) == 1:
-        print("Three of a Kind")
-        return (cards, cardhands[5])
-    elif len(those) == 1:
-        print("Pair")
-        return (cards, cardhands[7])
     if len(set(suits)) == 1 and len(suits) > 1:
         if len(suits) == 5:
             flagger = []
@@ -485,6 +461,21 @@ def pick_hand(hand, cardhands):
             else:
                 print("Flush!")
                 return (cards, cardhands[3])
+    if len(nums) == 4:
+        if len(set(nums)) == 1:
+            print("Four of a Kind!")
+            return (cards, cardhands[1])
+    if len(nums) == 5:
+        threeof = False
+        twoof = False
+        for i in nums:
+            if nums.count(i) == 3:
+                threeof = True
+            if nums.count(i) == 2:
+                twoof = True
+        if threeof and twoof:
+            print("Full House!")
+            return (cards, cardhands[2])
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
@@ -493,15 +484,50 @@ def pick_hand(hand, cardhands):
                     flagger.append('1')
         if len(flagger) == 4:
             print("Straight!")
-            return (cards, cardhands[4])        
+            return (cards, cardhands[4])
+    if len(nums) == 3:
+        threeof = False
+        for i in nums:
+            if nums.count(i) == 3:
+                threeof = True
+        if threeof:
+            print("Three of a Kind!")
+            return (cards, cardhands[5]) 
+    if len(nums) == 4:
+        twoof1 = False
+        twoof2 = False
+        for i in nums:
+            if nums.count(i) == 2 and twoof1 == False:
+                twoof1 = True
+            elif nums.count(i) == 2 and twoof1 == True:
+                twoof2 = True
+        if twoof1 and twoof2:
+            print("Two Pair!")
+            return (cards, cardhands[6])
+        elif twoof1:
+            print("Pair!")
+            return (cards, cardhands[7])
+        elif twoof2:
+            print("Pair!")
+            return (cards, cardhands[7])
+    if len(nums) == 2:
+        twoof1 = False
+        twoof2 = False
+        for i in nums:
+            if nums.count(i) == 2 and twoof1 == False:
+                twoof1 = True
+            elif nums.count(i) == 2 and twoof1 == True:
+                twoof2 = True
+        if twoof1:
+            print("Pair!")
+            return (cards, cardhands[7])
+        elif twoof2:
+            print("Pair!")
+            return (cards, cardhands[7])
     else:
         print("High Card!")
-        thisstuff = max(nums)
-        for i in cards:
-            if i.listvalue == thisstuff:
-                mylist = []
-                mylist.append(i)
-                return(mylist, cardhands[8])
+        return (cards, cardhands[8])
+    return cards
 
 def main_menu(ante, basechips, cardhands):
     while True:
@@ -617,7 +643,11 @@ def finisherblindfunction(ante, basechips, cardhands):
      finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
 
     
+def wingame():
+    print("\nYOU WON!")
+    print("\nJimbo says: !")
 
+    
 def rungame(ante, basechips, cardhands):
     choose_deck()
     while player.hands >=-1:
