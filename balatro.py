@@ -475,6 +475,12 @@ def pick_hand(hand, cardhands):
     print("\nPlease select the indices of the cards you wish to select, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
+    while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
+        print("\nPlease do a valid input.")
+        sleep(1)
+        print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+        indiceschoice = input("\n")
+        indiceschoice = indiceschoice.split(", ")
     cards = []
     for i in indiceschoice:
         cards.append(hand[int(i)-1])
@@ -497,8 +503,6 @@ def pick_hand(hand, cardhands):
             nums.append(i.listvalue)
     unsortednums = nums.copy()
     nums.sort(reverse=True)
-    print(unsortednums)
-    print(nums)
 
     those = []
     these = []
@@ -524,8 +528,6 @@ def pick_hand(hand, cardhands):
             dupes.append(x)
         else:
             seen.add(x)
-    print(seen)
-    print(dupes)
     if len(those) == 2:
         print("Two Pair")
         scoring = []
@@ -667,7 +669,10 @@ def choose_deck():
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
-    while player.roundscore < smallblind.chipval:
+    while (player.roundscore < smallblind.chipval):
+        if player.hands <= 0:
+            print("\nYou are cooked.")
+            sys.exit()
         print("\n[P]lay        [R]un Info")
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo in ["P", "PLAY"]:
@@ -687,14 +692,24 @@ def smallblindfunction(ante, basechips, cardhands):
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 player.roundscore += new
-                print(f"\nYou need {basechips - player.roundscore} more chips")
+                player.hands -= 1
+                print(f"\nYou have {player.hands} hands left")
+                if player.roundscore < smallblind.chipval:
+                    print(f"\nYou need {basechips - player.roundscore} more chips")
+                else:
+                    print("\nYou need 0 more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
-                y = list(set(handprint) - set(x[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
+                if player.discards > 0:
+                    player.discards -= 1
+                    y = list(set(handprint) - set(x[2]))
+                    y = sorted(y, key=lambda x: x.listvalue)
+                    newhp = draw_hand(len(x[2]))
+                    newlist = newhp + y
+                    handprint = sorted(newlist, key=lambda x: x.listvalue)
+                    print(f"\nDiscards: {player.discards}")
+                else:
+                    print("\nL + BOZO no discards get a life.")
 
         #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
             #print("\nDiscard a card")
@@ -702,6 +717,8 @@ def smallblindfunction(ante, basechips, cardhands):
             run_info()
         else: 
             print("Please enter a valid choice.")
+        if player.roundscore > smallblind.chipval:
+            print("\nYou are him. You beat small blind.")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
 def bossblindfunction(ante, basechips, cardhands):
@@ -725,7 +742,7 @@ def finisherblindfunction(ante, basechips, cardhands):
 
 def rungame(ante, basechips, cardhands):
     choose_deck()
-    while player.hands >=-1:
+    while player.hands > 0:
         ante += 1
         x = uptheante(ante, basechips)
         smallblindfunction(ante, x, cardhands)
