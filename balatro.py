@@ -597,9 +597,6 @@ def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
     while (player.roundscore < smallblind.chipval):
-        if player.roundscore >= smallblind.chipval:
-            print("\nYou beat him!")
-            break
         if player.hands <= 0:
             print("\nYou are cooked.")
             sys.exit()
@@ -624,7 +621,10 @@ def smallblindfunction(ante, basechips, cardhands):
                 player.roundscore += new
                 player.hands -= 1
                 print(f"\nYou have {player.hands} hands left")
-                print(f"\nYou need {basechips - player.roundscore} more chips")
+                if player.roundscore < smallblind.chipval:
+                    print(f"\nYou need {basechips - player.roundscore} more chips")
+                else:
+                    print("\nYou need 0 more chips")
             elif whatdoyoudo == "D":
                 ## DISCARD HAND
                 if player.discards > 0:
@@ -644,6 +644,8 @@ def smallblindfunction(ante, basechips, cardhands):
             run_info()
         else: 
             print("Please enter a valid choice.")
+        if player.roundscore > smallblind.chipval:
+            print("\nYou are him. You beat small blind.")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
 def bossblindfunction(ante, basechips, cardhands):
@@ -667,7 +669,7 @@ def finisherblindfunction(ante, basechips, cardhands):
 
 def rungame(ante, basechips, cardhands):
     choose_deck()
-    while player.hands >=-1:
+    while player.hands > 0:
         ante += 1
         x = uptheante(ante, basechips)
         smallblindfunction(ante, x, cardhands)
