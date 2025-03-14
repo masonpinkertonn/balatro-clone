@@ -596,7 +596,10 @@ def choose_deck():
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
-    while player.roundscore < smallblind.chipval:
+    while (player.roundscore < smallblind.chipval):
+        if player.roundscore >= smallblind.chipval:
+            print("\nYou beat him!")
+            break
         if player.hands <= 0:
             print("\nYou are cooked.")
             sys.exit()
