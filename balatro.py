@@ -426,6 +426,12 @@ def pick_hand(hand, cardhands):
     print("\nPlease select the indices of the cards you wish to play, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
+    while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
+        print("\nPlease do a valid input.")
+        sleep(1)
+        print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+        indiceschoice = input("\n")
+        indiceschoice = indiceschoice.split(", ")
     cards = []
     for i in indiceschoice:
         cards.append(hand[int(i)-1])
@@ -448,8 +454,6 @@ def pick_hand(hand, cardhands):
             nums.append(i.listvalue)
     unsortednums = nums.copy()
     nums.sort(reverse=True)
-    print(unsortednums)
-    print(nums)
 
     those = []
     these = []
@@ -475,8 +479,6 @@ def pick_hand(hand, cardhands):
             dupes.append(x)
         else:
             seen.add(x)
-    print(seen)
-    print(dupes)
     if len(those) == 2:
         print("Two Pair")
         scoring = []
@@ -595,6 +597,9 @@ def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
     while player.roundscore < smallblind.chipval:
+        if player.hands <= 0:
+            print("\nYou are cooked.")
+            break
         print("\n[P]lay        [R]un Info")
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo in ["P", "PLAY"]:
