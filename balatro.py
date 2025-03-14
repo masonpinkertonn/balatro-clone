@@ -423,7 +423,7 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
+    print("\nPlease select the indices of the cards you wish to play, separated by commas.")
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     cards = []
@@ -620,11 +620,7 @@ def finisherblindfunction(ante, basechips, cardhands):
      finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
 
     
-def wingame():
-    print("\nYOU WON!")
-    print("\nJimbo says: !")
 
-    
 def rungame(ante, basechips, cardhands):
     choose_deck()
     while player.hands >=-1:
