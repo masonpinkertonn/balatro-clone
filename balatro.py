@@ -673,46 +673,40 @@ def smallblindfunction(ante, basechips, cardhands):
         if player.hands <= 0:
             print("\nYou are cooked.")
             sys.exit()
-        print("\n[P]lay        [R]un Info")
+        displayhand(handprint)
+        x = pick_hand(handprint, cardhands)
+        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
         whatdoyoudo = input("\n").upper()
-        if whatdoyoudo in ["P", "PLAY"]:
-            displayhand(handprint)
-            x = pick_hand(handprint, cardhands)
-            print("\n[P]lay hand        [D]iscard hand") # We need to place restraints (only 5 cards can be discarded)
-            whatdoyoudo = input("\n").upper()
-            if whatdoyoudo == "P":
-                ## PLAY HAND
-                totalchips = 0
-                for i in x[0]:
-                    totalchips += i.cardvalue 
-                new = (x[1].chipval + totalchips) * x[1].multval
+        if whatdoyoudo == "P":
+            ## PLAY HAND
+            totalchips = 0
+            for i in x[0]:
+                totalchips += i.cardvalue 
+            new = (x[1].chipval + totalchips) * x[1].multval
+            y = list(set(handprint) - set(x[2]))
+            y = sorted(y, key=lambda x: x.listvalue)
+            newhp = draw_hand(len(x[2]))
+            newlist = newhp + y
+            handprint = sorted(newlist, key=lambda x: x.listvalue)
+            player.roundscore += new
+            player.hands -= 1
+            print(f"\nYou have {player.hands} hands left")
+            if player.roundscore < smallblind.chipval:
+                print(f"\nYou need {basechips - player.roundscore} more chips")
+            else:
+                print("\nYou need 0 more chips")
+        elif whatdoyoudo == "D":
+            ## DISCARD HAND
+            if player.discards > 0:
+                player.discards -= 1
                 y = list(set(handprint) - set(x[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
                 newhp = draw_hand(len(x[2]))
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
-                player.roundscore += new
-                player.hands -= 1
-                print(f"\nYou have {player.hands} hands left")
-                if player.roundscore < smallblind.chipval:
-                    print(f"\nYou need {basechips - player.roundscore} more chips")
-                else:
-                    print("\nYou need 0 more chips")
-            elif whatdoyoudo == "D":
-                ## DISCARD HAND
-                if player.discards > 0:
-                    player.discards -= 1
-                    y = list(set(handprint) - set(x[2]))
-                    y = sorted(y, key=lambda x: x.listvalue)
-                    newhp = draw_hand(len(x[2]))
-                    newlist = newhp + y
-                    handprint = sorted(newlist, key=lambda x: x.listvalue)
-                    print(f"\nDiscards: {player.discards}")
-                else:
-                    print("\nL + BOZO no discards get a life.")
-
-        #elif whatdoyoudo in ["D", "DISCARD"]: #PLACEHOLDER WE NEED A DISCARD FUNCTION
-            #print("\nDiscard a card")
+                print(f"\nDiscards: {player.discards}")
+            else:
+                print("\nL + BOZO no discards get a life.")
         elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
             run_info()
         else: 
