@@ -715,6 +715,8 @@ def smallblindfunction(ante, basechips, cardhands):
             print("\nYou are him. You beat small blind.")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
+def bigblindfunction(ante, basechips, cardhands):
+    print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
     whichboss = randint(1, 4)
     if whichboss == 1:
@@ -740,6 +742,15 @@ def rungame(ante, basechips, cardhands):
         ante += 1
         x = uptheante(ante, basechips)
         smallblindfunction(ante, x, cardhands)
+        shop()
+        bigblindfunction(ante, x, cardhands)
+        shop()
+        bossblindfunction(ante, x, cardhands)
+        shop()
+        if ante == 8:
+            finisherblindfunction(ante, x, cardhands)
+            shop()
+        
 
 def displayhand(handprint):
     ascii_lines = []
