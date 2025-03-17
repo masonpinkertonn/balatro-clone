@@ -729,21 +729,59 @@ needlebasechips = (basechips * 1.75)
 def bigblindfunction(ante, basechips, cardhands):
     print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
-    whichboss = randint(1, 4)
+    whichboss = randint(1, 8)
     if whichboss == 1:
+        print("The Wall: A very large blind.")
         wallbasechips = (basechips * 4)
         bossblind = boss_blind(wallbasechips, "The Wall")
         #add all the code here for small blind
     if whichboss == 2:
+        print("The Water: No discards.")
         bossblind = boss_blind(bossbasechips, "The Water")
         player.discards = 0
     if whichboss == 3:
+        print("The Needle: Only play 1 hand.")
         bossblind = boss_blind(needlebasechips, "The Needle")
         player.hands = 1
+    if whichboss == 4:
+        print("The Box: A very, very large blind, All discards become hands.")
+        boxchips = (basechips * 6)
+        player.hands += player.discards
+        player.discards = 0
+        bossblind = boss_blind(boxchips, "The Box")
+    if whichboss == 5:
+        print("The Imposter: Just a big blind who got a surprise promotion.")
+        imposterbasechips = (basechips * 1.5)
+        bossblind = boss_blind(imposterbasechips, "The Imposter")
+    if whichboss == 6:
+        print("The Stone: +1X Base score for every $10 held ")
+        stonechipsmultiplier = (player.money // 10)
+        stonechips = (basechips * stonechipsmultiplier)
+        bossblind = boss_blind(stonechips, "The Stone")
+    if whichboss == 7:
+        print("The Sand: +1X Base score for every Joker")
+        sandchipsmultiplier = len(player.jokers)
+        sandchips = (basechips * sandchipsmultiplier)
+        bossblind = boss_blind(sandchips, "The Sand")
+        
+
+
 def finisherblindfunction(ante, basechips, cardhands):
-     finisherblind = boss_blind(basechips, "Violet Vessel")
-     violetvesselchips = (basechips * 6)
-     finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
+    whichfinisher = randint(1,4)
+    if whichfinisher == 1:
+        print("Violet Vessel: A very, very, large blind.")
+        violetvesselchips = (basechips * 6)
+        finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
+    if whichfinisher == 2:
+        print("Silver Sword: A large blind, only play one hand.")
+        player.hands == 1
+        silverswordchips = basechips * 3
+        finisherblind = boss_blind(silverswordchips, "Silver Sword")
+    if whichfinisher == 3:
+        print("Golden Goblet: A large blind, no discards.")
+        player.discards = 0
+        goldengobletchips = basechips * 3
+        finisherblind = boss_blind(goldengobletchips, "Golden Goblet")
 
     
 
