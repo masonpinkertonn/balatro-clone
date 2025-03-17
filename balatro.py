@@ -20,7 +20,7 @@ current_mult = 1
 joker_slots_list = []
 deck = []
 class User:
-    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc):
+    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc, jokers):
         self.money = money
         self.hands = hands
         self.discards = discards
@@ -28,6 +28,7 @@ class User:
         self.roundscore = roundscore
         self.finalmultinc = finalmultinc
         self.finalchipinc = finalchipinc
+        self.jokers = jokers
 
 # Card class
 
@@ -70,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0)
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -243,26 +244,7 @@ def shop():
         elif isinstance(usrchoice, Joker):
             if player.money >= usrchoice.price:
                 inshop.remove(usrchoice)
-                if "Mult" in usrchoice.ability:
-                    if usrchoice.name == "Jimbo":
-                        player.finalmultinc += 4
-                    elif "Played cards with" in usrchoice.ability:
-                        x = usrchoice.ability.split(" ")
-                        inc = x[6]
-                        inc = int(inc[1])
-                        print(inc)
-                        important = x[3].lower()
-                        if important == "club":
-                            important = "\u2663"
-                        elif important == "spade":
-                            important = "\u2660"
-                        elif important == "heart":
-                            important = "\u2665"
-                        elif important == "diamond":
-                            important = "\u2666"
-                        for i in deck:
-                            if i.suit == important:
-                                i.multinc += inc
+                player.jokers.append(usrchoice)
             else:
                 print("\nYou can't buy this!")
             
@@ -679,6 +661,9 @@ def smallblindfunction(ante, basechips, cardhands):
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo == "P":
             ## PLAY HAND
+            print("How do you want to arrange your jokers? Current order:")
+            for index, value in enumerate(player.jokers):
+                print("[" + str(index+1) + "]: " + str(value))
             totalchips = 0
             for i in x[0]:
                 totalchips += i.cardvalue 
