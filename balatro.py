@@ -656,26 +656,47 @@ def smallblindfunction(ante, basechips, cardhands):
             print("\nYou are cooked.")
             sys.exit()
         displayhand(handprint)
-        x = pick_hand(handprint, cardhands)
+        tssshand = pick_hand(handprint, cardhands)
         print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo == "P":
             ## PLAY HAND
-            print("How do you want to arrange your jokers? Current order:")
+            print("\nHow do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
-                print("[" + str(index+1) + "]: " + str(value))
-            rearrange = input("")
+                print("\n[" + str(index+1) + "]: " + str(value))
+            rearrange = input("\n")
             tss = rearrange.split(", ")
             for i in range(len(tss)):
                 tss[i] = int(tss[i]) - 1
-            print(tss)
+            for i in tss:
+                if "Mult" in player.jokers[i].ability:
+                    if player.jokers[i].name == "Jimbo":
+                        player.finalmultinc += 4
+                    elif "Played cards with" in player.jokers[i].ability:
+                        x = player.jokers[i].ability.split(" ")
+                        inc = x[6]
+                        inc = int(inc[1])
+                        important = x[3].lower()
+                        if important == "club":
+                            important = "\u2663"
+                        elif important == "spade":
+                            important = "\u2660"
+                        elif important == "heart":
+                            important = "\u2665"
+                        elif important == "diamond":
+                            important = "\u2666"
+                        for i in deck:
+                            if i.suit == important:
+                                i.multinc += inc
+                        print("\nDone.")
             totalchips = 0
-            for i in x[0]:
+            for i in tssshand[0]:
+                print(i)
                 totalchips += i.cardvalue 
-            new = (x[1].chipval + totalchips) * x[1].multval
-            y = list(set(handprint) - set(x[2]))
+            new = (tssshand[1].chipval + totalchips) * tssshand[1].multval
+            y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(x[2]))
+            newhp = draw_hand(len(tssshand[2]))
             newlist = newhp + y
             handprint = sorted(newlist, key=lambda x: x.listvalue)
             player.roundscore += new
@@ -689,9 +710,9 @@ def smallblindfunction(ante, basechips, cardhands):
             ## DISCARD HAND
             if player.discards > 0:
                 player.discards -= 1
-                y = list(set(handprint) - set(x[2]))
+                y = list(set(handprint) - set(tssshand[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(x[2]))
+                newhp = draw_hand(len(tssshand[2]))
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 print(f"\nDiscards: {player.discards}")
