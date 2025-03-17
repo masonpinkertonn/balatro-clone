@@ -718,21 +718,36 @@ needlebasechips = (basechips * 1.75)
 def bigblindfunction(ante, basechips, cardhands):
     print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
-    whichboss = randint(1, 4)
+    whichboss = randint(1, 11)
     if whichboss == 1:
+        print("The Wall: A very large blind.")
         wallbasechips = (basechips * 4)
         bossblind = boss_blind(wallbasechips, "The Wall")
         #add all the code here for small blind
     if whichboss == 2:
+        print("The Water: No discards.")
         bossblind = boss_blind(bossbasechips, "The Water")
         player.discards = 0
     if whichboss == 3:
+        print("The Needle: Only play 1 hand.")
         bossblind = boss_blind(needlebasechips, "The Needle")
         player.hands = 1
 def finisherblindfunction(ante, basechips, cardhands):
-     finisherblind = boss_blind(basechips, "Violet Vessel")
-     violetvesselchips = (basechips * 6)
-     finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
+    whichfinisher = randint(1,4)
+    if whichfinisher == 1:
+        print("Violet Vessel: A very, very, large blind.")
+        violetvesselchips = (basechips * 6)
+        finisherblind = boss_blind(violetvesselchips, "Violet Vessel")
+    if whichfinisher == 2:
+        print("Silver Sword: A large blind, only play one hand.")
+        player.hands == 1
+        silverswordchips = basechips * 3
+        finisherblind = boss_blind(silverswordchips, "Silver Sword")
+    if whichfinisher == 3:
+        print("Golden Goblet: A large blind, no discards.")
+        player.discards = 0
+        goldengobletchips = basechips * 3
+        finisherblind = boss_blind(goldengobletchips, "Golden Goblet")
 
     
 
