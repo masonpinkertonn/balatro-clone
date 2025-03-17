@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -664,6 +664,11 @@ def smallblindfunction(ante, basechips, cardhands):
             print("How do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
                 print("[" + str(index+1) + "]: " + str(value))
+            rearrange = input("")
+            tss = rearrange.split(", ")
+            for i in range(len(tss)):
+                tss[i] = int(tss[i]) - 1
+            print(tss)
             totalchips = 0
             for i in x[0]:
                 totalchips += i.cardvalue 
