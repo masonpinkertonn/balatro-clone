@@ -660,6 +660,7 @@ def smallblindfunction(ante, basechips, cardhands):
         print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo == "P":
+            totalmult = 0
             ## PLAY HAND
             print("\nHow do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
@@ -670,6 +671,7 @@ def smallblindfunction(ante, basechips, cardhands):
                 tss[i] = int(tss[i]) - 1
             for i in tss:
                 if "Mult" in player.jokers[i].ability:
+                    match = []
                     if player.jokers[i].name == "Jimbo":
                         player.finalmultinc += 4
                     elif "Played cards with" in player.jokers[i].ability:
@@ -696,23 +698,16 @@ def smallblindfunction(ante, basechips, cardhands):
                         inc = int(inc[1])
                         important = x[7:]
                         tss = ' '.join(important)
-                        tss = tss.lower()
                         print(tss)
-                        if important == "club":
-                            important = "\u2663"
-                        elif important == "spade":
-                            important = "\u2660"
-                        elif important == "heart":
-                            important = "\u2665"
-                        elif important == "diamond":
-                            important = "\u2666"
-                        for index, value in enumerate(tssshand[0]):
-                            if value.suit == important:
-                                value.multinc += inc
-                                tssshand[0][index] = value
+                        for i in cardhands:
+                            print(i.name)
+                            if tssshand[1].name == i.name:
+                                print(f"Matched with {i.name}")
+                                match = i.name
+                                totalmult += inc
+                                break
                         print("\nDone.")
             totalchips = 0
-            totalmult = 0
             for i in tssshand[0]:
                 print(i)
                 totalchips += i.cardvalue 
