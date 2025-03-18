@@ -691,7 +691,7 @@ def smallblindfunction(ante, basechips, cardhands):
                             if value.suit == important:
                                 value.multinc += inc
                                 tssshand[0][index] = value
-                        print("\nDone.")
+                        print(f"\n+{inc} mult for {important} cards")
                     elif "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
