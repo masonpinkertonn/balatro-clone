@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -690,6 +690,8 @@ def smallblindfunction(ante, basechips, cardhands):
                                 value.multinc += inc
                                 tssshand[0][index] = value
                         print("\nDone.")
+                    elif "if played hand contains" in player.jokers[i].ability:
+                        print("Sigma.")
             totalchips = 0
             totalmult = 0
             for i in tssshand[0]:
