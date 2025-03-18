@@ -685,15 +685,18 @@ def smallblindfunction(ante, basechips, cardhands):
                             important = "\u2665"
                         elif important == "diamond":
                             important = "\u2666"
-                        for i in deck:
-                            if i.suit == important:
-                                i.multinc += inc
+                        for index, value in enumerate(tssshand[0]):
+                            if value.suit == important:
+                                value.multinc += inc
+                                tssshand[0][index] = value
                         print("\nDone.")
             totalchips = 0
+            totalmult = 0
             for i in tssshand[0]:
                 print(i)
                 totalchips += i.cardvalue 
-            new = (tssshand[1].chipval + totalchips) * tssshand[1].multval
+                totalmult += i.multinc
+            new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
             newhp = draw_hand(len(tssshand[2]))
