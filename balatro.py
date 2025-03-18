@@ -694,8 +694,10 @@ def smallblindfunction(ante, basechips, cardhands):
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
                         inc = int(inc[1])
-                        important = x[7:].lower()
-                        print(important)
+                        important = x[7:]
+                        tss = ' '.join(important)
+                        tss = tss.lower()
+                        print(tss)
                         if important == "club":
                             important = "\u2663"
                         elif important == "spade":
