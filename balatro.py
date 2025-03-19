@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -708,14 +708,16 @@ def smallblindfunction(ante, basechips, cardhands):
                         if len(tssshand[2]) <= 3:
                             totalmult += 20
                     elif player.jokers[i].name == "Misprint":
-                        totalmult += random.randint(0, 24)
+                        totalmult += randint(0, 24)
                         print(totalmult)
+                elif "Chips" in player.jokers[i].ability
             totalchips = 0
             for i in tssshand[0]:
                 print(i)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
             new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
+            print(new)
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
             newhp = draw_hand(len(tssshand[2]))
