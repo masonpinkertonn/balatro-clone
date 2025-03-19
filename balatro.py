@@ -748,12 +748,20 @@ needlebasechips = (basechips * 1.75)
 def bigblindfunction(ante, basechips, cardhands):
     print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
-    whichboss = randint(1, 8)
+    selected_bosses = set()
+    available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if len(selected_bosses) == len(available_bosses):
+        print("All bosses have already been selected.")
+        return None
+    while True:
+        whichboss = random.choice(available_bosses)
+        if whichboss not in selected_bosses:
+            selected_bosses.add(whichboss)  
+            break
     if whichboss == 1:
         print("The Wall: A very large blind.")
         wallbasechips = (basechips * 4)
         bossblind = boss_blind(wallbasechips, "The Wall")
-        #add all the code here for small blind
     if whichboss == 2:
         print("The Water: No discards.")
         bossblind = boss_blind(bossbasechips, "The Water")
@@ -782,6 +790,17 @@ def bossblindfunction(ante, basechips, cardhands):
         sandchipsmultiplier = len(player.jokers)
         sandchips = (basechips * sandchipsmultiplier)
         bossblind = boss_blind(sandchips, "The Sand")
+    if whichboss == 8:
+        print("The Glass: +1X Base score for every Discard")
+        glasschipsmultiplier = player.discards
+        glasschips = (basechips * glasschipsmultiplier)
+        bossblind = boss_blind(glasschips, "The Glass")
+    if whichboss == 9:
+        print("The Mirror: +1X Base score for every Hand")
+        mirrorchipsmultiplier = player.hands
+        mirrorchips = (basechips * mirrorchipsmultiplier)
+        bossblind = boss_blind(mirrorchips, "The Mirror")
+
         
 
 
