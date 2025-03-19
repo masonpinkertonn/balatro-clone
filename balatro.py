@@ -728,7 +728,7 @@ def smallblindfunction(ante, basechips, cardhands):
                 print(i)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
-            print(f"{totalchips} x {totalmult}")
+            print(f"{tssshand[1].chipval + totalchips} x {tssshand[1].multval + totalmult}")
             new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
             print(new)
             y = list(set(handprint) - set(tssshand[2]))
