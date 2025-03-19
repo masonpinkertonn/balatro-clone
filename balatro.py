@@ -758,6 +758,15 @@ def bossblindfunction(ante, basechips, cardhands):
         if whichboss not in selected_bosses:
             selected_bosses.add(whichboss)  
             break
+    available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if len(selected_bosses) == len(available_bosses):
+        print("All bosses have already been selected.")
+        return None
+    while True:
+        whichboss = random.choice(available_bosses)
+        if whichboss not in selected_bosses:
+            selected_bosses.add(whichboss)  
+            break
     if whichboss == 1:
         print("The Wall: A very large blind.")
         wallbasechips = (basechips * 4)
