@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -691,6 +691,7 @@ def smallblindfunction(ante, basechips, cardhands):
         whatdoyoudo = input("\n").upper()
         if whatdoyoudo == "P":
             totalmult = 0
+            totalchips = 0
             ## PLAY HAND
             print("\nHow do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
@@ -725,24 +726,43 @@ def smallblindfunction(ante, basechips, cardhands):
                     elif "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
-                        inc = int(inc[1])
+                        inc = int(inc[1:])
                         important = x[7:]
                         tss = ' '.join(important)
-                        print(tss)
                         for i in cardhands:
-                            print(i.name)
                             if tssshand[1].name == i.name:
-                                print(f"Matched with {i.name}")
-                                match = i.name
                                 totalmult += inc
                                 break
                         print("\nDone.")
-            totalchips = 0
+                    elif player.jokers[i].name == "Half Joker":
+                        if len(tssshand[2]) <= 3:
+                            totalmult += 20
+                    elif player.jokers[i].name == "Misprint":
+                        totalmult += randint(0, 24)
+                        print(totalmult)
+                    elif player.jokers[i].name == "Stencil":
+                        totalmult *= 
+                elif "Chips" in player.jokers[i].ability:
+                    if "if played hand contains a" in player.jokers[i].ability:
+                        x = player.jokers[i].ability.split(" ")
+                        inc = x[0]
+                        inc = int(inc[1:])
+                        important = x[7:]
+                        tss = ' '.join(important)
+                        for i in cardhands:
+                            if tssshand[1].name == i.name:
+                                print(inc)
+                                totalchips += inc
+                                print(totalchips)
+                                break
+                        print("\nDone.")
             for i in tssshand[0]:
                 print(i)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
+            print(f"{tssshand[1].chipval + totalchips} x {tssshand[1].multval + totalmult}")
             new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
+            print(new)
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
             newhp = draw_hand(len(tssshand[2]))
