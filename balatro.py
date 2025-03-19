@@ -710,6 +710,8 @@ def smallblindfunction(ante, basechips, cardhands):
                     elif player.jokers[i].name == "Misprint":
                         totalmult += randint(0, 24)
                         print(totalmult)
+                    elif player.jokers[i].name == "Stencil":
+                        totalmult *= 
                 elif "Chips" in player.jokers[i].ability:
                     if "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
