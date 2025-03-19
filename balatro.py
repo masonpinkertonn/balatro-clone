@@ -595,6 +595,36 @@ def main_menu(ante, basechips, cardhands):
                 print("\n")
                 print(i)
             sleep(2)
+
+def smallpayout():
+    interest = (player.money // 5)
+    if interest > 5:
+        interest = 5
+    player.money += interest
+    player.money += player.hands
+    player.money += 3
+def bigpayout():
+    interest = (player.money // 5)
+    if interest > 5:
+        interest = 5
+    player.money += interest
+    player.money += player.hands
+    player.money += 4
+def bosspayout():
+    interest = (player.money // 5)
+    if interest > 5:
+        interest = 5
+    player.money += interest
+    player.money += player.hands
+    player.money += 5
+def finisherpayout():
+    interest = (player.money // 5)
+    if interest > 5:
+        interest = 5
+    player.money += interest
+    player.money += player.hands
+    player.money += 8
+
 def choose_deck():
     hasdeckbeenchosen = True
     while hasdeckbeenchosen:
