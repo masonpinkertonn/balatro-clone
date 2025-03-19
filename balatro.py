@@ -696,7 +696,7 @@ def smallblindfunction(ante, basechips, cardhands):
                     elif "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
-                        inc = int(inc[1])
+                        inc = int(inc[1:])
                         important = x[7:]
                         tss = ' '.join(important)
                         for i in cardhands:
@@ -714,7 +714,7 @@ def smallblindfunction(ante, basechips, cardhands):
                     if "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
-                        inc = int(inc[1])
+                        inc = int(inc[1:])
                         important = x[7:]
                         tss = ' '.join(important)
                         for i in cardhands:
