@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -698,15 +698,18 @@ def smallblindfunction(ante, basechips, cardhands):
                         inc = int(inc[1])
                         important = x[7:]
                         tss = ' '.join(important)
-                        print(tss)
                         for i in cardhands:
-                            print(i.name)
                             if tssshand[1].name == i.name:
-                                print(f"Matched with {i.name}")
                                 match = i.name
                                 totalmult += inc
                                 break
                         print("\nDone.")
+                    elif player.jokers[i].name == "Half Joker":
+                        if len(tssshand[2]) <= 3:
+                            totalmult += 20
+                    elif player.jokers[i].name == "Misprint":
+                        totalmult += random.randint(0, 24)
+                        print(totalmult)
             totalchips = 0
             for i in tssshand[0]:
                 print(i)
