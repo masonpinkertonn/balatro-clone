@@ -708,6 +708,7 @@ def smallblindfunction(ante, basechips, cardhands):
             totalchips += tssshand[1].chipval
             print(totalmult)
             for i in tss:
+                print(i)
                 if "Mult" in player.jokers[i].ability:
                     match = []
                     if player.jokers[i].name == "Jimbo":
@@ -741,7 +742,7 @@ def smallblindfunction(ante, basechips, cardhands):
                                 totalmult += inc
                                 break
                         print("\nDone.")
-                    if player.jokers[i].name == "Half Joker":
+                    if (player.jokers[i].name) == "Half Joker":
                         if len(tssshand[2]) <= 3:
                             totalmult += 20
                     if player.jokers[i].name == "Misprint":
