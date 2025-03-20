@@ -692,10 +692,6 @@ def smallblindfunction(ante, basechips, cardhands):
         if whatdoyoudo == "P":
             totalmult = 0
             totalchips = 0
-            for i in tssshand[0]:
-                print(i.multinc)
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
             ## PLAY HAND
             print("\nHow do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
@@ -704,6 +700,10 @@ def smallblindfunction(ante, basechips, cardhands):
             tss = rearrange.split(", ")
             for i in range(len(tss)):
                 tss[i] = int(tss[i]) - 1
+            for i in tssshand[0]:
+                print(i)
+                totalchips += i.cardvalue 
+                totalmult += i.multinc
             for i in tss:
                 if "Mult" in player.jokers[i].ability:
                     match = []
