@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker, stencil])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -692,6 +692,10 @@ def smallblindfunction(ante, basechips, cardhands):
         if whatdoyoudo == "P":
             totalmult = 0
             totalchips = 0
+            for i in tssshand[0]:
+                print(i.multinc)
+                totalchips += i.cardvalue 
+                totalmult += i.multinc
             ## PLAY HAND
             print("\nHow do you want to arrange your jokers? Current order:")
             for index, value in enumerate(player.jokers):
@@ -741,6 +745,10 @@ def smallblindfunction(ante, basechips, cardhands):
                         totalmult += randint(0, 24)
                         print(totalmult)
                     elif player.jokers[i].name == "Stencil":
+                        print(player.jokerslots)
+                        print(totalmult)
+                        if totalmult == 0:
+                            totalmult = 1
                         totalmult *= player.jokerslots
                 elif "Chips" in player.jokers[i].ability:
                     if "if played hand contains a" in player.jokers[i].ability:
@@ -756,10 +764,6 @@ def smallblindfunction(ante, basechips, cardhands):
                                 print(totalchips)
                                 break
                         print("\nDone.")
-            for i in tssshand[0]:
-                print(i)
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
             print(f"{tssshand[1].chipval + totalchips} x {tssshand[1].multval + totalmult}")
             new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
             print(new)
