@@ -701,7 +701,7 @@ def smallblindfunction(ante, basechips, cardhands):
             for i in range(len(tss)):
                 tss[i] = int(tss[i]) - 1
             for i in tssshand[0]:
-                print(i.multinc)
+                print(i.cardvalue)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
             for i in tss:
