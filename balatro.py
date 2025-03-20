@@ -704,12 +704,15 @@ def smallblindfunction(ante, basechips, cardhands):
                 print(i.cardvalue)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
+            totalmult += tssshand[1].multval
+            totalchips += tssshand[1].chipval
+            print(totalmult)
             for i in tss:
                 if "Mult" in player.jokers[i].ability:
                     match = []
                     if player.jokers[i].name == "Jimbo":
                         player.finalmultinc += 4
-                    elif "Played cards with" in player.jokers[i].ability:
+                    if "Played cards with" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[6]
                         inc = int(inc[1])
@@ -727,7 +730,7 @@ def smallblindfunction(ante, basechips, cardhands):
                                 value.multinc += inc
                                 tssshand[0][index] = value
                         print(f"\n+{inc} mult for {important} cards")
-                    elif "if played hand contains a" in player.jokers[i].ability:
+                    if "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
                         inc = int(inc[1:])
@@ -738,17 +741,17 @@ def smallblindfunction(ante, basechips, cardhands):
                                 totalmult += inc
                                 break
                         print("\nDone.")
-                    elif player.jokers[i].name == "Half Joker":
+                    if player.jokers[i].name == "Half Joker":
                         if len(tssshand[2]) <= 3:
                             totalmult += 20
-                    elif player.jokers[i].name == "Misprint":
+                    if player.jokers[i].name == "Misprint":
                         totalmult += randint(0, 24)
                         print(totalmult)
-                    elif player.jokers[i].name == "Stencil":
+                    if player.jokers[i].name == "Stencil":
                         print(player.jokerslots)
                         print(totalmult)
                         totalmult *= player.jokerslots
-                elif "Chips" in player.jokers[i].ability:
+                if "Chips" in player.jokers[i].ability:
                     if "if played hand contains a" in player.jokers[i].ability:
                         x = player.jokers[i].ability.split(" ")
                         inc = x[0]
