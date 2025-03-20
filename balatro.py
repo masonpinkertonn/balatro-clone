@@ -701,7 +701,7 @@ def smallblindfunction(ante, basechips, cardhands):
             for i in range(len(tss)):
                 tss[i] = int(tss[i]) - 1
             for i in tssshand[0]:
-                print(i)
+                print(i.multinc)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
             for i in tss:
@@ -747,8 +747,6 @@ def smallblindfunction(ante, basechips, cardhands):
                     elif player.jokers[i].name == "Stencil":
                         print(player.jokerslots)
                         print(totalmult)
-                        if totalmult == 0:
-                            totalmult = 1
                         totalmult *= player.jokerslots
                 elif "Chips" in player.jokers[i].ability:
                     if "if played hand contains a" in player.jokers[i].ability:
