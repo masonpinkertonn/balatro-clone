@@ -707,14 +707,17 @@ def smallblindfunction(ante, basechips, cardhands):
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
             print(totalmult)
+            print(tss)
             for i in tss:
+                okok = player.jokers[i].name
+                okokok = player.jokers[i].ability
                 print(i)
-                if "Mult" in player.jokers[i].ability:
+                if "Mult" in okokok:
                     match = []
-                    if player.jokers[i].name == "Jimbo":
+                    if okok == "Jimbo":
                         player.finalmultinc += 4
-                    if "Played cards with" in player.jokers[i].ability:
-                        x = player.jokers[i].ability.split(" ")
+                    if "Played cards with" in okokok:
+                        x = okokok.split(" ")
                         inc = x[6]
                         inc = int(inc[1])
                         important = x[3].lower()
@@ -731,8 +734,8 @@ def smallblindfunction(ante, basechips, cardhands):
                                 value.multinc += inc
                                 tssshand[0][index] = value
                         print(f"\n+{inc} mult for {important} cards")
-                    if "if played hand contains a" in player.jokers[i].ability:
-                        x = player.jokers[i].ability.split(" ")
+                    if "if played hand contains a" in okokok:
+                        x = okokok.split(" ")
                         inc = x[0]
                         inc = int(inc[1:])
                         important = x[7:]
@@ -742,19 +745,19 @@ def smallblindfunction(ante, basechips, cardhands):
                                 totalmult += inc
                                 break
                         print("\nDone.")
-                    if (player.jokers[i].name) == "Half Joker":
+                    if okok == "Half Joker":
                         if len(tssshand[2]) <= 3:
                             totalmult += 20
-                    if player.jokers[i].name == "Misprint":
+                    if okok == "Misprint":
                         totalmult += randint(0, 24)
                         print(totalmult)
-                    if player.jokers[i].name == "Stencil":
+                    if okok == "Stencil":
                         print(player.jokerslots)
                         print(totalmult)
                         totalmult *= player.jokerslots
-                if "Chips" in player.jokers[i].ability:
-                    if "if played hand contains a" in player.jokers[i].ability:
-                        x = player.jokers[i].ability.split(" ")
+                if "Chips" in okokok:
+                    if "if played hand contains a" in okokok:
+                        x = okokok.split(" ")
                         inc = x[0]
                         inc = int(inc[1:])
                         important = x[7:]
