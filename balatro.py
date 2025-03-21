@@ -71,7 +71,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker, stencil])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker, stencil, blue_joker])
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
