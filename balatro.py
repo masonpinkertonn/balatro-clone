@@ -769,6 +769,8 @@ def smallblindfunction(ante, basechips, cardhands):
                                 print(totalchips)
                                 break
                         print("\nDone.")
+                    if okok == "Banner":
+                        totalchips += (player.discards * 30)
             print(f"{totalchips} x {totalmult}")
             new = (totalchips) * (totalmult)
             print(new)
