@@ -756,6 +756,11 @@ def smallblindfunction(ante, basechips, cardhands):
                         print(player.jokerslots)
                         print(totalmult)
                         totalmult *= player.jokerslots
+                    if okok == "Mystic Summit":
+                        if player.discards <= 0:
+                            totalmult += 15
+                    if okok == "Abstract Joker":
+                        totalmult += (3*(5-player.jokerslots))
                 if "Chips" in okokok:
                     if "if played hand contains a" in okokok:
                         x = okokok.split(" ")
