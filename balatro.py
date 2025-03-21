@@ -629,7 +629,7 @@ def choose_deck():
     hasdeckbeenchosen = True
     while hasdeckbeenchosen:
         deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
-        while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO"]:
+        while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO",]:
             print("\nPlease enter a valid choice.")
             deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
         if deckchoice.upper() in ["R", "RED"]:
@@ -659,10 +659,12 @@ def choose_deck():
         if deckchoice.upper() in ["C", "CHECKERED"]:
             print("\nYou chose the Checkered deck.")
             make_checkered_deck()
+            
+        
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["I", "INFO"]:
             whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
-            while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW"]:
+            while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW", ]:
                 print("\nPlease enter a valid choice.")
                 whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
             if whichdeckinfo in ["R", "RED"]:
@@ -677,7 +679,6 @@ def choose_deck():
                 print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
             if whichdeckinfo in ["Y", "YELLOW"]:
                 print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
-
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
@@ -864,7 +865,7 @@ def bossblindfunction(ante, basechips, cardhands):
 
 
 def finisherblindfunction(ante, basechips, cardhands):
-    whichfinisher = randint(1,4)
+    whichfinisher = randint(1,5)
     if whichfinisher == 1:
         print("Violet Vessel: A very, very, large blind.")
         violetvesselchips = (basechips * 6)
@@ -879,6 +880,14 @@ def finisherblindfunction(ante, basechips, cardhands):
         player.discards = 0
         goldengobletchips = basechips * 3
         finisherblind = boss_blind(goldengobletchips, "Golden Goblet")
+    if whichfinisher == 4:
+        print("Bronze Bow: A large blind, all discards become hands, all hands become discards.")
+        bronzebowhands = player.discards
+        bronzebowdiscards = player.hands
+        player.hands = bronzebowhands
+        player.discards = bronzebowdiscards
+        bronzebowchips = basechips * 3
+        finisherblind = boss_blind(bronzebowchips, "Bronze Bow")
 
     
 
