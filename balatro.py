@@ -769,8 +769,8 @@ def smallblindfunction(ante, basechips, cardhands):
                                 print(totalchips)
                                 break
                         print("\nDone.")
-            print(f"{tssshand[1].chipval + totalchips} x {tssshand[1].multval + totalmult}")
-            new = (tssshand[1].chipval + totalchips) * (tssshand[1].multval + totalmult)
+            print(f"{totalchips} x {totalmult}")
+            new = (totalchips) * (totalmult)
             print(new)
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
