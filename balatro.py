@@ -681,6 +681,91 @@ def choose_deck():
                 print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
             if whichdeckinfo in ["Y", "YELLOW"]:
                 print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
+
+def scorejokers():
+    if (5 - player.jokerslots) != 0:
+        print("\nHow do you want to arrange your jokers? Current order:")
+        for index, value in enumerate(player.jokers):
+            print("\n[" + str(index+1) + "]: " + str(value))
+        rearrange = input("\n")
+        tss = rearrange.split(", ")
+        for i in range(len(tss)):
+            tss[i] = int(tss[i]) - 1
+        print(totalmult)
+        print(tss)
+        for i in tss:
+            okok = player.jokers[i].name
+            okokok = player.jokers[i].ability
+            print(i)
+            if "Mult" in okokok:
+                match = []
+                if okok == "Jimbo":
+                    player.finalmultinc += 4
+                if "Played cards with" in okokok:
+                    x = okokok.split(" ")
+                    inc = x[6]
+                    inc = int(inc[1])
+                    important = x[3].lower()
+                    if important == "club":
+                        important = "\u2663"
+                    elif important == "spade":
+                        important = "\u2660"
+                    elif important == "heart":
+                        important = "\u2665"
+                    elif important == "diamond":
+                        important = "\u2666"
+                    for index, value in enumerate(tssshand[0]):
+                        if value.suit == important:
+                            value.multinc += inc
+                            tssshand[0][index] = value
+                    print(f"\n+{inc} mult for {important} cards")
+                if "if played hand contains a" in okokok:
+                    x = okokok.split(" ")
+                    inc = x[0]
+                    inc = int(inc[1:])
+                    important = x[7:]
+                    tss = ' '.join(important)
+                    for i in cardhands:
+                        if tssshand[1].name == i.name:
+                            totalmult += inc
+                            break
+                    print("\nDone.")
+                if okok == "Half Joker":
+                    if len(tssshand[2]) <= 3:
+                        totalmult += 20
+                if okok == "Misprint":
+                    totalmult += randint(0, 24)
+                    print(totalmult)
+                if okok == "Stencil":
+                    print(player.jokerslots)
+                    print(totalmult)
+                    totalmult *= player.jokerslots
+                if okok == "Mystic Summit":
+                    if player.discards <= 0:
+                        totalmult += 15
+                if okok == "Abstract Joker":
+                    totalmult += (3*(5-player.jokerslots))
+                if okok == "Constellation":
+                    totalmult *= (player.planetsused)
+            if "Chips" in okokok:
+                if "if played hand contains a" in okokok:
+                    x = okokok.split(" ")
+                    inc = x[0]
+                    inc = int(inc[1:])
+                    important = x[7:]
+                    tss = ' '.join(important)
+                    for i in cardhands:
+                        if tssshand[1].name == i.name:
+                            print(inc)
+                            totalchips += inc
+                            print(totalchips)
+                            break
+                    print("\nDone.")
+                if okok == "Banner":
+                    totalchips += (player.discards * 30)
+                if okok == "Blue Joker":
+                    totalchips += (2*len(deck))
+
 def smallblindfunction(ante, basechips, cardhands):
     smallblind = small_blind(basechips)
     handprint = draw_hand(8)
@@ -697,93 +782,11 @@ def smallblindfunction(ante, basechips, cardhands):
             totalchips = 0
             ## PLAY HAND
             for i in tssshand[0]:
-                print(i.cardvalue)
                 totalchips += i.cardvalue 
                 totalmult += i.multinc
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
-            if (5 - player.jokerslots) != 0:
-                print("\nHow do you want to arrange your jokers? Current order:")
-                for index, value in enumerate(player.jokers):
-                    print("\n[" + str(index+1) + "]: " + str(value))
-                rearrange = input("\n")
-                tss = rearrange.split(", ")
-                for i in range(len(tss)):
-                    tss[i] = int(tss[i]) - 1
-                print(totalmult)
-                print(tss)
-                for i in tss:
-                    okok = player.jokers[i].name
-                    okokok = player.jokers[i].ability
-                    print(i)
-                    if "Mult" in okokok:
-                        match = []
-                        if okok == "Jimbo":
-                            player.finalmultinc += 4
-                        if "Played cards with" in okokok:
-                            x = okokok.split(" ")
-                            inc = x[6]
-                            inc = int(inc[1])
-                            important = x[3].lower()
-                            if important == "club":
-                                important = "\u2663"
-                            elif important == "spade":
-                                important = "\u2660"
-                            elif important == "heart":
-                                important = "\u2665"
-                            elif important == "diamond":
-                                important = "\u2666"
-                            for index, value in enumerate(tssshand[0]):
-                                if value.suit == important:
-                                    value.multinc += inc
-                                    tssshand[0][index] = value
-                            print(f"\n+{inc} mult for {important} cards")
-                        if "if played hand contains a" in okokok:
-                            x = okokok.split(" ")
-                            inc = x[0]
-                            inc = int(inc[1:])
-                            important = x[7:]
-                            tss = ' '.join(important)
-                            for i in cardhands:
-                                if tssshand[1].name == i.name:
-                                    totalmult += inc
-                                    break
-                            print("\nDone.")
-                        if okok == "Half Joker":
-                            if len(tssshand[2]) <= 3:
-                                totalmult += 20
-                        if okok == "Misprint":
-                            totalmult += randint(0, 24)
-                            print(totalmult)
-                        if okok == "Stencil":
-                            print(player.jokerslots)
-                            print(totalmult)
-                            totalmult *= player.jokerslots
-                        if okok == "Mystic Summit":
-                            if player.discards <= 0:
-                                totalmult += 15
-                        if okok == "Abstract Joker":
-                            totalmult += (3*(5-player.jokerslots))
-                        if okok == "Constellation":
-                            totalmult *= (player.planetsused)
-                    if "Chips" in okokok:
-                        if "if played hand contains a" in okokok:
-                            x = okokok.split(" ")
-                            inc = x[0]
-                            inc = int(inc[1:])
-                            important = x[7:]
-                            tss = ' '.join(important)
-                            for i in cardhands:
-                                if tssshand[1].name == i.name:
-                                    print(inc)
-                                    totalchips += inc
-                                    print(totalchips)
-                                    break
-                            print("\nDone.")
-                        if okok == "Banner":
-                            totalchips += (player.discards * 30)
-                        if okok == "Blue Joker":
-                            totalchips += (2*len(deck))
+            scorejokers()
             print(f"{totalchips} x {totalmult}")
             new = (totalchips) * (totalmult)
             print(new)
