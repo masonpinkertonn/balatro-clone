@@ -20,7 +20,7 @@ current_mult = 1
 joker_slots_list = []
 deck = []
 class User:
-    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc, jokers):
+    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc, jokers, planetsused):
         self.money = money
         self.hands = hands
         self.discards = discards
@@ -29,6 +29,7 @@ class User:
         self.finalmultinc = finalmultinc
         self.finalchipinc = finalchipinc
         self.jokers = jokers
+        self.planetsused = planetsused
 
 # Card class
 
@@ -71,7 +72,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker, stencil, blue_joker])
+player = User(10000, 4, 3, 5, 0, 0, 0, [gluttonous_joker, lusty_joker, zany_joker, jolly_joker, half_joker, misprint, sly_joker, stencil, blue_joker], 0)
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -231,6 +232,7 @@ def shop():
         if isinstance(usrchoice, Planet):
             if player.money >= planetchoice.price:
                 inshop.remove(planetchoice)
+                player.planetsused += 1
                 planetchoicename = planetchoice.ability.split()
                 thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
                 thishand = " ".join(thishand)
@@ -761,6 +763,8 @@ def smallblindfunction(ante, basechips, cardhands):
                             totalmult += 15
                     if okok == "Abstract Joker":
                         totalmult += (3*(5-player.jokerslots))
+                    if okok == "Constellation":
+                        totalmult *= (player.planetsused)
                 if "Chips" in okokok:
                     if "if played hand contains a" in okokok:
                         x = okokok.split(" ")
