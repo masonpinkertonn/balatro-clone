@@ -919,14 +919,19 @@ def finisherblindfunction(ante, basechips, cardhands):
 
 def rungame(ante, basechips, cardhands):
     choose_deck()
+    round = 0
     while player.hands > 0:
         ante += 1
         x = uptheante(ante, basechips)
+        print("\nSMALL BLIND")
         smallblindfunction(ante, x, cardhands)
+        round += 1
         shop()
         bigblindfunction(ante, x, cardhands)
+        round += 1
         shop()
         bossblindfunction(ante, x, cardhands)
+        round += 1
         shop()
         if ante == 8:
             finisherblindfunction(ante, x, cardhands)
