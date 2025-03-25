@@ -682,7 +682,7 @@ def choose_deck():
             if whichdeckinfo in ["Y", "YELLOW"]:
                 print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
 
-def scorejokers():
+def scorejokers(tssshand):
     if (5 - player.jokerslots) != 0:
         print("\nHow do you want to arrange your jokers? Current order:")
         for index, value in enumerate(player.jokers):
@@ -786,10 +786,10 @@ def smallblindfunction(ante, basechips, cardhands):
                 totalmult += i.multinc
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
-            scorejokers()
-            print(f"{totalchips} x {totalmult}")
+            scorejokers(tssshand)
+            print(f"\n{totalchips} x {totalmult}")
             new = (totalchips) * (totalmult)
-            print(new)
+            print("\n"+str(new))
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
             newhp = draw_hand(len(tssshand[2]))
@@ -923,7 +923,7 @@ def rungame(ante, basechips, cardhands):
     while player.hands > 0:
         ante += 1
         x = uptheante(ante, basechips)
-        print("\nSMALL BLIND")
+        print(f"\nSMALL BLIND: {x} chips to defeat")
         smallblindfunction(ante, x, cardhands)
         round += 1
         shop()
