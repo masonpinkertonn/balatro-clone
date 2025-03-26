@@ -72,7 +72,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker], 0)
+player = User(10000, 4, 3, 5, 0, 0, 0, [stencil, lusty_joker, wrathful_joker,lusty_joker], 0)
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -460,7 +460,7 @@ def pick_hand(hand, cardhands):
     indiceschoice = input("\n")
     indiceschoice = indiceschoice.split(", ")
     while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
-        print("\nPlease do a valid input.")
+        print("\nPlease input a valid response.")
         sleep(1)
         print("\nPlease select the indices of the cards you wish to play, separated by commas.")
         indiceschoice = input("\n")
@@ -803,7 +803,7 @@ def smallblindfunction(ante, basechips, cardhands):
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 print(f"\nDiscards: {player.discards}")
             else:
-                print("\nL + BOZO no discards get a life.")
+                print("\nNo discards left!")
         elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
             run_info()
         else: 
@@ -816,15 +816,6 @@ def bigblindfunction(ante, basechips, cardhands):
     print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
     selected_bosses = set()
-    available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    if len(selected_bosses) == len(available_bosses):
-        print("All bosses have already been selected.")
-        return None
-    while True:
-        whichboss = random.choice(available_bosses)
-        if whichboss not in selected_bosses:
-            selected_bosses.add(whichboss)  
-            break
     available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     if len(selected_bosses) == len(available_bosses):
         print("All bosses have already been selected.")
