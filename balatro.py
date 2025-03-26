@@ -761,7 +761,7 @@ def smallblindfunction(ante, basechips, cardhands):
     handprint = draw_hand(8)
     while (player.roundscore < smallblind.chipval):
         if player.hands <= 0:
-            print("\nYou are cooked.")
+            print("\nYou Lose!")
             sys.exit()
         displayhand(handprint)
         tssshand = pick_hand(handprint, cardhands)
@@ -809,7 +809,7 @@ def smallblindfunction(ante, basechips, cardhands):
         else: 
             print("Please enter a valid choice.")
         if player.roundscore > smallblind.chipval:
-            print("\nYou are him. You beat small blind.")
+            print("\n You beat the small blind!")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
 def bigblindfunction(ante, basechips, cardhands):
