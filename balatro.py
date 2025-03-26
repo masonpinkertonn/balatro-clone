@@ -72,7 +72,7 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker], 0)
+player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker, greedy_joker], 0)
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -698,7 +698,8 @@ def scorejokers(tssshand, totalmult, totalchips):
             if "Mult" in okokok:
                 match = []
                 if okok == "Jimbo":
-                    player.finalmultinc += 4
+                    totalmult += 4
+                    print("+4 Total Mult")
                 if "Played cards with" in okokok:
                     x = okokok.split(" ")
                     inc = x[6]
@@ -714,8 +715,8 @@ def scorejokers(tssshand, totalmult, totalchips):
                         important = "\u2666"
                     for index, value in enumerate(tssshand[0]):
                         if value.suit == important:
-                            value.multinc += inc
-                            tssshand[0][index] = value
+                            totalmult += inc
+                            print(f"\n+{inc} mult for {value.listvalue} of {value.suit}")
                 if "if played hand contains a" in okokok:
                     x = okokok.split(" ")
                     inc = x[0]
@@ -725,21 +726,29 @@ def scorejokers(tssshand, totalmult, totalchips):
                     for i in cardhands:
                         if tssshand[1].name == i.name:
                             totalmult += inc
+                            print(f"\n+{inc} mult for {i.name} hand")
                             break
                 if okok == "Half Joker":
                     if len(tssshand[2]) <= 3:
                         totalmult += 20
+                        print("\n+20 Mult from Half Joker")
                 if okok == "Misprint":
-                    totalmult += randint(0, 24)
+                    thissmult = randint(0, 24)
+                    totalmult += thissmult
+                    print(f"\n+{thissmult} from Misprint")
                 if okok == "Stencil":
                     totalmult *= player.jokerslots
+                    print(f"\n*{player.jokerslots} Mult from Stencil")
                 if okok == "Mystic Summit":
                     if player.discards <= 0:
                         totalmult += 15
+                        print(f"\n+15 Mult from Mystic Summit")
                 if okok == "Abstract Joker":
                     totalmult += (3*(5-player.jokerslots))
+                    print(f"\n+{(3*(5-player.jokerslots))} Mult from Abstract Joker")
                 if okok == "Constellation":
                     totalmult *= (player.planetsused)
+                    print(f"\n*{player.planetsused} Mult from Constellation")
             if "Chips" in okokok:
                 if "if played hand contains a" in okokok:
                     x = okokok.split(" ")
@@ -750,11 +759,14 @@ def scorejokers(tssshand, totalmult, totalchips):
                     for i in cardhands:
                         if tssshand[1].name == i.name:
                             totalchips += inc
+                            print(f"\n+{inc} Chips for {i.name} hand")
                             break
                 if okok == "Banner":
                     totalchips += (player.discards * 30)
+                    print(f"\n+{player.discards * 30} Chips from Banner")
                 if okok == "Blue Joker":
                     totalchips += (2*len(deck))
+                    print(f"\n+{(2*len(deck))} Chips from Blue Joker")
     return (totalmult, totalchips)
 
 def smallblindfunction(ante, basechips, cardhands):
