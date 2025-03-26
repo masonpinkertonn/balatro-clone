@@ -491,6 +491,20 @@ def pick_hand(hand, cardhands):
     those = []
     these = []
 
+    if len(set(suits)) == 1 and len(suits) > 1:
+        if len(suits) == 5:
+            flagger = []
+            for i in range(len(nums)):
+                if nums[i] != nums[len(nums)-1]:
+                    if nums[i] == nums[i+1]+1:
+                        flagger.append("1")
+            if len(flagger) == 4:
+                print("Straight Flush!")
+                return (cards, cardhands[0], cards)
+            else:
+                print("Flush!")
+                return (cards, cardhands[3], cards)
+
     for i in range(1, 15):
         scoring = []
         ts = nums.count(i)
@@ -512,20 +526,20 @@ def pick_hand(hand, cardhands):
             dupes.append(x)
         else:
             seen.add(x)
-    if len(those) == 2:
-        print("Two Pair")
-        scoring = []
-        for i, z in enumerate(unsortednums):
-            if z in dupes:
-                scoring.append(cards[i])
-        return (scoring, cardhands[6], cards)
-    elif len(those) == 1 and len(these) == 1:
+    if len(those) == 1 and len(these) == 1:
         print("Full House")
         scoring = []
         for i, z in enumerate(unsortednums):
             if z in dupes:
                 scoring.append(cards[i])
         return (scoring, cardhands[2], cards)
+    elif len(those) == 2:
+        print("Two Pair")
+        scoring = []
+        for i, z in enumerate(unsortednums):
+            if z in dupes:
+                scoring.append(cards[i])
+        return (scoring, cardhands[6], cards)
     elif len(these) == 1:
         print("Three of a Kind")
         scoring = []
@@ -540,19 +554,6 @@ def pick_hand(hand, cardhands):
             if z in dupes:
                 scoring.append(cards[i])
         return (scoring, cardhands[7], cards)
-    if len(set(suits)) == 1 and len(suits) > 1:
-        if len(suits) == 5:
-            flagger = []
-            for i in range(len(nums)):
-                if nums[i] != nums[len(nums)-1]:
-                    if nums[i] == nums[i+1]+1:
-                        flagger.append("1")
-            if len(flagger) == 4:
-                print("Straight Flush!")
-                return (cards, cardhands[0], cards)
-            else:
-                print("Flush!")
-                return (cards, cardhands[3], cards)
     if len(nums) == 5:
         flagger = []
         for i in range(len(nums)):
