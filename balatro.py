@@ -36,7 +36,7 @@ current_mult = 1
 joker_slots_list = []
 deck = []
 class User:
-    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc, jokers, planetsused):
+    def __init__(self, money, hands, discards, jokerslots, roundscore, finalmultinc, finalchipinc, jokers, planetsused, maxhands, maxdiscards):
         self.money = money
         self.hands = hands
         self.discards = discards
@@ -46,6 +46,8 @@ class User:
         self.finalchipinc = finalchipinc
         self.jokers = jokers
         self.planetsused = planetsused
+        self.maxhands = maxhands
+        self.maxdiscards = maxdiscards
 
 # Card class
 
@@ -84,11 +86,15 @@ class big_blind:
         self.chipval = chipval
 
 class boss_blind:
-    def __init__(self, chipval, name,):
+    def __init__(self, chipval, name):
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker, greedy_joker], 0)
+player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker, greedy_joker], 0, 4, 3)
+
+def playerreset():
+    player.hands = player.maxhands
+    player.discards = player.maxdiscards
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -276,13 +282,14 @@ def shop():
                 new.remove(joker1)
                 joker2 = choice(new)
                 planetchoice = choice(planets)
+                inshop = [joker1, joker2, planetchoice]
             else:
                 print("\nCannot reroll.")
 
         
     
 
-def make_abandoned_deck():
+def make_abandoned_deck(deck):
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
             card = f""" 
@@ -323,7 +330,7 @@ def make_abandoned_deck():
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)    
 
-def make_checkered_deck():
+def make_checkered_deck(deck):
     for i in ("\u2660", "\u2665", "\u2660", "\u2665"):
         for y in range(2,10):
             card = f""" 
@@ -396,7 +403,7 @@ def make_checkered_deck():
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)   
 
-def make_deck():
+def make_deck(deck):
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
         for y in range(2,10):
             card = f""" 
@@ -653,31 +660,31 @@ def choose_deck():
             deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
         if deckchoice.upper() in ["R", "RED"]:
             print("\nYou chose the Red deck.")
-            make_deck()
+            make_deck(deck)
             player.discards += 1
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["B", "BLUE"]:
             print("\nYou chose the Blue deck.")
-            make_deck()
+            make_deck(deck)
             player.hands += 1
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["BL", "BLACK"]:
             print("\nYou chose the Black deck.")
-            make_deck()
+            make_deck(deck)
             player.jokerslots += 1
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["A", "ABANDONED"]:
             print("\nYou chose the Abandoned deck.")
-            make_abandoned_deck()
+            make_abandoned_deck(deck)
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["Y", "YELLOW"]:
             print("\nYou chose the Yellow deck.")
-            make_deck()
+            make_deck(deck)
             player.money += 10
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["C", "CHECKERED"]:
             print("\nYou chose the Checkered deck.")
-            make_checkered_deck()
+            make_checkered_deck(deck)
             
         
             hasdeckbeenchosen = False
@@ -698,6 +705,7 @@ def choose_deck():
                 print("\nCheckered Deck: The Checkered Deck only has Hearts and Spades")
             if whichdeckinfo in ["Y", "YELLOW"]:
                 print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
+    return deckchoice.upper()
 
 def scorejokers(tssshand, totalmult, totalchips):
     if (len(player.jokers)) != 0:
@@ -839,6 +847,60 @@ def smallblindfunction(ante, basechips, cardhands):
             print("Please enter a valid choice.")
         if player.roundscore > smallblind.chipval:
             print("\n You beat the small blind!")
+def bigblindfunction(ante, basechips, cardhands):
+    bigblind = big_blind(basechips*1.5)
+    handprint = draw_hand(8)
+    while (player.roundscore < bigblind.chipval):
+        if player.hands <= 0:
+            print("\nYou Lose!")
+            sys.exit()
+        displayhand(handprint)
+        tssshand = pick_hand(handprint, cardhands)
+        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
+        whatdoyoudo = input("\n").upper()
+        if whatdoyoudo == "P":
+            totalmult = 0
+            totalchips = 0
+            ## PLAY HAND
+            for i in tssshand[0]:
+                totalchips += i.cardvalue 
+                totalmult += i.multinc
+            totalmult += tssshand[1].multval
+            totalchips += tssshand[1].chipval
+            mason = scorejokers(tssshand, totalmult, totalchips)
+            print(f"\n{mason[1]} x {mason[0]}")
+            new = (mason[1]) * (mason[0])
+            print("\n"+str(new))
+            y = list(set(handprint) - set(tssshand[2]))
+            y = sorted(y, key=lambda x: x.listvalue)
+            newhp = draw_hand(len(tssshand[2]))
+            newlist = newhp + y
+            handprint = sorted(newlist, key=lambda x: x.listvalue)
+            player.roundscore += new
+            player.hands -= 1
+            print(f"\nYou have {player.hands} hands left")
+            if player.roundscore < bigblind.chipval:
+                print(f"\nYou need {basechips - player.roundscore} more chips")
+            else:
+                print("\nYou need 0 more chips")
+        elif whatdoyoudo == "D":
+            ## DISCARD HAND
+            if player.discards > 0:
+                player.discards -= 1
+                y = list(set(handprint) - set(tssshand[2]))
+                y = sorted(y, key=lambda x: x.listvalue)
+                newhp = draw_hand(len(tssshand[2]))
+                newlist = newhp + y
+                handprint = sorted(newlist, key=lambda x: x.listvalue)
+                print(f"\nDiscards: {player.discards}")
+            else:
+                print("\nNo discards left!")
+        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
+            run_info()
+        else: 
+            print("Please enter a valid choice.")
+        if player.roundscore > bigblind.chipval:
+            print("\n You beat the small blind!")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
 def bigblindfunction(ante, basechips, cardhands):
@@ -928,7 +990,7 @@ def finisherblindfunction(ante, basechips, cardhands):
     
 
 def rungame(ante, basechips, cardhands):
-    choose_deck()
+    z = choose_deck()
     round = 0
     while player.hands > 0:
         ante += 1
@@ -936,7 +998,15 @@ def rungame(ante, basechips, cardhands):
         print(f"\nSMALL BLIND: {x} chips to defeat")
         smallblindfunction(ante, x, cardhands)
         round += 1
+        playerreset()
         shop()
+        deck = []
+        if z in ("A", "ABANDONED"):
+            make_abandoned_deck(deck)
+        elif z in ("C", "CHECKERED"):
+            make_checkered_deck(deck)
+        else:
+            make_deck(deck)
         bigblindfunction(ante, x, cardhands)
         round += 1
         shop()
