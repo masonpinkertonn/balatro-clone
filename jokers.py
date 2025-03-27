@@ -12,7 +12,7 @@ class Joker:
         self.rarity = rarity
     
     def __str__(self):
-        return f"{self.name}: {self.ability}"
+        return f"${self.price} | {self.name}: {self.ability}"
 
 misprint_mult = 0
 stencil_mult = 0

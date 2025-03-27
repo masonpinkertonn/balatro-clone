@@ -228,7 +228,6 @@ def draw_hand(num):
 def shop():
     print(shop_ascii)
     print("\nImprove your run!")
-    print(f"\nMoney: ${player.money}")
     joker1 = choice(jokers)
     new = jokers
     new.remove(joker1)
@@ -236,6 +235,7 @@ def shop():
     planetchoice = choice(planets)
     inshop = [joker1, joker2, planetchoice]
     while True:
+        print(f"\nMoney: ${player.money}")
         print("\n[N]ext round")
         print("\n[R]eroll ($5)")
         print("\nIn the shop:")
@@ -1150,7 +1150,15 @@ def rungame(ante, basechips, cardhands):
         restore *= 2
         bossblindfunction(ante, restore, cardhands)
         round += 1
+        playerreset()
         shop()
+        deck = []
+        if z in ("A", "ABANDONED"):
+            make_abandoned_deck(deck)
+        elif z in ("C", "CHECKERED"):
+            make_checkered_deck(deck)
+        else:
+            make_deck(deck)
         if ante == 8:
             finisherblindfunction(ante, x, cardhands)
             shop()
