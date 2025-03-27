@@ -1191,16 +1191,6 @@ def rungame(ante, basechips, cardhands):
         restore *= 2
         tsssss = bossblindfunction(ante, restore, cardhands)
         blindfunction(tsssss, ante, restore, cardhands)
-        round += 1
-        playerreset()
-        shop()
-        deck = []
-        if z in ("A", "ABANDONED"):
-            deck = make_abandoned_deck(deck)
-        elif z in ("C", "CHECKERED"):
-            deck = make_checkered_deck(deck)
-        else:
-            deck = make_deck(deck)
         bosspayout()
         round += 1
         playerreset()
