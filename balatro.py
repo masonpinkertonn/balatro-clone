@@ -155,7 +155,7 @@ def clear_terminal():
     os.system("cls" if os.name == "nt" else "clear")
 
 def wingame():
-    jimbosaysifyouwin = random.randint(1, 10)
+    jimbosaysifyouwin = randint(1, 10)
     if jimbosaysifyouwin == 1:
         print('Jimbo says: "You Aced it!"')
     elif jimbosaysifyouwin == 8:
@@ -175,7 +175,7 @@ def wingame():
     elif jimbosaysifyouwin == 9:
         print('Jimbo says: "You\'re a real card shark!"')
 def losegame():
-    jimbosaysbutyousuck = random.randint(1, 14)
+    jimbosaysbutyousuck = randint(1, 14)
     if jimbosaysbutyousuck == 1: 
         print('Jimbo says: "Maybe Go Fish is more our speed..."')
     elif jimbosaysbutyousuck == 11:
