@@ -90,11 +90,12 @@ class boss_blind:
         self.chipval = chipval
         self.name = name
 
-player = User(10000, 4, 3, 5, 0, 0, 0, [zany_joker, greedy_joker], 0, 4, 3)
+player = User(10000, 4, 3, 5, 0, 0, 0, [], 0, 4, 3)
 
 def playerreset():
     player.hands = player.maxhands
     player.discards = player.maxdiscards
+    player.roundscore = 0
 
 stencil_mult2 = player.jokerslots - len(joker_slots_list) 
 stencil.multinc = current_mult * stencil_mult2
@@ -270,9 +271,10 @@ def shop():
             else:
                 print("\nYou can't buy this!")
         elif isinstance(usrchoice, Joker):
-            if player.money >= usrchoice.price:
+            if player.money >= usrchoice.price and player.jokerslots > 0:
                 inshop.remove(usrchoice)
                 player.jokers.append(usrchoice)
+                player.jokerslots -= 1
             else:
                 print("\nYou can't buy this!")
             
@@ -818,8 +820,11 @@ def smallblindfunction(ante, basechips, cardhands):
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
             mason = scorejokers(tssshand, totalmult, totalchips)
-            print(f"\n{mason[1]} x {mason[0]}")
             new = (mason[1]) * (mason[0])
+            if new >= smallblind.chipval:
+                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
+            else:
+                print(f"\n{mason[1]} x {mason[0]}")
             print("\n"+str(new))
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
@@ -852,7 +857,7 @@ def smallblindfunction(ante, basechips, cardhands):
         if player.roundscore > smallblind.chipval:
             print("\n You beat the small blind!")
 def bigblindfunction(ante, basechips, cardhands):
-    bigblind = big_blind(basechips*1.5)
+    bigblind = big_blind(basechips)
     handprint = draw_hand(8)
     while (player.roundscore < bigblind.chipval):
         if player.hands <= 0:
@@ -872,8 +877,12 @@ def bigblindfunction(ante, basechips, cardhands):
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
             mason = scorejokers(tssshand, totalmult, totalchips)
-            print(f"\n{mason[1]} x {mason[0]}")
             new = (mason[1]) * (mason[0])
+            if new >= bigblind.chipval:
+                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
+            else:
+                print(f"\n{mason[1]} x {mason[0]}")
+            print(f"\n{mason[1]} x {mason[0]}")
             print("\n"+str(new))
             y = list(set(handprint) - set(tssshand[2]))
             y = sorted(y, key=lambda x: x.listvalue)
@@ -1009,6 +1018,8 @@ def rungame(ante, basechips, cardhands):
             make_checkered_deck(deck)
         else:
             make_deck(deck)
+        x *= 1.5
+        print(f"\nBIG BLIND: {x} chips to defeat")
         bigblindfunction(ante, x, cardhands)
         round += 1
         shop()
