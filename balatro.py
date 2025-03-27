@@ -32,6 +32,19 @@ from time import *
 from random import *
 import os
 current_mult = 1
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    RED = '\033[31m'
+    UNDERLINE = '\033[4m'
+
 # User class
 joker_slots_list = []
 deck = []
@@ -305,8 +318,48 @@ def shop():
 
 def make_abandoned_deck(deck):
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
-        for y in range(2,10):
-            card = f""" 
+        if i == "♥" or i == "♦":
+            for y in range(2,10):
+                card = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{y}    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    {y}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+
+                thiscard = Card(card, y, y, i)
+
+                deck.append(thiscard)
+
+            tens = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{10}   |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|   {10}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+        
+            aces = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|A    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    A|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)    
+        if i == "♠" or i == "♣":
+            for y in range(2,10):
+                card = f""" 
  ----- 
 |{y}    |
 |     |
@@ -314,13 +367,13 @@ def make_abandoned_deck(deck):
 |     |
 |    {y}|
  ----- 
-            """
+                """
 
-            thiscard = Card(card, y, y, i)
+                thiscard = Card(card, y, y, i)
 
-            deck.append(thiscard)
+                deck.append(thiscard)
 
-        tens = f""" 
+            tens = f""" 
  ----- 
 |{10}   |
 |     |
@@ -328,11 +381,11 @@ def make_abandoned_deck(deck):
 |     |
 |   {10}|
  ----- 
-        """
-        thiscard = Card(tens, 10, 10, i)
-        deck.append(thiscard)
-       
-        aces = f""" 
+            """
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+        
+            aces = f""" 
  ----- 
 |A    |
 |     |
@@ -340,15 +393,87 @@ def make_abandoned_deck(deck):
 |     |
 |    A|
  ----- 
-        """
-        thiscard = Card(aces, 11, 14, i)
-        deck.append(thiscard)    
+            """
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)    
     return deck
 
 def make_checkered_deck(deck):
     for i in ("\u2660", "\u2665", "\u2660", "\u2665"):
-        for y in range(2,10):
-            card = f""" 
+        if i == "♥":
+            for y in range(2,10):
+                card = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{y}    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    {y}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+
+                thiscard = Card(card, y, y, i)
+
+                deck.append(thiscard)
+
+            tens = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{10}   |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|   {10}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+            jacks = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|J    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    J|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(jacks, 10, 11, i)
+            deck.append(thiscard)
+            queens = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|Q    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    Q|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(queens, 10, 12, i)
+            deck.append(thiscard)
+            kings = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|K    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    K|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(kings, 10, 13, i)
+            deck.append(thiscard)
+            aces = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|A    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    A|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)   
+        if i == "♠":
+            for y in range(2,10):
+                card = f""" 
  ----- 
 |{y}    |
 |     |
@@ -356,13 +481,13 @@ def make_checkered_deck(deck):
 |     |
 |    {y}|
  ----- 
-            """
+                """
 
-            thiscard = Card(card, y, y, i)
+                thiscard = Card(card, y, y, i)
 
-            deck.append(thiscard)
+                deck.append(thiscard)
 
-        tens = f""" 
+            tens = f""" 
  ----- 
 |{10}   |
 |     |
@@ -370,10 +495,10 @@ def make_checkered_deck(deck):
 |     |
 |   {10}|
  ----- 
-        """
-        thiscard = Card(tens, 10, 10, i)
-        deck.append(thiscard)
-        jacks = f""" 
+            """
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+            jacks = f""" 
  ----- 
 |J    |
 |     |
@@ -381,10 +506,10 @@ def make_checkered_deck(deck):
 |     |
 |    J|
  ----- 
-        """
-        thiscard = Card(jacks, 10, 11, i)
-        deck.append(thiscard)
-        queens = f""" 
+            """
+            thiscard = Card(jacks, 10, 11, i)
+            deck.append(thiscard)
+            queens = f""" 
  ----- 
 |Q    |
 |     |
@@ -392,10 +517,10 @@ def make_checkered_deck(deck):
 |     |
 |    Q|
  ----- 
-        """
-        thiscard = Card(queens, 10, 12, i)
-        deck.append(thiscard)
-        kings = f""" 
+            """
+            thiscard = Card(queens, 10, 12, i)
+            deck.append(thiscard)
+            kings = f""" 
  ----- 
 |K    |
 |     |
@@ -403,10 +528,10 @@ def make_checkered_deck(deck):
 |     |
 |    K|
  ----- 
-        """
-        thiscard = Card(kings, 10, 13, i)
-        deck.append(thiscard)
-        aces = f""" 
+            """
+            thiscard = Card(kings, 10, 13, i)
+            deck.append(thiscard)
+            aces = f""" 
  ----- 
 |A    |
 |     |
@@ -414,15 +539,87 @@ def make_checkered_deck(deck):
 |     |
 |    A|
  ----- 
-        """
-        thiscard = Card(aces, 11, 14, i)
-        deck.append(thiscard)   
+            """
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)   
     return deck
 
 def make_deck(deck):
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
-        for y in range(2,10):
-            card = f""" 
+        if i == "♥" or i == "♦":
+            for y in range(2,10):
+                card = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{y}    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    {y}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+
+                thiscard = Card(card, y, y, i)
+
+                deck.append(thiscard)
+
+            tens = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|{10}   |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|   {10}|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+            jacks = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|J    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    J|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(jacks, 10, 11, i)
+            deck.append(thiscard)
+            queens = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|Q    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    Q|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(queens, 10, 12, i)
+            deck.append(thiscard)
+            kings = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|K    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    K|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(kings, 10, 13, i)
+            deck.append(thiscard)
+            aces = f"""{bcolors.RED} {bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+{bcolors.RED}|A    |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|  {i}  |{bcolors.ENDC}
+{bcolors.RED}|     |{bcolors.ENDC}
+{bcolors.RED}|    A|{bcolors.ENDC}
+{bcolors.RED} ----- {bcolors.ENDC}
+                {bcolors.RED}{bcolors.ENDC}"""
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)   
+        if i == "♠" or i == "♣":
+            for y in range(2,10):
+                card = f""" 
  ----- 
 |{y}    |
 |     |
@@ -430,13 +627,13 @@ def make_deck(deck):
 |     |
 |    {y}|
  ----- 
-            """
+                """
 
-            thiscard = Card(card, y, y, i)
+                thiscard = Card(card, y, y, i)
 
-            deck.append(thiscard)
+                deck.append(thiscard)
 
-        tens = f""" 
+            tens = f""" 
  ----- 
 |{10}   |
 |     |
@@ -444,10 +641,10 @@ def make_deck(deck):
 |     |
 |   {10}|
  ----- 
-        """
-        thiscard = Card(tens, 10, 10, i)
-        deck.append(thiscard)
-        jacks = f""" 
+            """
+            thiscard = Card(tens, 10, 10, i)
+            deck.append(thiscard)
+            jacks = f""" 
  ----- 
 |J    |
 |     |
@@ -455,10 +652,10 @@ def make_deck(deck):
 |     |
 |    J|
  ----- 
-        """
-        thiscard = Card(jacks, 10, 11, i)
-        deck.append(thiscard)
-        queens = f""" 
+            """
+            thiscard = Card(jacks, 10, 11, i)
+            deck.append(thiscard)
+            queens = f""" 
  ----- 
 |Q    |
 |     |
@@ -466,10 +663,10 @@ def make_deck(deck):
 |     |
 |    Q|
  ----- 
-        """
-        thiscard = Card(queens, 10, 12, i)
-        deck.append(thiscard)
-        kings = f""" 
+            """
+            thiscard = Card(queens, 10, 12, i)
+            deck.append(thiscard)
+            kings = f""" 
  ----- 
 |K    |
 |     |
@@ -477,10 +674,10 @@ def make_deck(deck):
 |     |
 |    K|
  ----- 
-        """
-        thiscard = Card(kings, 10, 13, i)
-        deck.append(thiscard)
-        aces = f""" 
+            """
+            thiscard = Card(kings, 10, 13, i)
+            deck.append(thiscard)
+            aces = f""" 
  ----- 
 |A    |
 |     |
@@ -488,9 +685,9 @@ def make_deck(deck):
 |     |
 |    A|
  ----- 
-        """
-        thiscard = Card(aces, 11, 14, i)
-        deck.append(thiscard)     
+            """
+            thiscard = Card(aces, 11, 14, i)
+            deck.append(thiscard)   
     return deck
 def start_game():
     pass
