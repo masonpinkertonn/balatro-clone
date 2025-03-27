@@ -1201,6 +1201,17 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
+        bosspayout()
+        round += 1
+        playerreset()
+        shop()
+        deck = []
+        if z in ("A", "ABANDONED"):
+            deck = make_abandoned_deck(deck)
+        elif z in ("C", "CHECKERED"):
+            deck = make_checkered_deck(deck)
+        else:
+            deck = make_deck(deck)
         if ante == 8:
             mystuff = finisherblindfunction(ante, restore, cardhands)
             blindfunction(mystuff, ante, restore, cardhands)
