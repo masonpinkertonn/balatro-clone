@@ -254,6 +254,7 @@ def shop():
             usrchoice = inshop[int(usrchoice)-1]
         if isinstance(usrchoice, Planet):
             if player.money >= planetchoice.price:
+                player.money -= planetchoice.price
                 inshop.remove(planetchoice)
                 player.planetsused += 1
                 planetchoicename = planetchoice.ability.split()
@@ -272,6 +273,7 @@ def shop():
                 print("\nYou can't buy this!")
         elif isinstance(usrchoice, Joker):
             if player.money >= usrchoice.price and player.jokerslots > 0:
+                player.money -= usrchoice.price
                 inshop.remove(usrchoice)
                 player.jokers.append(usrchoice)
                 player.jokerslots -= 1
@@ -950,22 +952,22 @@ def bossblindfunction(ante, basechips, cardhands):
         imposterbasechips = (basechips * 1.5)
         bossblind = boss_blind(imposterbasechips, "The Imposter")
     if whichboss == 6:
-        print("The Stone: +1X Base score for every $10 held ")
+        print("The Stone: +1x Base score for every $10 held ")
         stonechipsmultiplier = (player.money // 10)
         stonechips = (basechips * stonechipsmultiplier)
         bossblind = boss_blind(stonechips, "The Stone")
     if whichboss == 7:
-        print("The Sand: +1X Base score for every Joker")
+        print("The Sand: +1x Base score for every Joker")
         sandchipsmultiplier = len(player.jokers)
         sandchips = (basechips * sandchipsmultiplier)
         bossblind = boss_blind(sandchips, "The Sand")
     if whichboss == 8:
-        print("The Glass: +1X Base score for every Discard")
+        print("The Glass: +1x Base score for every Discard")
         glasschipsmultiplier = player.discards
         glasschips = (basechips * glasschipsmultiplier)
         bossblind = boss_blind(glasschips, "The Glass")
     if whichboss == 9:
-        print("The Mirror: +1X Base score for every Hand")
+        print("The Mirror: +1x Base score for every Hand")
         mirrorchipsmultiplier = player.hands
         mirrorchips = (basechips * mirrorchipsmultiplier)
         bossblind = boss_blind(mirrorchips, "The Mirror")
