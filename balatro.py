@@ -256,12 +256,16 @@ def shop():
                 inshop.remove(planetchoice)
                 player.planetsused += 1
                 planetchoicename = planetchoice.ability.split()
+                thismultinc = int(planetchoicename[planetchoicename.index("Mult,")-1][1])
+                thischipinc = int(planetchoicename[planetchoicename.index("Chips")-1][1])
                 thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
                 thishand = " ".join(thishand)
                 thishand = thishand[:-1]
                 for i in cardhands:
                     if i.name == thishand:
                         i.lvl += 1
+                        i.multval += thismultinc
+                        i.chipval += thischipinc
                         print(i)
             else:
                 print("\nYou can't buy this!")
@@ -903,8 +907,6 @@ def bigblindfunction(ante, basechips, cardhands):
             print("\n You beat the small blind!")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
-def bigblindfunction(ante, basechips, cardhands):
-    print("THIS DOES NOT WORK YET PLACEHOLDER")
 def bossblindfunction(ante, basechips, cardhands):
     selected_bosses = set()
     available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
