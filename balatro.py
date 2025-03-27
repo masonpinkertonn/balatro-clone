@@ -1063,7 +1063,7 @@ def blindfunction(blind, ante, basechips, cardhands):
         else: 
             print("Please enter a valid choice.")
         if player.roundscore > blind.chipval:
-            print("\nYou beat the blind!")
+            print("\nYou beat the boss blind!")
 def bossblindfunction(ante, basechips, cardhands):
     bossbasechips = (basechips * 2)
     needlebasechips = (basechips * 1.75)
