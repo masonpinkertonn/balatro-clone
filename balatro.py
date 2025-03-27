@@ -923,7 +923,7 @@ def bossblindfunction(ante, basechips, cardhands):
         print("All bosses have already been selected.")
         return None
     while True:
-        whichboss = random.choice(available_bosses)
+        whichboss = choice(available_bosses)
         if whichboss not in selected_bosses:
             selected_bosses.add(whichboss)  
             break
@@ -1108,7 +1108,8 @@ def finisherblindfunction(ante, basechips, cardhands):
         else: 
             print("Please enter a valid choice.")
         if player.roundscore > finisherblind.chipval:
-            print("\n You beat the big blind!")
+            print(f"\n You beat the {finisherblind.name}")
+            wingame()
 
     
 
@@ -1153,6 +1154,7 @@ def rungame(ante, basechips, cardhands):
         if ante == 8:
             finisherblindfunction(ante, x, cardhands)
             shop()
+    losegame()
         
 
 def displayhand(handprint):
