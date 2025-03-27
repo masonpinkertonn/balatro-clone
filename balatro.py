@@ -937,7 +937,7 @@ def scorejokers(tssshand, totalmult, totalchips):
                 match = []
                 if okok == "Jimbo":
                     totalmult += 4
-                    print("+4 Total Mult")
+                    print("\n+4 Total Mult")
                 if "Played cards with" in okokok:
                     x = okokok.split(" ")
                     inc = x[6]
@@ -1064,9 +1064,9 @@ def blindfunction(blind, ante, basechips, cardhands):
             print("Please enter a valid choice.")
         if player.roundscore > blind.chipval:
             print("\nYou beat the blind!")
-bossbasechips = (basechips * 2)
-needlebasechips = (basechips * 1.75)
 def bossblindfunction(ante, basechips, cardhands):
+    bossbasechips = (basechips * 2)
+    needlebasechips = (basechips * 1.75)
     selected_bosses = set()
     available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     if len(selected_bosses) == len(available_bosses):
