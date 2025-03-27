@@ -157,51 +157,53 @@ def clear_terminal():
 def wingame():
     jimbosaysifyouwin = randint(1, 10)
     if jimbosaysifyouwin == 1:
-        print('Jimbo says: "You Aced it!"')
+        print('\nJimbo says: "You Aced it!"')
     elif jimbosaysifyouwin == 8:
-        print('Jimbo says: "You\'re a Jack of All Trades!"')
+        print('\nJimbo says: "You\'re a Jack of All Trades!"')
     elif jimbosaysifyouwin == 3:
-        print('Jimbo says: "You dealt with that pretty well!"')
+        print('\nJimbo says: "You dealt with that pretty well!"')
     elif jimbosaysifyouwin == 4:
-        print('Jimbo says: "Looks like you weren\'t bluffing!"')
+        print('\nJimbo says: "Looks like you weren\'t bluffing!"')
     elif jimbosaysifyouwin == 5:
-        print('Jimbo says: "Too bad these chips are all virtual..."')
+        print('\nJimbo says: "Too bad these chips are all virtual..."')
     elif jimbosaysifyouwin == 6:
-        print('Jimbo says: "Looks like I\'ve taught you well!"')
+        print('\nJimbo says: "Looks like I\'ve taught you well!"')
     elif jimbosaysifyouwin == 7:
-        print('Jimbo says: "You made some heads up plays!"')
+        print('\nJimbo says: "You made some heads up plays!"')
     elif jimbosaysifyouwin == 2:
-        print('Jimbo says: "Good thing I didn\'t bet against you!"')
+        print('\nJimbo says: "Good thing I didn\'t bet against you!"')
     elif jimbosaysifyouwin == 9:
-        print('Jimbo says: "You\'re a real card shark!"')
+        print('\nJimbo says: "You\'re a real card shark!"')
+    sys.exit()
 def losegame():
     jimbosaysbutyousuck = randint(1, 14)
     if jimbosaysbutyousuck == 1: 
-        print('Jimbo says: "Maybe Go Fish is more our speed..."')
+        print('\nJimbo says: "Maybe Go Fish is more our speed..."')
     elif jimbosaysbutyousuck == 11:
-        print('Jimbo says: "You\'re not exactly a card shark..."')
+        print('\nJimbo says: "You\'re not exactly a card shark..."')
     elif jimbosaysbutyousuck == 2:
-        print('Jimbo says: "We folded like a cheap suit!"')
+        print('\nJimbo says: "We folded like a cheap suit!"')
     elif jimbosaysbutyousuck == 3:
-        print('Jimbo says: "Time for us to shuffle off and try again"')
+        print('\nJimbo says: "Time for us to shuffle off and try again"')
     elif jimbosaysbutyousuck == 4:
-        print('Jimbo says: "You know what they say, the house always wins!"')
+        print('\nJimbo says: "You know what they say, the house always wins!"')
     elif jimbosaysbutyousuck == 5:
-        print('Jimbo says: "Looks like we found out who the real Joker is!"')
+        print('\nJimbo says: "Looks like we found out who the real Joker is!"')
     elif jimbosaysbutyousuck == 6:
-        print('Jimbo says: "Oh no, were you bluffing too?"')
+        print('\nJimbo says: "Oh no, were you bluffing too?"')
     elif jimbosaysbutyousuck == 7:
-        print('Jimbo says: "Looks like the joke\'s on us!"')
+        print('\nJimbo says: "Looks like the joke\'s on us!"')
     elif jimbosaysbutyousuck == 8:
-        print('Jimbo says: "If I had hands I would have covered my eyes!"')
+        print('\nJimbo says: "If I had hands I would have covered my eyes!"')
     elif jimbosaysbutyousuck == 9:
-        print('Jimbo says: "I\'m literally a fool, what\'s your excuse?"')
+        print('\nJimbo says: "I\'m literally a fool, what\'s your excuse?"')
     elif jimbosaysbutyousuck == 10:
-        print('Jimbo says: "What a flop!"')
+        print('\nJimbo says: "What a flop!"')
     elif jimbosaysbutyousuck == 12:
-        print('Jimbo says: "What did you think you were cooking..."')
+        print('\nJimbo says: "What did you think you were cooking..."')
     elif jimbosaysbutyousuck == 13:
         balatrocopypasta()
+    sys.exit()
     
 def run_info():
     print("\nPOKER HANDS")
@@ -221,8 +223,12 @@ cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_
 def draw_hand(num):
     shuffle(deck)
     hand = []
-    for i in range(num):
-        hand.append(deck.pop())
+    try:
+        for i in range(num):
+            hand.append(deck.pop())
+    except IndexError:
+        print("\nNo more cards to draw! You lose!")
+        losegame()
     return sorted(hand, key=lambda x: x.listvalue)
 
 def shop():
@@ -337,6 +343,7 @@ def make_abandoned_deck(deck):
         """
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)    
+    return deck
 
 def make_checkered_deck(deck):
     for i in ("\u2660", "\u2665", "\u2660", "\u2665"):
@@ -410,6 +417,7 @@ def make_checkered_deck(deck):
         """
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)   
+    return deck
 
 def make_deck(deck):
     for i in ("\u2660", "\u2665", "\u2666", "\u2663"):
@@ -483,6 +491,7 @@ def make_deck(deck):
         """
         thiscard = Card(aces, 11, 14, i)
         deck.append(thiscard)     
+    return deck
 def start_game():
     pass
 
@@ -801,10 +810,9 @@ def scorejokers(tssshand, totalmult, totalchips):
                     print(f"\n+{(2*len(deck))} Chips from Blue Joker")
     return (totalmult, totalchips)
 
-def smallblindfunction(ante, basechips, cardhands):
-    smallblind = small_blind(basechips)
+def blindfunction(blind, ante, basechips, cardhands):
     handprint = draw_hand(8)
-    while (player.roundscore < smallblind.chipval):
+    while (player.roundscore < blind.chipval):
         if player.hands <= 0:
             print("\nYou Lose!")
             sys.exit()
@@ -823,20 +831,21 @@ def smallblindfunction(ante, basechips, cardhands):
             totalchips += tssshand[1].chipval
             mason = scorejokers(tssshand, totalmult, totalchips)
             new = (mason[1]) * (mason[0])
-            if new >= smallblind.chipval:
+            if new >= blind.chipval:
                 print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
             else:
                 print(f"\n{mason[1]} x {mason[0]}")
             print("\n"+str(new))
-            y = list(set(handprint) - set(tssshand[2]))
-            y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(tssshand[2]))
-            newlist = newhp + y
-            handprint = sorted(newlist, key=lambda x: x.listvalue)
             player.roundscore += new
+            if player.roundscore < blind.chipval:
+                y = list(set(handprint) - set(tssshand[2]))
+                y = sorted(y, key=lambda x: x.listvalue)
+                newhp = draw_hand(len(tssshand[2]))
+                newlist = newhp + y
+                handprint = sorted(newlist, key=lambda x: x.listvalue)
             player.hands -= 1
             print(f"\nYou have {player.hands} hands left")
-            if player.roundscore < smallblind.chipval:
+            if player.roundscore < blind.chipval:
                 print(f"\nYou need {basechips - player.roundscore} more chips")
             else:
                 print("\nYou need 0 more chips")
@@ -856,66 +865,8 @@ def smallblindfunction(ante, basechips, cardhands):
             run_info()
         else: 
             print("Please enter a valid choice.")
-        if player.roundscore > smallblind.chipval:
-            print("\n You beat the small blind!")
-def bigblindfunction(ante, basechips, cardhands):
-    bigblind = big_blind(basechips)
-    handprint = draw_hand(8)
-    while (player.roundscore < bigblind.chipval):
-        if player.hands <= 0:
-            print("\nYou Lose!")
-            sys.exit()
-        displayhand(handprint)
-        tssshand = pick_hand(handprint, cardhands)
-        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
-        whatdoyoudo = input("\n").upper()
-        if whatdoyoudo == "P":
-            totalmult = 0
-            totalchips = 0
-            ## PLAY HAND
-            for i in tssshand[0]:
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
-            totalmult += tssshand[1].multval
-            totalchips += tssshand[1].chipval
-            mason = scorejokers(tssshand, totalmult, totalchips)
-            new = (mason[1]) * (mason[0])
-            if new >= bigblind.chipval:
-                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
-            else:
-                print(f"\n{mason[1]} x {mason[0]}")
-            print(f"\n{mason[1]} x {mason[0]}")
-            print("\n"+str(new))
-            y = list(set(handprint) - set(tssshand[2]))
-            y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(tssshand[2]))
-            newlist = newhp + y
-            handprint = sorted(newlist, key=lambda x: x.listvalue)
-            player.roundscore += new
-            player.hands -= 1
-            print(f"\nYou have {player.hands} hands left")
-            if player.roundscore < bigblind.chipval:
-                print(f"\nYou need {basechips - player.roundscore} more chips")
-            else:
-                print("\nYou need 0 more chips")
-        elif whatdoyoudo == "D":
-            ## DISCARD HAND
-            if player.discards > 0:
-                player.discards -= 1
-                y = list(set(handprint) - set(tssshand[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
-                print(f"\nDiscards: {player.discards}")
-            else:
-                print("\nNo discards left!")
-        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
-        if player.roundscore > bigblind.chipval:
-            print("\n You beat the big blind!")
+        if player.roundscore > blind.chipval:
+            print("\nYou beat the blind!")
 bossbasechips = (basechips * 2)
 needlebasechips = (basechips * 1.75)
 def bossblindfunction(ante, basechips, cardhands):
@@ -971,62 +922,7 @@ def bossblindfunction(ante, basechips, cardhands):
         mirrorchipsmultiplier = player.hands
         mirrorchips = (basechips * mirrorchipsmultiplier)
         bossblind = boss_blind(mirrorchips, "The Mirror")
-    handprint = draw_hand(8)
-    while (player.roundscore < bossblind.chipval):
-        if player.hands <= 0:
-            print("\nYou Lose!")
-            sys.exit()
-        displayhand(handprint)
-        tssshand = pick_hand(handprint, cardhands)
-        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
-        whatdoyoudo = input("\n").upper()
-        if whatdoyoudo == "P":
-            totalmult = 0
-            totalchips = 0
-            ## PLAY HAND
-            for i in tssshand[0]:
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
-            totalmult += tssshand[1].multval
-            totalchips += tssshand[1].chipval
-            mason = scorejokers(tssshand, totalmult, totalchips)
-            new = (mason[1]) * (mason[0])
-            if new >= bossblind.chipval:
-                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
-            else:
-                print(f"\n{mason[1]} x {mason[0]}")
-            print(f"\n{mason[1]} x {mason[0]}")
-            print("\n"+str(new))
-            y = list(set(handprint) - set(tssshand[2]))
-            y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(tssshand[2]))
-            newlist = newhp + y
-            handprint = sorted(newlist, key=lambda x: x.listvalue)
-            player.roundscore += new
-            player.hands -= 1
-            print(f"\nYou have {player.hands} hands left")
-            if player.roundscore < bossblind.chipval:
-                print(f"\nYou need {basechips - player.roundscore} more chips")
-            else:
-                print("\nYou need 0 more chips")
-        elif whatdoyoudo == "D":
-            ## DISCARD HAND
-            if player.discards > 0:
-                player.discards -= 1
-                y = list(set(handprint) - set(tssshand[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
-                print(f"\nDiscards: {player.discards}")
-            else:
-                print("\nNo discards left!")
-        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
-        if player.roundscore > bossblind.chipval:
-            print("\n You beat the boss blind!")
+    return bossblind
 
         
 
@@ -1055,63 +951,7 @@ def finisherblindfunction(ante, basechips, cardhands):
         player.discards = bronzebowdiscards
         bronzebowchips = basechips * 3
         finisherblind = boss_blind(bronzebowchips, "Bronze Bow")
-    handprint = draw_hand(8)
-    while (player.roundscore < finisherblind.chipval):
-        if player.hands <= 0:
-            print("\nYou Lose!")
-            sys.exit()
-        displayhand(handprint)
-        tssshand = pick_hand(handprint, cardhands)
-        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
-        whatdoyoudo = input("\n").upper()
-        if whatdoyoudo == "P":
-            totalmult = 0
-            totalchips = 0
-            ## PLAY HAND
-            for i in tssshand[0]:
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
-            totalmult += tssshand[1].multval
-            totalchips += tssshand[1].chipval
-            mason = scorejokers(tssshand, totalmult, totalchips)
-            new = (mason[1]) * (mason[0])
-            if new >= finisherblind.chipval:
-                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
-            else:
-                print(f"\n{mason[1]} x {mason[0]}")
-            print(f"\n{mason[1]} x {mason[0]}")
-            print("\n"+str(new))
-            y = list(set(handprint) - set(tssshand[2]))
-            y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(tssshand[2]))
-            newlist = newhp + y
-            handprint = sorted(newlist, key=lambda x: x.listvalue)
-            player.roundscore += new
-            player.hands -= 1
-            print(f"\nYou have {player.hands} hands left")
-            if player.roundscore < finisherblind.chipval:
-                print(f"\nYou need {basechips - player.roundscore} more chips")
-            else:
-                print("\nYou need 0 more chips")
-        elif whatdoyoudo == "D":
-            ## DISCARD HAND
-            if player.discards > 0:
-                player.discards -= 1
-                y = list(set(handprint) - set(tssshand[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
-                print(f"\nDiscards: {player.discards}")
-            else:
-                print("\nNo discards left!")
-        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
-        if player.roundscore > finisherblind.chipval:
-            print(f"\n You beat the {finisherblind.name}")
-            wingame()
+    return finisherblind
 
     
 
@@ -1123,46 +963,51 @@ def rungame(ante, basechips, cardhands):
         x = uptheante(ante, basechips)
         restore = x
         print(f"\nSMALL BLIND: {x} chips to defeat")
-        smallblindfunction(ante, x, cardhands)
+        smallblind = small_blind(x)
+        blindfunction(smallblind, ante, x, cardhands)
         smallpayout()
         round += 1
         playerreset()
         shop()
         deck = []
         if z in ("A", "ABANDONED"):
-            make_abandoned_deck(deck)
+            deck = make_abandoned_deck(deck)
         elif z in ("C", "CHECKERED"):
-            make_checkered_deck(deck)
+            deck = make_checkered_deck(deck)
         else:
-            make_deck(deck)
+            deck = make_deck(deck)
         x *= 1.5
         print(f"\nBIG BLIND: {x} chips to defeat")
-        bigblindfunction(ante, x, cardhands)
+        bigblind = big_blind(x)
+        blindfunction(bigblind, ante, x, cardhands)
         bigpayout()
         round += 1
         playerreset()
         shop()
         deck = []
         if z in ("A", "ABANDONED"):
-            make_abandoned_deck(deck)
+            deck = make_abandoned_deck(deck)
         elif z in ("C", "CHECKERED"):
-            make_checkered_deck(deck)
+            deck = make_checkered_deck(deck)
         else:
-            make_deck(deck)
+            deck = make_deck(deck)
         restore *= 2
-        bossblindfunction(ante, restore, cardhands)
+        tsssss = bossblindfunction(ante, restore, cardhands)
+        blindfunction(tsssss, ante, restore, cardhands)
         round += 1
         playerreset()
         shop()
         deck = []
         if z in ("A", "ABANDONED"):
-            make_abandoned_deck(deck)
+            deck = make_abandoned_deck(deck)
         elif z in ("C", "CHECKERED"):
-            make_checkered_deck(deck)
+            deck = make_checkered_deck(deck)
         else:
-            make_deck(deck)
+            deck = make_deck(deck)
         if ante == 8:
-            finisherblindfunction(ante, x, cardhands)
+            mystuff = finisherblindfunction(ante, restore, cardhands)
+            blindfunction(mystuff, ante, restore, cardhands)
+            wingame()
             shop()
     losegame()
         
