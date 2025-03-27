@@ -7,7 +7,7 @@ class Planet:
         self.price = price
 
     def __str__(self):
-        return f"{self.name}: {self.ability}"
+        return f"${self.price} | {self.name}: {self.ability}"
     
 # Base Planets
     

@@ -228,7 +228,6 @@ def draw_hand(num):
 def shop():
     print(shop_ascii)
     print("\nImprove your run!")
-    print(f"\nMoney: ${player.money}")
     joker1 = choice(jokers)
     new = jokers
     new.remove(joker1)
@@ -236,6 +235,7 @@ def shop():
     planetchoice = choice(planets)
     inshop = [joker1, joker2, planetchoice]
     while True:
+        print(f"\nMoney: ${player.money}")
         print("\n[N]ext round")
         print("\n[R]eroll ($5)")
         print("\nIn the shop:")
@@ -1053,62 +1053,6 @@ def finisherblindfunction(ante, basechips, cardhands):
         player.discards = bronzebowdiscards
         bronzebowchips = basechips * 3
         finisherblind = boss_blind(bronzebowchips, "Bronze Bow")
-    handprint = draw_hand(8)
-    while (player.roundscore < finisherblind.chipval):
-        if player.hands <= 0:
-            print("\nYou Lose!")
-            sys.exit()
-        displayhand(handprint)
-        tssshand = pick_hand(handprint, cardhands)
-        print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
-        whatdoyoudo = input("\n").upper()
-        if whatdoyoudo == "P":
-            totalmult = 0
-            totalchips = 0
-            ## PLAY HAND
-            for i in tssshand[0]:
-                totalchips += i.cardvalue 
-                totalmult += i.multinc
-            totalmult += tssshand[1].multval
-            totalchips += tssshand[1].chipval
-            mason = scorejokers(tssshand, totalmult, totalchips)
-            new = (mason[1]) * (mason[0])
-            if new >= finisherblind.chipval:
-                print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
-            else:
-                print(f"\n{mason[1]} x {mason[0]}")
-            print(f"\n{mason[1]} x {mason[0]}")
-            print("\n"+str(new))
-            y = list(set(handprint) - set(tssshand[2]))
-            y = sorted(y, key=lambda x: x.listvalue)
-            newhp = draw_hand(len(tssshand[2]))
-            newlist = newhp + y
-            handprint = sorted(newlist, key=lambda x: x.listvalue)
-            player.roundscore += new
-            player.hands -= 1
-            print(f"\nYou have {player.hands} hands left")
-            if player.roundscore < finisherblind.chipval:
-                print(f"\nYou need {basechips - player.roundscore} more chips")
-            else:
-                print("\nYou need 0 more chips")
-        elif whatdoyoudo == "D":
-            ## DISCARD HAND
-            if player.discards > 0:
-                player.discards -= 1
-                y = list(set(handprint) - set(tssshand[2]))
-                y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
-                newlist = newhp + y
-                handprint = sorted(newlist, key=lambda x: x.listvalue)
-                print(f"\nDiscards: {player.discards}")
-            else:
-                print("\nNo discards left!")
-        elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
-            run_info()
-        else: 
-            print("Please enter a valid choice.")
-        if player.roundscore > finisherblind.chipval:
-            print("\n You beat the big blind!")
 
     
 
@@ -1149,7 +1093,15 @@ def rungame(ante, basechips, cardhands):
         restore *= 2
         bossblindfunction(ante, restore, cardhands)
         round += 1
+        playerreset()
         shop()
+        deck = []
+        if z in ("A", "ABANDONED"):
+            make_abandoned_deck(deck)
+        elif z in ("C", "CHECKERED"):
+            make_checkered_deck(deck)
+        else:
+            make_deck(deck)
         if ante == 8:
             finisherblindfunction(ante, x, cardhands)
             shop()
