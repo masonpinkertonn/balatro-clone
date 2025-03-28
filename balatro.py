@@ -1174,6 +1174,7 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
+        print(len(deck))
         x *= 1.5
         x = int(x)
         print(f"\nBIG BLIND: {x} chips to defeat")
@@ -1190,6 +1191,7 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
+        print(len(deck))
         restore *= 2
         tsssss = bossblindfunction(ante, restore, cardhands)
         blindfunction(tsssss, ante, restore, cardhands)
