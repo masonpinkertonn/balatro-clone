@@ -1098,6 +1098,7 @@ def bossblindfunction(ante, basechips, cardhands):
     if whichboss == 5:
         print("The Imposter: Just a big blind who got a surprise promotion.")
         imposterbasechips = (basechips * 1.5)
+        imposterbasechips = int(imposterbasechips)
         bossblind = boss_blind(imposterbasechips, "The Imposter")
     if whichboss == 6:
         print("The Stone: +1x Base score for every $10 held ")
@@ -1174,6 +1175,7 @@ def rungame(ante, basechips, cardhands):
         else:
             deck = make_deck(deck)
         x *= 1.5
+        x = int(x)
         print(f"\nBIG BLIND: {x} chips to defeat")
         bigblind = big_blind(x)
         blindfunction(bigblind, ante, x, cardhands)
