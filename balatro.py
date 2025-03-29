@@ -1008,6 +1008,7 @@ def scorejokers(tssshand, totalmult, totalchips):
     return (totalmult, totalchips)
 
 def blindfunction(blind, ante, basechips, cardhands):
+    print(blind.chipval)
     handprint = draw_hand(8)
     while (player.roundscore < blind.chipval):
         if player.hands <= 0:
@@ -1043,7 +1044,7 @@ def blindfunction(blind, ante, basechips, cardhands):
             player.hands -= 1
             print(f"\nYou have {player.hands} hands left")
             if player.roundscore < blind.chipval:
-                print(f"\nYou need {basechips - player.roundscore} more chips")
+                print(f"\nYou need {blind.chipval - player.roundscore} more chips")
             else:
                 print("\nYou need 0 more chips")
         elif whatdoyoudo == "D":
@@ -1063,7 +1064,7 @@ def blindfunction(blind, ante, basechips, cardhands):
         else: 
             print("Please enter a valid choice.")
         if player.roundscore > blind.chipval:
-            print("\nYou beat the boss blind!")
+            print("\nYou beat the blind!")
 def bossblindfunction(ante, basechips, cardhands):
     bossbasechips = (basechips * 2)
     needlebasechips = (basechips * 1.75)
@@ -1192,9 +1193,8 @@ def rungame(ante, basechips, cardhands):
         else:
             deck = make_deck(deck)
         print(len(deck))
-        restore *= 2
         tsssss = bossblindfunction(ante, restore, cardhands)
-        blindfunction(tsssss, ante, restore, cardhands)
+        blindfunction(tsssss, ante, tsssss.chipval, cardhands)
         bosspayout()
         round += 1
         playerreset()
