@@ -1208,7 +1208,7 @@ def rungame(ante, basechips, cardhands):
             deck = make_deck(deck)
         if ante == 8:
             mystuff = finisherblindfunction(ante, restore, cardhands)
-            blindfunction(mystuff, ante, restore, cardhands)
+            blindfunction(mystuff, ante, mystuff.chipval, cardhands)
             wingame()
             shop()
     losegame()
