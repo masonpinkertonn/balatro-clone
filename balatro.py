@@ -233,7 +233,7 @@ def run_info():
 cardhands = [straight_flush, four_of_a_kind, full_house, flush, straight, three_of_a_kind, two_pair, pair, high_card]
 
 
-def draw_hand(num):
+def draw_hand(num, deck):
     shuffle(deck)
     hand = []
     try:
@@ -1013,8 +1013,8 @@ def scorejokers(tssshand, totalmult, totalchips):
                     print(f"\n+{(2*len(deck))} Chips from Blue Joker")
     return (totalmult, totalchips)
 
-def blindfunction(blind, ante, basechips, cardhands):
-    handprint = draw_hand(8)
+def blindfunction(blind, ante, basechips, cardhands, deck):
+    handprint = draw_hand(8, deck)
     while (player.roundscore < blind.chipval):
         if player.hands <= 0:
             print("\nYou Lose!")
@@ -1168,7 +1168,7 @@ def rungame(ante, basechips, cardhands):
         restore = x
         print(f"\nSMALL BLIND: {x} chips to defeat")
         smallblind = small_blind(x)
-        blindfunction(smallblind, ante, x, cardhands)
+        blindfunction(smallblind, ante, x, cardhands, deck)
         smallpayout()
         round += 1
         playerreset()
@@ -1184,7 +1184,7 @@ def rungame(ante, basechips, cardhands):
         x = int(x)
         print(f"\nBIG BLIND: {x} chips to defeat")
         bigblind = big_blind(x)
-        blindfunction(bigblind, ante, x, cardhands)
+        blindfunction(bigblind, ante, x, cardhands, deck)
         bigpayout()
         round += 1
         playerreset()
@@ -1198,7 +1198,7 @@ def rungame(ante, basechips, cardhands):
             deck = make_deck(deck)
         tsssss = bossblindfunction(ante, restore, cardhands)
         print(f"\nBOSS BLIND: {tsssss.chipval} chips to defeat")
-        blindfunction(tsssss, ante, tsssss.chipval, cardhands)
+        blindfunction(tsssss, ante, tsssss.chipval, cardhands, deck)
         bosspayout()
         round += 1
         playerreset()
@@ -1213,7 +1213,7 @@ def rungame(ante, basechips, cardhands):
         if ante == 8:
             mystuff = finisherblindfunction(ante, restore, cardhands)
             print(f"\nFINISHER BLIND: {mystuff.chipval} chips to defeat")
-            blindfunction(mystuff, ante, mystuff.chipval, cardhands)
+            blindfunction(mystuff, ante, mystuff.chipval, cardhands, deck)
             wingame()
             shop()
     losegame()
