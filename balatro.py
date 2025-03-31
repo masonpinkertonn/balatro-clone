@@ -693,18 +693,24 @@ def start_game():
     pass
 
 def pick_hand(hand, cardhands):
-    print("\nPlease select the indices of the cards you wish to select, separated by commas.")
-    indiceschoice = input("\n")
-    indiceschoice = indiceschoice.split(", ")
-    while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
-        print("\nPlease input a valid response.")
-        sleep(1)
-        print("\nPlease select the indices of the cards you wish to play, separated by commas.")
-        indiceschoice = input("\n")
-        indiceschoice = indiceschoice.split(", ")
-    cards = []
-    for i in indiceschoice:
-        cards.append(hand[int(i)-1])
+    running=True
+    while running:
+        try:
+            print("\nPlease select the indices of the cards you wish to select, separated by commas.")
+            indiceschoice = input("\n")
+            indiceschoice = indiceschoice.split(", ")
+            while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
+                print("\nPlease input a valid response.")
+                sleep(1)
+                print("\nPlease select the indices of the cards you wish to play, separated by commas.")
+                indiceschoice = input("\n")
+                indiceschoice = indiceschoice.split(", ")
+            cards = []
+            for i in indiceschoice:
+                cards.append(hand[int(i)-1])
+            running = False
+        except ValueError:
+            print("\nPlease try again.")
     ascii_lines = []
     for i in cards:
         ascii_line = i.asciiart.split("\n")
