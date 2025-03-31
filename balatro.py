@@ -1163,6 +1163,13 @@ def rungame(ante, basechips, cardhands):
     z = choose_deck()
     round = 0
     while player.hands > 0:
+        deck = []
+        if z in ("A", "ABANDONED"):
+            deck = make_abandoned_deck(deck)
+        elif z in ("C", "CHECKERED"):
+            deck = make_checkered_deck(deck)
+        else:
+            deck = make_deck(deck)
         ante += 1
         x = uptheante(ante, basechips)
         restore = x
