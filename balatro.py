@@ -1,5 +1,7 @@
 # Version: 1.0
 
+# Note that jokers in the shop are intentionally listed more than once at times due to our limited joker catalogue
+
 # BALATRO clone by Mason P. and Henry C.
 # Mr. Smith is him
 
