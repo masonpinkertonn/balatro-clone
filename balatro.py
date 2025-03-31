@@ -994,7 +994,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     totalmult += thissmult
                     print(f"\n+{thissmult} from Misprint")
                 if okok == "Stencil":
-                    totalmult *= player.jokerslots
+                    totalmult += player.jokerslots * totalmult
                     print(f"\n*{player.jokerslots} Mult from Stencil")
                 if okok == "Mystic Summit":
                     if player.discards <= 0:
@@ -1004,7 +1004,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     totalmult += (3*(5-player.jokerslots))
                     print(f"\n+{(3*(5-player.jokerslots))} Mult from Abstract Joker")
                 if okok == "Constellation":
-                    totalmult *= (player.planetsused)
+                    totalmult += (player.planetsused) * totalmult
                     print(f"\n*{player.planetsused} Mult from Constellation")
             if "Chips" in okokok:
                 if "if played hand contains a" in okokok:
