@@ -973,7 +973,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     for index, value in enumerate(tssshand[0]):
                         if value.suit == important:
                             totalmult += inc
-                            print(f"\n+{inc} mult for {value.listvalue} of {value.suit}")
+                            print(f"\n+{inc} Mult for {value.listvalue} of {value.suit}")
                 if "if played hand contains a" in okokok:
                     x = okokok.split(" ")
                     inc = x[0]
@@ -983,7 +983,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     for i in cardhands:
                         if tssshand[1].name == i.name:
                             totalmult += inc
-                            print(f"\n+{inc} mult for {i.name} hand")
+                            print(f"\n+{inc} Mult for {i.name} hand")
                             break
                 if okok == "Half Joker":
                     if len(tssshand[2]) <= 3:
@@ -992,7 +992,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                 if okok == "Misprint":
                     thissmult = randint(0, 24)
                     totalmult += thissmult
-                    print(f"\n+{thissmult} from Misprint")
+                    print(f"\n+{thissmult} Mult from Misprint")
                 if okok == "Stencil":
                     totalmult += player.jokerslots * totalmult
                     print(f"\n*{player.jokerslots} Mult from Stencil")
