@@ -1043,7 +1043,7 @@ def blindfunction(blind, ante, basechips, cardhands, deck):
             if player.roundscore < blind.chipval:
                 y = list(set(handprint) - set(tssshand[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
+                newhp = draw_hand(len(tssshand[2]), deck)
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
             player.hands -= 1
@@ -1058,7 +1058,7 @@ def blindfunction(blind, ante, basechips, cardhands, deck):
                 player.discards -= 1
                 y = list(set(handprint) - set(tssshand[2]))
                 y = sorted(y, key=lambda x: x.listvalue)
-                newhp = draw_hand(len(tssshand[2]))
+                newhp = draw_hand(len(tssshand[2]), deck)
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
                 print(f"\nDiscards remaining: {player.discards}")
