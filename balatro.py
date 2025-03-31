@@ -1165,6 +1165,9 @@ def rungame(ante, basechips, cardhands):
     z = choose_deck()
     round = 0
     while player.hands > 0:
+        ante += 1
+        x = uptheante(ante, basechips)
+        restore = x
         deck = []
         if z in ("A", "ABANDONED"):
             deck = make_abandoned_deck(deck)
@@ -1172,9 +1175,6 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
-        ante += 1
-        x = uptheante(ante, basechips)
-        restore = x
         print(f"\nSMALL BLIND: {x} chips to defeat")
         smallblind = small_blind(x)
         blindfunction(smallblind, ante, x, cardhands, deck)
@@ -1224,7 +1224,6 @@ def rungame(ante, basechips, cardhands):
             print(f"\nFINISHER BLIND: {mystuff.chipval} chips to defeat")
             blindfunction(mystuff, ante, mystuff.chipval, cardhands, deck)
             wingame()
-            shop()
     losegame()
         
 
