@@ -1014,7 +1014,6 @@ def scorejokers(tssshand, totalmult, totalchips):
     return (totalmult, totalchips)
 
 def blindfunction(blind, ante, basechips, cardhands):
-    print(blind.chipval)
     handprint = draw_hand(8)
     while (player.roundscore < blind.chipval):
         if player.hands <= 0:
@@ -1062,7 +1061,7 @@ def blindfunction(blind, ante, basechips, cardhands):
                 newhp = draw_hand(len(tssshand[2]))
                 newlist = newhp + y
                 handprint = sorted(newlist, key=lambda x: x.listvalue)
-                print(f"\nDiscards: {player.discards}")
+                print(f"\nDiscards remaining: {player.discards}")
             else:
                 print("\nNo discards left!")
         elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
@@ -1181,7 +1180,6 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
-        print(len(deck))
         x *= 1.5
         x = int(x)
         print(f"\nBIG BLIND: {x} chips to defeat")
@@ -1198,8 +1196,8 @@ def rungame(ante, basechips, cardhands):
             deck = make_checkered_deck(deck)
         else:
             deck = make_deck(deck)
-        print(len(deck))
         tsssss = bossblindfunction(ante, restore, cardhands)
+        print(f"\nBOSS BLIND: {tsssss.chipval} chips to defeat")
         blindfunction(tsssss, ante, tsssss.chipval, cardhands)
         bosspayout()
         round += 1
@@ -1214,6 +1212,7 @@ def rungame(ante, basechips, cardhands):
             deck = make_deck(deck)
         if ante == 8:
             mystuff = finisherblindfunction(ante, restore, cardhands)
+            print(f"\nFINISHER BLIND: {mystuff.chipval} chips to defeat")
             blindfunction(mystuff, ante, mystuff.chipval, cardhands)
             wingame()
             shop()
