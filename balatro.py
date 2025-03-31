@@ -1067,7 +1067,7 @@ def blindfunction(blind, ante, basechips, cardhands, deck):
         elif whatdoyoudo in ["R", "RUN INFO", "RUN", "RUNINFO", "INFO", "I"]:
             run_info()
         else: 
-            print("Please enter a valid choice.")
+            print("\nPlease enter a valid choice.")
         if player.roundscore > blind.chipval:
             print("\nYou beat the blind!")
 def bossblindfunction(ante, basechips, cardhands):
@@ -1076,13 +1076,14 @@ def bossblindfunction(ante, basechips, cardhands):
     selected_bosses = set()
     available_bosses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     if len(selected_bosses) == len(available_bosses):
-        print("All bosses have already been selected.")
+        print("\nAll bosses have already been selected.")
         return None
     while True:
         whichboss = choice(available_bosses)
         if whichboss not in selected_bosses:
             selected_bosses.add(whichboss)  
             break
+    print()
     if whichboss == 1:
         print("The Wall: A very large blind.")
         wallbasechips = (basechips * 4)
@@ -1133,6 +1134,7 @@ def bossblindfunction(ante, basechips, cardhands):
 
 def finisherblindfunction(ante, basechips, cardhands):
     whichfinisher = randint(1,5)
+    print()
     if whichfinisher == 1:
         print("Violet Vessel: A very, very, large blind.")
         violetvesselchips = (basechips * 6)
