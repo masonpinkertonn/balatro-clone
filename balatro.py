@@ -257,19 +257,20 @@ def shop():
         print(f"\nMoney: ${player.money}")
         print("\n[N]ext round")
         print("\n[R]eroll ($5)")
+        print("\n[S]ell jokers")
         print("\nIn the shop:")
         if len(inshop) == 0:
             print("\nNo items in shop!")
         for i in range(len(inshop)):
             print(f"\n[{i+1}]: {inshop[i]}")
         usrchoice = input("\n").upper()
-        optlist = ["N", "R"]
+        optlist = ["N", "R", "S"]
         for i in range(len(inshop)):
             optlist.append(str(i+1))
         while usrchoice not in optlist:
             print("\nValid choice, please.")
             usrchoice = input("\n").upper()
-        if usrchoice not in ["N", "R"]:
+        if usrchoice not in ["N", "R", "S"]:
             usrchoice = inshop[int(usrchoice)-1]
         if isinstance(usrchoice, Planet):
             if player.money >= planetchoice.price:
@@ -312,6 +313,18 @@ def shop():
                 inshop = [joker1, joker2, planetchoice]
             else:
                 print("\nCannot reroll.")
+        elif usrchoice == "S":
+            if len(player.jokers) == 0:
+                print("\nYou have no jokers!")
+                continue
+            for index, value in enumerate(player.jokers):
+                print("\n[" + str(index+1) + "]: " + str(value))
+            rearrange = input("\n")
+            tss = rearrange.split(", ")
+            for i in range(len(tss)):
+                tss[i] = int(tss[i]) - 1
+                player.jokers.remove(jokers.index(tss[i]))
+                player.money += (jokers[tss[i]].price // 2)
 
         
     
@@ -927,7 +940,7 @@ def choose_deck():
                 print("\nYellow Deck: The Yellow Deck gives you $10 at the beginning of the run")
     return deckchoice.upper()
 
-def scorejokers(tssshand, totalmult, totalchips):
+def scorejokers(tssshand, totalmult, totalchips, deck):
     if (len(player.jokers)) != 0:
         print("\nHow do you want to arrange your jokers? Current order:")
         for index, value in enumerate(player.jokers):
@@ -1032,7 +1045,7 @@ def blindfunction(blind, ante, basechips, cardhands, deck):
                 totalmult += i.multinc
             totalmult += tssshand[1].multval
             totalchips += tssshand[1].chipval
-            mason = scorejokers(tssshand, totalmult, totalchips)
+            mason = scorejokers(tssshand, totalmult, totalchips, deck)
             new = (mason[1]) * (mason[0])
             if new >= blind.chipval:
                 print(f"\n\U0001F525 {mason[1]} x {mason[0]} \U0001F525")
