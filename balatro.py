@@ -818,9 +818,9 @@ def pick_hand(hand, cardhands):
 def main_menu(ante, basechips, cardhands):
     while True:
         print(balatro_title_text)
-        print("[P]lay        [Q]uit        [C]ollection")
+        print("[P]lay        [Q]uit        [C]ollection        [H]ow to Play")
         usr_choice = input("\n").upper()
-        while usr_choice not in ("P", "Q", "C"):
+        while usr_choice not in ("P", "Q", "C", "H"):
             print("\nPlease enter a valid choice.")
             usr_choice = input("\n").upper()
         if usr_choice == "P":
@@ -842,6 +842,8 @@ def main_menu(ante, basechips, cardhands):
                 print("\n")
                 print(i)
             sleep(2)
+        elif usr_choice == "H":
+            print("\nYou get a normal deck of cards. You're dealt 8 cards from that deck and then submit up to five cards from that and submit them as a poker hand for points. You can submit only a certain number of hands per round, and must make enough points to pass the round. You also can discard up to five cards a set number of times per round. Once you beat a round, you go to the Shop where you can buy things. The most important things to buy are jokers, which give you a wide variety of permanent bonuses. You can have up to five jokers by default, and you can sell them and buy new ones in the Shop. This is the main gameplay loop. You play a round of hands, trying to reach a particular score, then you go to the Shop and make your deck and joker setup better, then you play another round that requires a higher score. There are three rounds in an Ante, with the first two being skip-able for a small bonus and the last one being un-skip-able and having an extra effect applied to it to increase difficulty. If you beat the 8th Ante, you win, though you can continue playing if you want (with the difficulty scaling very quickly).")
 
 def smallpayout():
     interest = (player.money // 5)
