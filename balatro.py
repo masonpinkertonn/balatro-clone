@@ -930,13 +930,19 @@ def choose_deck():
 
 def scorejokers(tssshand, totalmult, totalchips, deck):
     if (len(player.jokers)) != 0:
-        print("\nHow do you want to arrange your jokers? Current order:")
-        for index, value in enumerate(player.jokers):
-            print("\n[" + str(index+1) + "]: " + str(value))
-        rearrange = input("\n")
-        tss = rearrange.split(", ")
-        for i in range(len(tss)):
-            tss[i] = int(tss[i]) - 1
+        isworking = True
+        while isworking:
+            try:
+                print("\nHow do you want to arrange your jokers? Current order:")
+                for index, value in enumerate(player.jokers):
+                    print("\n[" + str(index+1) + "]: " + str(value))
+                rearrange = input("\n")
+                tss = rearrange.split(", ")
+                for i in range(len(tss)):
+                    tss[i] = int(tss[i]) - 1
+                isworking = False
+            except ValueError:
+                print("\nTry again.")
         for i in tss:
             okok = player.jokers[i].name
             okokok = player.jokers[i].ability
