@@ -710,7 +710,7 @@ def pick_hand(hand, cardhands):
             for i in indiceschoice:
                 cards.append(hand[int(i)-1])
             running = False
-        except ValueError:
+        except ValueError and IndexError:
             print("\nPlease try again.")
     ascii_lines = []
     for i in cards:
