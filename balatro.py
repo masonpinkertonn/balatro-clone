@@ -5,20 +5,6 @@
 # BALATRO clone by Mason P. and Henry C.
 # Mr. Smith is him
 
-# Balatro Fetty Wap cover
-# YEAHHHHH BABYYY
-# UH
-# I want you to be mine again Jimbo
-# I know my Straight Flush is driving you crazy
-# I cannot see myself without you
-# we call them jokers girl you know how we do
-# I go out of my way to play you
-# I go out of my way to score you
-# I ain't playing no two pairs I need you
-# Baby can you understand Im a young joker living?
-# Coming from the deck all a joker know is get it
-# I ain't chasing no Two Pair, Jimbo, I'm talkin 'bout that Blueprint
-# plus chips in my pockets, all stone cards
 
 # Import local libraries
 
