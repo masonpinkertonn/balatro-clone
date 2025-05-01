@@ -990,7 +990,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     print(f"\n+{thissmult} Mult from Misprint")
                 if okok == "Stencil":
                     if player.jokerslots <= 0:
-                        totalmult = 1
+                        totalmult *= 1
                     else:
                         totalmult *= player.jokerslots
                     print(f"\n*{player.jokerslots} Mult from Stencil")
