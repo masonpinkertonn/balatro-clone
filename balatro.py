@@ -976,11 +976,10 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     inc = int(inc[1:])
                     important = x[7:]
                     tss = ' '.join(important)
-                    for i in cardhands:
-                        if tssshand[1].name == i.name:
-                            totalmult += inc
-                            print(f"\n+{inc} Mult for {i.name} hand")
-                            break
+                    if tssshand[1].name == tss:
+                        totalmult += inc
+                        print(f"\n+{inc} Mult for {tss} hand")
+                        break
                 if okok == "Half Joker":
                     if len(tssshand[2]) <= 3:
                         totalmult += 20
@@ -1015,10 +1014,9 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     inc = int(inc[1:])
                     important = x[7:]
                     tss = ' '.join(important)
-                    for i in cardhands:
-                        if tssshand[1].name == i.name:
+                    if tssshand[1].name == tss:
                             totalchips += inc
-                            print(f"\n+{inc} Chips for {i.name} hand")
+                            print(f"\n+{inc} Chips for {tss} hand")
                             break
                 if okok == "Banner":
                     totalchips += (player.discards * 30)
