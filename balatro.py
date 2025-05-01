@@ -880,7 +880,7 @@ def choose_deck():
         deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
         while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO",]:
             print("\nPlease enter a valid choice.")
-            deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, or [Y]ellow: ").upper()
+            deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
         if deckchoice.upper() in ["R", "RED"]:
             print("\nYou chose the Red deck.")
             make_deck(deck)
@@ -912,10 +912,10 @@ def choose_deck():
         
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["I", "INFO"]:
-            whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
+            whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
             while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW", ]:
                 print("\nPlease enter a valid choice.")
-                whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow: ").upper()
+                whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
             if whichdeckinfo in ["R", "RED"]:
                 print("\nRed Deck: The Red Deck gives you +1 Discard")
             if whichdeckinfo in ["B", "BLUE"]:
