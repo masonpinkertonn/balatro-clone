@@ -266,8 +266,8 @@ def shop():
                 inshop.remove(planetchoice)
                 player.planetsused += 1
                 planetchoicename = planetchoice.ability.split()
-                thismultinc = int(planetchoicename[planetchoicename.index("Mult,")-1][1])
-                thischipinc = int(planetchoicename[planetchoicename.index("Chips")-1][1])
+                thismultinc = planetchoice.multinc
+                thischipinc = planetchoice.chipinc
                 thishand = planetchoicename[2:(planetchoicename.index("Mult,")-1)]
                 thishand = " ".join(thishand)
                 thishand = thishand[:-1]
