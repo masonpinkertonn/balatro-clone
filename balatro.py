@@ -1005,6 +1005,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                     totmult = 1
                     for i in range(player.planetsused):
                         totmult += 0.2
+                    totmult = round(totmult, 1)
                     totalmult *= totmult
                     print(f"\n*{totmult} Mult from Constellation")
             if "Chips" in okokok:
