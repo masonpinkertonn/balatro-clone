@@ -227,7 +227,7 @@ def draw_hand(num, deck):
     try:
         for i in range(num):
             hand.append(deck.pop())
-    except IndexError:
+    except Exception as e:
         print("\nNo more cards to draw! You lose!")
         losegame()
     return sorted(hand, key=lambda x: x.listvalue)
@@ -251,13 +251,25 @@ def shop():
             print("\nNo items in shop!")
         for i in range(len(inshop)):
             print(f"\n[{i+1}]: {inshop[i]}")
-        usrchoice = input("\n").upper()
+        gees = True
+        while gees:
+            try:
+                usrchoice = input("\n").upper()
+                gees = False
+            except Exception as e:
+                print("Try again.")
         optlist = ["N", "R", "S"]
         for i in range(len(inshop)):
             optlist.append(str(i+1))
         while usrchoice not in optlist:
             print("\nValid choice, please.")
-            usrchoice = input("\n").upper()
+            gees = True
+            while gees:
+                try:
+                    usrchoice = input("\n").upper()
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
         if usrchoice not in ["N", "R", "S"]:
             usrchoice = inshop[int(usrchoice)-1]
         if isinstance(usrchoice, Planet):
@@ -307,7 +319,13 @@ def shop():
                 continue
             for index, value in enumerate(player.jokers):
                 print("\n[" + str(index+1) + "]: " + str(value))
-            rearrange = input("\n")
+            gees = True
+            while gees:
+                try:
+                    rearrange = input("\n")
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
             tss = rearrange.split(", ")
             for i in range(len(tss)):
                 tss[i] = int(tss[i]) - 1
@@ -698,19 +716,31 @@ def pick_hand(hand, cardhands):
     while running:
         try:
             print("\nPlease select the indices of the cards you wish to select, separated by commas.")
-            indiceschoice = input("\n")
+            gees = True
+            while gees:
+                try:
+                    indiceschoice = input("\n")
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
             indiceschoice = indiceschoice.split(", ")
             while (len(indiceschoice) != len(set(indiceschoice))) or (len(indiceschoice) > 5):
                 print("\nPlease input a valid response.")
                 sleep(1)
                 print("\nPlease select the indices of the cards you wish to play, separated by commas.")
-                indiceschoice = input("\n")
+                gees = True
+                while gees:
+                    try:
+                        indiceschoice = input("\n")
+                        gees = False
+                    except Exception as e:
+                        print("Try again.")
                 indiceschoice = indiceschoice.split(", ")
             cards = []
             for i in indiceschoice:
                 cards.append(hand[int(i)-1])
             running = False
-        except ValueError or IndexError:
+        except Exception as e:
             print("\nPlease try again.")
     ascii_lines = []
     for i in cards:
@@ -819,10 +849,22 @@ def main_menu(ante, basechips, cardhands):
     while True:
         print(balatro_title_text)
         print("[P]lay        [Q]uit        [C]ollection        [H]ow to Play")
-        usr_choice = input("\n").upper()
+        gees = True
+        while gees:
+            try:
+                usr_choice = input("\n").upper()
+                gees = False
+            except Exception as e:
+                print("Try again.")
         while usr_choice not in ("P", "Q", "C", "H"):
             print("\nPlease enter a valid choice.")
-            usr_choice = input("\n").upper()
+            gees = True
+            while gees:
+                try:
+                    usr_choice = input("\n").upper()
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
         if usr_choice == "P":
             rungame(ante, basechips, cardhands)
         elif usr_choice == "Q":
@@ -877,10 +919,22 @@ def finisherpayout():
 def choose_deck():
     hasdeckbeenchosen = True
     while hasdeckbeenchosen:
-        deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+        gees = True
+        while gees:
+            try:
+                deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+                gees = False
+            except Exception as e:
+                print("Try again.")
         while deckchoice.upper() not in ["R", "B", "BL", "r", "b", "bl", "RED", "BLUE", "BLACK", "YELLOW", "Blue", "Black", "Y", "YELLOW", "a", "A", "ABANDONED", "C", "CHECKERED", "I", "INFO",]:
             print("\nPlease enter a valid choice.")
-            deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+            gees = True
+            while gees:
+                try:
+                    deckchoice = input("\nChoose a deck: [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
         if deckchoice.upper() in ["R", "RED"]:
             print("\nYou chose the Red deck.")
             make_deck(deck)
@@ -912,10 +966,22 @@ def choose_deck():
         
             hasdeckbeenchosen = False
         if deckchoice.upper() in ["I", "INFO"]:
-            whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+            gees = True
+            while gees:
+                try:
+                    whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, or [Y]ellow: ").upper()
+                    gees = False
+                except Exception as e:
+                    print("Try again.")
             while whichdeckinfo not in ["R", "RED", "B", "BLUE", "BL", "BLACK", "A", "ABANDONED", "C", "CHECKERED", "Y", "YELLOW", ]:
                 print("\nPlease enter a valid choice.")
-                whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, [Y]ellow, or type [I]nfo: ").upper()
+                gees = True
+                while gees:
+                    try:
+                        whichdeckinfo = input("\nWhich deck would you like to know more about? [R]ed, [B]lue, [Bl]ack, [A]bandoned, [C]heckered, or [Y]ellow: ").upper()
+                        gees = False
+                    except Exception as e:
+                        print("Try again.")
             if whichdeckinfo in ["R", "RED"]:
                 print("\nRed Deck: The Red Deck gives you +1 Discard")
             if whichdeckinfo in ["B", "BLUE"]:
@@ -943,7 +1009,7 @@ def scorejokers(tssshand, totalmult, totalchips, deck):
                 for i in range(len(tss)):
                     tss[i] = int(tss[i]) - 1
                 isworking = False
-            except ValueError:
+            except Exception as e:
                 print("\nTry again.")
         for i in tss:
             okok = player.jokers[i].name
@@ -1036,7 +1102,13 @@ def blindfunction(blind, ante, basechips, cardhands, deck):
         displayhand(handprint)
         tssshand = pick_hand(handprint, cardhands)
         print("\n[P]lay hand        [D]iscard hand        [R]un info") # We need to place restraints (only 5 cards can be discarded)
-        whatdoyoudo = input("\n").upper()
+        gees = True
+        while gees:
+            try:
+                whatdoyoudo = input("\n").upper()
+                gees = False
+            except Exception as e:
+                print("Try again.")
         if whatdoyoudo == "P":
             totalmult = 0
             totalchips = 0
